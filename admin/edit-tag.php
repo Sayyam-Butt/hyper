@@ -1,9 +1,18 @@
-<?php include('cofig.php'); ?>
+<?php include('cofig.php');
+if (isset($_POST['submit'])) {
+    include("include/connection.php");
+    $tagname = $_POST['tag'];
+    $id = $_GET['id'];
+    $sql1 = " UPDATE `tags` SET `tagname`='$tagname' WHERE id = $id"; 
+    $result = mysqli_query($conn , $sql1);
+    header("location:blogs-tags.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
       <meta charset="utf-8" />
-      <title>Hyper |  Blogs </title>
+      <title>Hyper |  Edit Tag </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
       <meta content="Coderthemes" name="author" />
@@ -32,47 +41,44 @@
                   <div class="row">
                      <div class="col-12">
                         <div class="page-title-box">
-                        <div class="page-title-right">
-                           <a class="btn btn-primary" href="add-blogs.php">Add Blog</a>
+                           <h4 class="page-title">Edit Tag Name </h4>
                         </div>
-                           <h4 class="page-title">Blogs </h4>
-                        </div>
-                        
-                        <table class="table table-striped">
-                           <thead>
-                           <tr>
-                              <th>SN</th>
-                              <th>Title</th>
-                              <th>Category</th>
-                              <th>Date</th>
-                              <th>Edit</th>
-                              <th>Delete</th>
-                           </tr>
-                           </thead>
-                           <tbody>
-                           <?php
-                           include("include/connection.php");
-
-                           $sql = "SELECT * FROM blogs INNER JOIN blogcategories ON blogs.blogcategories = blogcategories.blogs_id ";
-                           $result = mysqli_query($conn , $sql);
-                           if(mysqli_num_rows($result) > 0){
-                              $a=1;
-                              while ( $row =  mysqli_fetch_assoc($result)) {
-                           ?>
-                           <tr>
-                              <td><?php echo$a;?> </td>
-                              <td><?php echo $row["title"]?></td>
-                              <td><?php echo $row["categories"]?></td>
-                              <td><?php echo $row["post_date"]?></td>
-                              <td><a style="color:grey;" href="edit-blog.php?id=<?php echo $row["id"];?>"> <i class='far fa-edit'></i></a></td>
-                              <td><a style="color:grey;"  href="delete-blog.php?id=<?php echo $row["id"]?>&cat_id=<?php echo $row["blogs_id"];?>"><i class='fas fa-trash'></i></a></td>
-                           </tr>
-                           <?php $a++; }} ?>
-                           </tbody>
-                           </table>
                      </div>
                   </div>
-                  <!-- end page title -->    
+                  <!-- end page title -->   
+                  <form action="#" method="post">
+                     <div class="row">
+                        <div class="col-12">
+                           <div class="card">
+                              <div class="card-body">
+                                 <div class="form-group">
+                                    <label for="simpleinput">Tag Name</label>
+                                    <?php
+                                        include("include/connection.php");
+                                        $id = $_GET['id'];
+                                        $sql = "SELECT * FROM tags WHERE id = $id";
+                                        $result = mysqli_query($conn , $sql);
+                                        if(mysqli_num_rows($result) > 0){
+                                            while ( $row =  mysqli_fetch_assoc($result)) {
+                                    ?>
+                                    <input type="text" id="simpleinput" required class="form-control" 
+                                       value="<?php echo $row['tagname']?>" name="tag" >
+                                 </div>          
+                                 <div>
+                                    <input class="btn btn-primary" type="submit" name="submit" value="Update">
+                                 </div>
+                                 <?php 
+                                     } }
+                                 ?>
+                              </div>
+                              <!-- end card-body -->
+                           </div>
+                           <!-- end card -->
+                        </div>
+                        <!-- end col -->
+                     </div>
+                     <!-- end row -->
+                  </form> 
                </div>
                <!-- End Content -->
              

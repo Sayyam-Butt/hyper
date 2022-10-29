@@ -2,12 +2,23 @@
    if(isset($_POST['submit'])){
       $title = $_POST['title'];
       $category = $_POST['category'];
+      $tag = $_POST['tags'];
       $disc = $_POST['discription'];
       $date = date("d M Y");
       include("include/connection.php");
-      $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `discription`, `post_date`) VALUES ('$title ',' $category','$disc',' $date');";
-      $query .="UPDATE blogcategories SET post=post+1 WHERE blogs_id=$category ";
-      mysqli_multi_query($conn , $query);
+    
+         $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `discription`, `post_date`) VALUES ('$title ',' $category','$disc',' $date');";
+         $query .="UPDATE blogcategories SET post=post+1 WHERE blogs_id=$category ;";
+         foreach ($tag as $value) {
+            $query .= "INSERT INTO `blogtags`(`blog_id`,`tag_id`) VALUES ('','$value')";
+         }
+        
+         $query_run =  mysqli_multi_query($conn , $query);
+          
+         
+      
+         
+      
       header("location:all-blogs.php");
    }
 ?>
@@ -28,8 +39,13 @@
       <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
       <link href="assets/css/app-modern.min.css" rel="stylesheet" type="text/css" id="light-style" />
       <link href="assets/css/app-modern-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
+      <!-- Summernote css -->
+      <link href="assets/css/vendor/summernote-bs4.css" rel="stylesheet" type="text/css" />
       <!-- Font awesome -->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+      <!-- Select2 -->
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
    </head>
    <body class="loading" data-layout="detached" data-layout-config='{"leftSidebarCondensed":false,"darkMode":false, "showRightSidebarOnStart": true}'>
       <?php include('include/navbar.php'); ?>
@@ -77,8 +93,25 @@
                                     </select>
                                  </div>
                                  <div class="form-group">
-                                    <label for="example-textarea">Description</label>
-                                    <textarea class="form-control" name="discription" id="example-textarea" rows="5" ></textarea>
+                                    <label for="example-textarea">Meta Description</label>
+                                    <textarea class="form-control" name="discription" id="summernote-basic" rows="5" ></textarea>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="simpleinput">Meta Tags</label>
+                                    <select name="tags[]" id="simpleinput" class="form-control-file
+                                     js-example-basic-multiple"  multiple="multiple" required>
+                                        <?php
+                                            include("include/connection.php");
+
+                                            $sql1 = "SELECT * FROM tags";
+                                            $result1 = mysqli_query($conn , $sql1);
+                                            if(mysqli_num_rows($result) > 0){
+                                                while ( $row1 =  mysqli_fetch_assoc($result1)) {
+                                                    echo'<option value="'.$row1['id'].'" >'.$row1["tagname"].'</option>';
+                                                }
+                                            }
+                                        ?> 
+                                    </select>
                                  </div>
                                  <div>
                                     <input class="btn btn-primary" type="submit" name="submit" value="Save">
@@ -112,5 +145,16 @@
       <!-- demo app -->
       <script src="assets/js/pages/demo.dashboard.js"></script>
       <!-- end demo js-->
+      
+      <!-- plugin js -->
+       <script src="assets/js/vendor/summernote-bs4.min.js"></script>
+       <!-- Summernote demo -->
+       <script src="assets/js/pages/demo.summernote.js"></script>
+       <!-- Select2 -->
+       <script>
+         $(document).ready(function() {
+          $('.js-example-basic-multiple').select2();
+          });
+       </script>
    </body>
 </html>

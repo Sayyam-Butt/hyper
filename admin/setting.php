@@ -30,12 +30,12 @@
                $update_pwd= mysqli_query($conn , $sql);
                $change_pwd_error = "<div class='alert alert-success alert-dismissible p-2'>
                <button type='button' class='close' data-dismiss='alert'>&times;</button>
-               Updated Sucessfully !!!</div>";
+               New Password is Updated Sucessfully !!!</div>";
            }
            else{
            $change_pwd_error = "<div class='alert alert-danger alert-dismissible p-2'>
            <button type='button' class='close' data-dismiss='alert'>&times;</button>
-           Your new and Retype Password does not match !!!</div>";
+            Password does not match !!!</div>";
            }
        }
        else{
@@ -56,10 +56,15 @@
        if(in_array($filecheck,$fileextstored)){
            $destinationfile = 'upload/'.$filename; 
            move_uploaded_file($filetmp,$destinationfile);
-       }
+         }
        $sql = " UPDATE `users` SET `profile`='$destinationfile' WHERE id = $id" ;
        $result = mysqli_query($conn, $sql);
-       }
+       if(!empty($result)) {
+         $img_alert = "<div class='alert alert-success alert-dismissible p-2'>
+         <button type='button' class='close' data-dismiss='alert'>&times;</button>
+         Profile Updated Sucessfully !!!</div>";
+        }
+      }
    ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +105,7 @@
                      </div>
                   </div>
                   <!-- end page title --> 
-                  <form action="#" method="post">
+                  <form action="" method="post">
                      <div class="row">
                         <div class="col-12">
                            <?php 
@@ -110,7 +115,9 @@
                               if (isset($info_alert)) {
                                  echo $info_alert;
                               }
-
+                              if (isset($img_alert)) {
+                                 echo $img_alert;
+                              }
                               ?>
                            <div class="card">
                               <div class="card-body">
@@ -156,14 +163,14 @@
                      </div>
                      <!-- end row -->
                   </form>
-                  <form action="" method="post" enctype="multipart/form-data">
+                  <form action="<?php $_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data">
                   <div class="row">
                      <div class="col-12">
                         <div class="card">
                            <div class="card-body">
                               <h4 class="page-title mb-2">Upload Profile</h4>
                               <div class="form-group">
-                                 <input  accept="image/png, image/gif, image/jpeg" type="file" id="example-fileinput" required name="profile" class="form-control">
+                                 <input  accept="image/png, image/gif, image/jpeg" type="file" id="example-fileinput" required name="profile" class="form-control-file border p-1">
                               </div>
                               <div>
                                  <input class="btn btn-primary" type="submit" name="img-submit" value="Update">
@@ -177,7 +184,7 @@
                   </div>
                   <!-- end row -->  
                </form>  
-                  <form action="" method="post">
+                  <form action="#" method="post">
                      <div class="row">
                         <div class="col-12">
                            <div class="card">
@@ -240,7 +247,7 @@
       <script src="assets/js/app.min.js"></script>
       <script>
       $(document).ready(function () {
-        $('#example-number').mask('(00)00000-0000');
+        $('#example-number').mask('(+00)00000-0000');
     });
       </script>
    </body>
