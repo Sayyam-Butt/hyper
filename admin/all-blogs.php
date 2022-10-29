@@ -47,6 +47,7 @@
                               <th>Date</th>
                               <th>Edit</th>
                               <th>Delete</th>
+                              <th>update</th>
                            </tr>
                            </thead>
                            <tbody>
