@@ -2,23 +2,13 @@
    if(isset($_POST['submit'])){
       $title = $_POST['title'];
       $category = $_POST['category'];
-      $tag = $_POST['tags'];
+      $tag = implode(",",$_POST['tags']);
       $disc = $_POST['discription'];
       $date = date("d M Y");
       include("include/connection.php");
-    
-         $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `discription`, `post_date`) VALUES ('$title ',' $category','$disc',' $date');";
+         $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `discription`, `post_date`,`tagname`) VALUES ('$title ',' $category','$disc',' $date','$tag');";
          $query .="UPDATE blogcategories SET post=post+1 WHERE blogs_id=$category ;";
-         foreach ($tag as $value) {
-            $query .= "INSERT INTO `blogtags`(`blog_id`,`tag_id`) VALUES ('','$value')";
-         }
-        
          $query_run =  mysqli_multi_query($conn , $query);
-          
-         
-      
-         
-      
       header("location:all-blogs.php");
    }
 ?>

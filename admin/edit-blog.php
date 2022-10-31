@@ -31,6 +31,8 @@
       <link href="assets/css/app-modern-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
       <!-- Font awesome -->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+      <!-- Summernote css -->
+      <link href="assets/css/vendor/summernote-bs4.css" rel="stylesheet" type="text/css" />
    </head>
    <body class="loading" data-layout="detached" data-layout-config='{"leftSidebarCondensed":false,"darkMode":false, "showRightSidebarOnStart": true}'>
       <?php include('include/navbar.php'); ?>
@@ -92,7 +94,28 @@
                                  </div>
                                  <div class="form-group">
                                     <label for="example-textarea">Description</label>
-                                    <textarea class="form-control" name="discription" id="example-textarea" rows="5" ><?php echo$row1['discription']?></textarea>
+                                    <textarea class="form-control" name="discription" id="summernote-basic" rows="5" ><?php echo$row1['discription']?></textarea>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="simpleinput">Meta Tags</label>
+                                    <select name="tags[]" id="simpleinput" class="form-control-file
+                                     js-example-basic-multiple"  multiple="multiple" required>
+                                        <?php
+                                            include("include/connection.php");
+                                            $sql1 = "SELECT * FROM tags";
+                                            $result1 = mysqli_query($conn , $sql1);
+                                            $tag = explode(",",$row1['tagname']);
+                                            foreach ($tags as $value) {
+                                             echoXCDas`6
+                                            }
+                                         
+                                            if(mysqli_num_rows($result) > 0){
+                                                while ( $row1 =  mysqli_fetch_assoc($result1)) {
+                                                   echo'<option selected value="'.$row1['tagname'].'" >'.$tag.'</option>';
+                                                }
+                                            }
+                                        ?> 
+                                    </select>
                                  </div>
                                  <?php     }
                                         } ?>
@@ -128,5 +151,16 @@
       <!-- demo app -->
       <script src="assets/js/pages/demo.dashboard.js"></script>
       <!-- end demo js-->
+
+      <!-- plugin js -->
+      <script src="assets/js/vendor/summernote-bs4.min.js"></script>
+      <!-- Summernote demo -->
+      <script src="assets/js/pages/demo.summernote.js"></script>
+      <!-- Select2 -->
+      <script>
+         $(document).ready(function() {
+          $('.js-example-basic-multiple').select2();
+          });
+      </script>
    </body>
 </html>
