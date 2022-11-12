@@ -4,9 +4,21 @@
       $category = $_POST['category'];
       $tag = implode(",",$_POST['tags']);
       $disc = $_POST['discription'];
+      $url = $_POST['weburl'];
       $date = date("d M Y");
+      $files = $_FILES['img'];
+      $filename = $files['name'];
+      $fileerror = $files['error'];
+      $filetmp = $files['tmp_name'];
+      $fileext = explode('.',$filename);
+      $filecheck = strtolower(end( $fileext ));
+      $fileextstored = array('png','jpg','jpeg');
+      if(in_array($filecheck,$fileextstored)){
+         $destinationfile = 'upload/'.$filename; 
+         move_uploaded_file($filetmp,$destinationfile);
+       }
       include("include/connection.php");
-         $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `discription`, `post_date`,`tagname`) VALUES ('$title ',' $category','$disc',' $date','$tag');";
+         $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `discription`, `post_date`,`tagname`,`url`,`img`) VALUES ('$title ',' $category','$disc',' $date','$tag','$url','$destinationfile');";
          $query .="UPDATE blogcategories SET post=post+1 WHERE blogs_id=$category ;";
          $query_run =  mysqli_multi_query($conn , $query);
       header("location:all-blogs.php");
@@ -55,7 +67,7 @@
                      </div>
                   </div>
                   <!-- end page title -->   
-                  <form action="#" method="post">
+                  <form action="#" method="post" enctype="multipart/form-data">
                      <div class="row">
                         <div class="col-12">
                            <div class="card">
@@ -86,6 +98,7 @@
                                     <label for="example-textarea">Meta Description</label>
                                     <textarea class="form-control" name="discription" id="summernote-basic" rows="5" ></textarea>
                                  </div>
+                               
                                  <div class="form-group">
                                     <label for="simpleinput">Meta Tags</label>
                                     <select name="tags[]" id="simpleinput" class="form-control-file
@@ -97,11 +110,21 @@
                                             $result1 = mysqli_query($conn , $sql1);
                                             if(mysqli_num_rows($result) > 0){
                                                 while ( $row1 =  mysqli_fetch_assoc($result1)) {
-                                                    echo'<option value="'.$row1['id'].'" >'.$row1["tagname"].'</option>';
+                                                    echo'<option value="'.$row1['tagname'].'" >'.$row1["tagname"].'</option>';
                                                 }
                                             }
                                         ?> 
                                     </select>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="simpleinput">Website URL</label>
+                                    <input type="url" id="simpleinput"  class="form-control" 
+                                       value="" name="weburl" >
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="simpleinput">Picture</label>
+                                    <input accept="image/png, image/gif, image/jpeg" type="file" id="simpleinput"  class="form-control-file border " 
+                                        name="img" >
                                  </div>
                                  <div>
                                     <input class="btn btn-primary" type="submit" name="submit" value="Save">
@@ -124,6 +147,10 @@
          <!-- end wrapper-->
       </div>
       <!-- END Container -->
+       <!-- plugin js -->
+       <script src="assets/js/vendor/dropzone.min.js"></script>
+        <!-- init js -->
+        <script src="assets/js/ui/component.fileupload.js"></script>
       <!-- bundle -->
       <script src="assets/js/vendor.min.js"></script>
       <script src="assets/js/app.min.js"></script>

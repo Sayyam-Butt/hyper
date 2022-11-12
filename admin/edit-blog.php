@@ -4,12 +4,26 @@
    if(isset($_POST['submit'])){
     $title=$_POST['title'];
     $caty=$_POST['category'];
+    $tag = implode(",",$_POST['tags']);
     $disc=$_POST['discription'];
     $date=date("d M Y");
-    $query="UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`post_date`='$date',`discription`='$disc' WHERE id=$id";
+    $url=$_POST['url'];
+    $img= $_FILES['img']['name'];
+    $img_temp=$_FILES['img']['tmp_name'];
+    if($img_temp != "")
+   {
+    $destinationfile = 'upload/'.$img; 
+    move_uploaded_file($img_temp ,$destinationfile );
+    $query="UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`img`='$destinationfile',`url`='$url' WHERE id=$id";
+   }else
+   {
+      $query="UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`url`='$url' WHERE id=$id";
+   }
     mysqli_query($conn,$query);
-
     header("location:all-blogs.php");
+
+
+
    }
 ?>
 <!DOCTYPE html>
@@ -52,7 +66,7 @@
                      </div>
                   </div>
                   <!-- end page title -->   
-                  <form action="#" method="post">
+                  <form action="#" method="post"  enctype="multipart/form-data">
                      <div class="row">
                         <div class="col-12">
                            <div class="card">
@@ -65,6 +79,8 @@
                                         $result1=mysqli_query($conn,$sql1);
                                         if (mysqli_num_rows($result1)>0) {
                                             while ($row1 = mysqli_fetch_assoc($result1)) {  
+                                             
+                                            
                                     ?>
                                     <label for="simpleinput">Title</label>
                                     <input type="text" id="simpleinput" required class="form-control" 
@@ -96,28 +112,55 @@
                                     <label for="example-textarea">Description</label>
                                     <textarea class="form-control" name="discription" id="summernote-basic" rows="5" ><?php echo$row1['discription']?></textarea>
                                  </div>
+                                 
+
                                  <div class="form-group">
                                     <label for="simpleinput">Meta Tags</label>
                                     <select name="tags[]" id="simpleinput" class="form-control-file
                                      js-example-basic-multiple"  multiple="multiple" required>
-                                        <?php
-                                            include("include/connection.php");
+                                      <?php
+                                            $tagdemo = explode(",",$row1['tagname']);
                                             $sql1 = "SELECT * FROM tags";
                                             $result1 = mysqli_query($conn , $sql1);
-                                            $tag = explode(",",$row1['tagname']);
-                                            foreach ($tags as $value) {
-                                             echoXCDas`6
-                                            }
-                                         
                                             if(mysqli_num_rows($result) > 0){
-                                                while ( $row1 =  mysqli_fetch_assoc($result1)) {
-                                                   echo'<option selected value="'.$row1['tagname'].'" >'.$tag.'</option>';
-                                                }
+                                                while ( $row1 =  mysqli_fetch_assoc($result1)) { ?>
+                                                    <option  
+                                                    <?php  
+                                                      foreach ($tagdemo as $r) {
+                                                         if($r == $row1['tagname'])
+                                                         {
+                                                            echo "selected";
+                                                         }
+                                                      }
+                                                    ?>
+                                                    value="<?php echo $row1['tagname']; ?>"><?php echo $row1['tagname']; ?></option>
+                                                <?php }
                                             }
                                         ?> 
                                     </select>
                                  </div>
-                                 <?php     }
+                                 <div class="form-group">
+                                 <?php  $sql1 = "SELECT * FROM blogs where id=$id";
+                                        $result1=mysqli_query($conn,$sql1);
+                                        if (mysqli_num_rows($result1)>0) {
+                                            while ($row1 = mysqli_fetch_assoc($result1)) {  
+                                             ?>
+                                    <label for="simpleinput">Website URL</label>
+                                    <input type="url" id="simpleinput"  class="form-control" 
+                                       value="<?php echo$row1['url'];?>" name="url" >
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="simpleinput">Picture</label>
+                                    <input accept="image/png, image/gif, image/jpeg" type="file" id="simpleinput"  class="form-control-file border " name="img" >
+                                 </div>
+                                         <div class="border p-1">
+                                          <img style="width:70px;height:70;" src="<?php echo$row1['img'];?>"alt=""> </div>
+                                             <?php
+                                            }
+                                          }
+                                             ?>
+                       
+                                 <?php    }
                                         } ?>
                                  <div>
                                     <input class="btn btn-primary" type="submit" name="submit" value="Update">
