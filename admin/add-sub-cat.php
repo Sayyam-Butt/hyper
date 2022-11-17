@@ -1,11 +1,11 @@
 <?php include('cofig.php');
 if (isset($_POST['submit'])) {
     include("include/connection.php");
-    $cat_id = $_GET['id'];
-    $subcat=implode(",",$_POST['subcategory']);
-    $result = "INSERT INTO `sub`(`cat_id`, `subcategory`) VALUES ('$cat_id','$subcat')";
+    $cat_id = $_POST['cat_id'];
+    $sub_cat = $_POST['subcategory'];
+    $result = "INSERT INTO `subcategories`(`cat_id`, `name`) VALUES ('$cat_id ','$sub_cat ')";
     mysqli_query($conn,$result);
-    header("location:blogs-categories.php");
+    header("location:Sub-category.php");
 }
 ?>
 <!DOCTYPE html>
@@ -51,14 +51,33 @@ if (isset($_POST['submit'])) {
                         <div class="col-12">
                            <div class="card">
                               <div class="card-body">
-                                
+                              <div class="form-group"> 
+                                    <label for="slcat">Select Category</label>
+                                    <select name="cat_id" id="slcat" class="form-control">
+                                       <option value="">Select Category</option>
+                                    <?php 
+                                       $query = "SELECT * FROM blogcategories";
+                                       $result = mysqli_query($conn,$query);
+                                       if(mysqli_num_rows($result)>0){
+                                          while($row=mysqli_fetch_assoc($result)){
+                                    ?>
+                                       <option value="<?php echo $row['blogs_id']?>"><?php echo $row['categories'] ?></option>
+                                       <?php 
+                                      }}
+                                    ?>
+                                    </select>
+                                   
+                                 </div> 
+                              </div>
+                           </div>
+                       
+                           <div class="card">
+                              <div class="card-body">
                                  <div id="items" class="form-group">
                                     <label for="textinput">Sub Category Name</label>
                                     <input type="text" id="textinput" required class="form-control " 
-                                       value="" name="subcategory[]" >
+                                       value="" name="subcategory" >
                                  </div> 
-                                 <button id="add" class="btn btn-success add-more button-yellow uppercase" type="button">Add more</button> 
-                                 <button id="del" class="delete btn button-white btn-danger uppercase" onclick="deleteimnput">Delete </button>
                                  <div>
                                     <input class="btn btn-primary mt-3" type="submit" name="submit" value="Submit">
                                  </div>
@@ -91,22 +110,6 @@ if (isset($_POST['submit'])) {
       <!-- demo app -->
       <script src="assets/js/pages/demo.dashboard.js"></script>
       <!-- end demo js-->
-      <script>
-        $(document).ready(function() {
-        $(".delete").hide();
-        //when the Add Field button is clicked
-        $("#add").click(function(e) {
-            $(".delete").fadeIn("1500");
-            //Append a new row of code to the "#items" div
-            $("#items").append(
-            '<div class="next-referral  mt-2"><input id="textinput" name="subcategory[]" type="text"  class="form-control input-md"></div>'
-            );
-        });
-        $("body").on("click", ".delete", function(e) {
-            $(".next-referral").last().remove();
-        });
-        });
-
-      </script>
+     
    </body>
 </html>

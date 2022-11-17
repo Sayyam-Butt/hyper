@@ -1,12 +1,12 @@
 <?php include('cofig.php');
 if (isset($_POST['submit'])) {
     include("include/connection.php");
-    $catname = $_POST['category'];
-    $cat_id = $_GET['blogs_id'];
-    $sql1 = " UPDATE `blogcategories` SET `categories`='$catname' WHERE blogs_id = $cat_id"; 
+    $subcat_name = $_POST['sub-category'];
+    $sub_id = $_GET['id'];
+    $sql1 = " UPDATE `subcategories` SET `name`='$subcat_name' WHERE id = $sub_id"; 
     $result = mysqli_query($conn , $sql1);
    
-    header("location:blogs-categories.php");
+    header("location:Sub-category.php");
 }
 ?>
 <!DOCTYPE html>
@@ -56,14 +56,14 @@ if (isset($_POST['submit'])) {
                                     <label for="simpleinput">Category Name</label>
                                     <?php
                                         include("include/connection.php");
-                                        $cat_id = $_GET['blogs_id'];
-                                        $sql = "SELECT * FROM blogcategories WHERE blogs_id = $cat_id";
+                                        $sub_id = $_GET['id'];
+                                        $sql = "SELECT * FROM subcategories WHERE id = $sub_id";
                                         $result = mysqli_query($conn , $sql);
                                         if(mysqli_num_rows($result) > 0){
                                             while ( $row =  mysqli_fetch_assoc($result)) {
                                     ?>
                                     <input type="text" id="simpleinput" required class="form-control" 
-                                       value="<?php echo $row['categories']?>" name="category" >
+                                       value="<?php echo $row['name']?>" name="sub-category" >
                                        
                                  </div>          
                                  <?php

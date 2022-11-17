@@ -48,6 +48,8 @@
       <!-- Select2 -->
       <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
       <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    
    </head>
    <body class="loading" data-layout="detached" data-layout-config='{"leftSidebarCondensed":false,"darkMode":false, "showRightSidebarOnStart": true}'>
       <?php include('include/navbar.php'); ?>
@@ -77,30 +79,53 @@
                                     <input type="text" id="simpleinput" required class="form-control" 
                                        value="" name="title" >
                                  </div>
-                                 <div class="form-group">
+                                 <!-- <div class="form-group">
                                     <label for="simpleinput">Category</label>
                                     <select name="category" id="simpleinput" class="form-control" required>
                                         <option >Select Category</option>
                                         <?php
-                                            include("include/connection.php");
-
-                                            $sql = "SELECT * FROM blogcategories";
-                                            $result = mysqli_query($conn , $sql);
-                                            if(mysqli_num_rows($result) > 0){
-                                                while ( $row =  mysqli_fetch_assoc($result)) {
-                                                    echo'<option value="'.$row['blogs_id'].'" >'.$row["categories"].'</option>';
-                                                }
-                                            }
+                                          //   include("include/connection.php");
+                                          //   $sql = "SELECT * FROM blogcategories";
+                                          //   $result = mysqli_query($conn , $sql);
+                                          //   if(mysqli_num_rows($result) > 0){
+                                          //       while ( $row =  mysqli_fetch_assoc($result)) {
+                                          //           echo'<option value="'.$row['blogs_id'].'" >'.$row["categories"].'</option>';
+                                          //       }
+                                          //   }
                                         ?> 
                                     </select>
-                                 </div>
+                                 </div> -->
+                              
+                                 
+                            <div class="form-group">
+                                <label for="CATEGORY-DROPDOWN">Category</label>
+                                <select class="form-control" id="category-dropdown">
+                                    <option value="">Select Category</option>
+                                    <?php
+                                        $result = mysqli_query($conn,"SELECT * FROM blogcategories");
+                                        while($row = mysqli_fetch_array($result)) {
+                                    ?>
+                                        <option value="<?php echo $row['blogs_id'];?>"><?php echo $row["categories"];?></option>
+                                    <?php
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="SUBCATEGORY">Sub Category</label>
+                                <select class="form-control" id="sub-category-dropdown">
+                                    <option value="">Select Sub Category</option>
+                                </select>
+                            </div>
+
+
                                  <div class="form-group">
-                                    <label for="example-textarea">Meta Description</label>
+                                    <label for="example-textarea"> Description</label>
                                     <textarea class="form-control" name="discription" id="summernote-basic" rows="5" ></textarea>
                                  </div>
                                
                                  <div class="form-group">
-                                    <label for="simpleinput">Meta Tags</label>
+                                    <label for="simpleinput"> Tags</label>
                                     <select name="tags[]" id="simpleinput" class="form-control-file
                                      js-example-basic-multiple"  multiple="multiple" required>
                                         <?php
@@ -147,6 +172,9 @@
          <!-- end wrapper-->
       </div>
       <!-- END Container -->
+        <!-- ajax -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
        <!-- plugin js -->
        <script src="assets/js/vendor/dropzone.min.js"></script>
         <!-- init js -->
@@ -173,5 +201,27 @@
           $('.js-example-basic-multiple').select2();
           });
        </script>
+       <!-- ajax -->
+       <script>
+         $(document).ready(function() {
+            $('#category-dropdown').on('change', function() {
+                  var category_id = this.value;
+                  console.log(category_id);
+                  $.ajax({
+                     url: "get-subcat.php",
+                     type: "POST",
+                     data: {
+                        category_id : category_id
+                     },
+                     cache: false,
+                     success: function(result){
+                        $("#sub-category-dropdown").html(result);
+                     }
+                  });
+            });
+         });
+    </script>
+     
+
    </body>
 </html>

@@ -90,13 +90,12 @@
                               <th>No of Blogs</th>
                               <th>Edit</th>
                               <th>Delete</th>
-                              <th>Sub Category</th>
                            </tr>
                            </thead>
                            <tbody>
                            <?php
                            include("include/connection.php");
-                           $limit = 3;
+                           $limit = 5;
                            if (isset($_GET['page'])) {
                               $page= $_GET['page'];
                            }
@@ -116,7 +115,6 @@
                               <td><?php echo $row["post"]?></td>
                               <td><a style="color:grey;" href="edit-blogcategory.php?blogs_id=<?php echo $row["blogs_id"]?>"><i class='far fa-edit'></i></a></td>
                               <td><a style="color:grey;" href="delete-inline.php?blogs_id=<?php echo $row["blogs_id"]?>"><i class='fas fa-trash'></i></a></td>
-                              <td><a class="btn-sm btn-primary" href="add-sub-cat.php?id=<?php echo $row["blogs_id"]?>">Add</a></td>
                            </tr>
                            
                            <?php 

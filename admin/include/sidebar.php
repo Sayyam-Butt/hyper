@@ -46,6 +46,9 @@
                <a href="blogs-categories.php">Blog Catergories</a>
             </li>
             <li>
+               <a href="Sub-category.php">Subcategories</a>
+            </li>
+            <li>
                <a href="all-blogs.php">All Blogs</a>
             </li>
             <li>

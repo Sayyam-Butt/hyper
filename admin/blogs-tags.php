@@ -84,7 +84,7 @@ include('cofig.php');
                            <?php 
                             include("include/connection.php");
                             $a=1;
-                            $limit = 3;
+                            $limit = 5;
                             if (isset($_GET['page'])) {
                                $page= $_GET['page'];
                             }
