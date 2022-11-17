@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./cancas.css">
     <script src="https://kit.fontawesome.com/1e891c0bbd.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="assets/css/cancas.css">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
@@ -118,7 +118,7 @@
                     <p class="py-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores nam ratione
                         consequatur sequi
                         fugit sed et doloribus eveniet. Ullam harum illo facilis facere! Cupiditate, possimus.</p>
-                </div>
+                </div>                                                                                             
                 <div class="solution">
                     <p class="py-3">Nullam id dolor id nibh <span class="color"> ultricies vehicula ut id elit.
                             Curabitur blandit
@@ -169,7 +169,7 @@
                         <div class="main pb-5">
                             <h2 class="py-5">Comments</h2>
                             <div class="circle-img border d-inline-block p-2 rounded-circle">
-                                <a href="./canvas-b.html"><img src="./img/ad516503a11cd5ca435acc9bb6523536.png" class="rounded-circle"
+                                <a href="./canvas-b.html"><img src="assets/images/ad516503a11cd5ca435acc9bb6523536.png" class="rounded-circle"
                                         alt=""></a>
                             </div>
                             <div class=" comment-box border rounded py-3  px-5">
@@ -189,7 +189,7 @@
                         </div>
                         <div class="main-1 pb-5 ps-5">
                             <div class="circle-img-1 border d-inline-block p-2 rounded-circle">
-                                <a href="./canvas-b.html"><img src="./img/30110f1f3a4238c619bcceb10f4c4484.png" class="rounded-circle"
+                                <a href="./canvas-b.html"><img src="assets/images/30110f1f3a4238c619bcceb10f4c4484.png" class="rounded-circle"
                                         alt=""></a>
                             </div>
                             <div class=" comment-box border rounded py-3 px-5">
@@ -209,7 +209,7 @@
                         </div>
                         <div class="main-2 ">
                             <div class="circle-img-2 border d-inline-block p-2 rounded-circle">
-                                <a href="./canvas-b.html"><img src="./img/30110f1f3a4238c619bcceb10f4c4484.png" class="rounded-circle"
+                                <a href="./canvas-b.html"><img src="assets/images/30110f1f3a4238c619bcceb10f4c4484.png" class="rounded-circle"
                                         alt=""></a>
                             </div>
                             <div class=" comment-box border rounded py-3 px-5">

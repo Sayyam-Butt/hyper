@@ -5,6 +5,8 @@ if (isset($_POST['submit'])) {
     $cat_id = $_GET['blogs_id'];
     $sql1 = " UPDATE `blogcategories` SET `categories`='$catname' WHERE blogs_id = $cat_id"; 
     $result = mysqli_query($conn , $sql1);
+    
+    
     header("location:blogs-categories.php");
 }
 ?>
@@ -63,13 +65,51 @@ if (isset($_POST['submit'])) {
                                     ?>
                                     <input type="text" id="simpleinput" required class="form-control" 
                                        value="<?php echo $row['categories']?>" name="category" >
+                                       
                                  </div>          
+                                 <div class="form-group">
+                                    <label for="simpleinput">Sub categories</label>
+                                    <select name="subcategory[]" id="simpleinput" class="form-control-file
+                                     js-example-basic-multiple"  multiple="multiple" required>
+                                     <?php
+                                            
+                                            
+                                            $subcatname = explode(",", $row1['subcategory']);
+                                            $sql1 = "SELECT * FROM sub";
+                                            $result1 = mysqli_query($conn , $sql1);
+                                            if(mysqli_num_rows($result1) > 0){
+                                                while ( $row1 =  mysqli_fetch_assoc($result1)) { 
+                                                   
+                                                   ?>
+                                                    <option  
+                                                    <?php  
+                                                      foreach ($subcatname as $value) {
+                                                         if ($value == $row1['subcategory']) {
+                                                            echo "selected";
+                                                         }
+                                                      }
+                                                
+                                                    ?>
+                                                    value="<?php echo $row1['subcategory']; ?>"><?php
+                                                     echo $row1['subcategory']; ?></option>
+                                                <?php 
+                                            
+                                        ?> 
+                                    </select>
+                                    <?php 
+                                     } }
+                                            
+                                    ?>
+
+                                    <?php 
+                                     } }
+                                            
+                                    ?>
+                                 </div>         
                                  <div>
                                     <input class="btn btn-primary" type="submit" name="submit" value="Update">
                                  </div>
-                                 <?php 
-                                     } }
-                                 ?>
+                               
                               </div>
                               <!-- end card-body -->
                            </div>
@@ -98,6 +138,11 @@ if (isset($_POST['submit'])) {
       <!-- third party js ends -->
       <!-- demo app -->
       <script src="assets/js/pages/demo.dashboard.js"></script>
-      <!-- end demo js-->
+        <!-- Select2 -->
+        <script>
+         $(document).ready(function() {
+          $('.js-example-basic-multiple').select2();
+          });
+      </script>
    </body>
 </html>

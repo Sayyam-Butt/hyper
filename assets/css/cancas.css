@@ -2,12 +2,12 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    /* font-family:times!important; */
 }
 
 a {
     text-decoration: none !important;
 }
+
 
 .color {
     color: red;
@@ -265,13 +265,14 @@ a {
 .menu-items a {
     margin-left: 40px;
     margin-right: 40px;
-    color: #555;
+    color: rgb(32, 32, 32);
     font-weight: 600;
 }
 
 .menu-items a:hover {
     color: #da5b37;
 }
+
 
 .canvas-logo {
     display: none;
