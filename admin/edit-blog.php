@@ -109,6 +109,37 @@
                                     </select>
                                  </div>
                                  <div class="form-group">
+                                <label for="SUBCATEGORY">Sub Category</label>
+                                <select name="sub-cat" class="form-control" id="sub-category-dropdown">
+                                <option value="">Select Sub Category</option>
+                                <?php
+                               $parent_id= $row1['blogcategories'];
+                               
+                                            include("include/connection.php");
+
+                                           $sql = "SELECT * FROM subcategories WHERE `cat_id` = $parent_id ";
+                                            $result = mysqli_query($conn , $sql);
+                                            if(mysqli_num_rows($result) > 0){
+                                                while ( $row =  mysqli_fetch_assoc($result)){
+                                                   ?>
+                                                   <option
+                                                   <?php
+                                                   if ($parent_id == $row['cat_id']) {
+                                                      echo "selected";
+                                                   }
+                                                   else{
+                                                      echo " ";
+                                                   }
+                                                   ?>
+                                                   value="<?php echo $row['id']?>"><?php echo $row['name']?></option>
+                                                 <?php  
+                                                }
+                                            }
+                                        ?> 
+                                    
+                                </select>
+                            </div>
+                                 <div class="form-group">
                                     <label for="example-textarea">Description</label>
                                     <textarea class="form-control" name="discription" id="summernote-basic" rows="5" ><?php echo$row1['discription']?></textarea>
                                  </div>
@@ -204,6 +235,29 @@
          $(document).ready(function() {
           $('.js-example-basic-multiple').select2();
           });
+      </script>
+      <script>
+            $(document).ready(function() {
+          $('.js-example-basic-multiple').select2();
+          });
+       </script>
+        <script>
+               $(document).ready(function() {
+            $('#category-dropdown').on('change', function() {
+                  var category_id = this.value;
+                  $.ajax({
+                     url: "get-subcat.php",
+                     type: "POST",
+                     data: {
+                        category_id: category_id
+                     },
+                     cache: false,
+                     success: function(result){
+                        $("#sub-category-dropdown").html(result);
+                     }
+                  });
+            });
+         });
       </script>
    </body>
 </html>

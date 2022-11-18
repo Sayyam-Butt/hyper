@@ -2,6 +2,7 @@
    if(isset($_POST['submit'])){
       $title = $_POST['title'];
       $category = $_POST['category'];
+      $subcat = $_POST['sub-cat'];
       $tag = implode(",",$_POST['tags']);
       $disc = $_POST['discription'];
       $url = $_POST['weburl'];
@@ -18,7 +19,7 @@
          move_uploaded_file($filetmp,$destinationfile);
        }
       include("include/connection.php");
-         $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `discription`, `post_date`,`tagname`,`url`,`img`) VALUES ('$title ',' $category','$disc',' $date','$tag','$url','$destinationfile');";
+         $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `subcategory`,`discription`, `post_date`,`tagname`,`url`,`img`) VALUES ('$title ',' $category','$subcat','$disc',' $date','$tag','$url','$destinationfile');";
          $query .="UPDATE blogcategories SET post=post+1 WHERE blogs_id=$category ;";
          $query_run =  mysqli_multi_query($conn , $query);
       header("location:all-blogs.php");
@@ -79,27 +80,10 @@
                                     <input type="text" id="simpleinput" required class="form-control" 
                                        value="" name="title" >
                                  </div>
-                                 <!-- <div class="form-group">
-                                    <label for="simpleinput">Category</label>
-                                    <select name="category" id="simpleinput" class="form-control" required>
-                                        <option >Select Category</option>
-                                        <?php
-                                          //   include("include/connection.php");
-                                          //   $sql = "SELECT * FROM blogcategories";
-                                          //   $result = mysqli_query($conn , $sql);
-                                          //   if(mysqli_num_rows($result) > 0){
-                                          //       while ( $row =  mysqli_fetch_assoc($result)) {
-                                          //           echo'<option value="'.$row['blogs_id'].'" >'.$row["categories"].'</option>';
-                                          //       }
-                                          //   }
-                                        ?> 
-                                    </select>
-                                 </div> -->
-                              
                                  
                             <div class="form-group">
                                 <label for="CATEGORY-DROPDOWN">Category</label>
-                                <select class="form-control" id="category-dropdown">
+                                <select name="category" class="form-control" id="category-dropdown">
                                     <option value="">Select Category</option>
                                     <?php
                                         $result = mysqli_query($conn,"SELECT * FROM blogcategories");
@@ -113,7 +97,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="SUBCATEGORY">Sub Category</label>
-                                <select class="form-control" id="sub-category-dropdown">
+                                <select name="sub-cat" class="form-control" id="sub-category-dropdown">
                                     <option value="">Select Sub Category</option>
                                 </select>
                             </div>
@@ -172,9 +156,6 @@
          <!-- end wrapper-->
       </div>
       <!-- END Container -->
-        <!-- ajax -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-
        <!-- plugin js -->
        <script src="assets/js/vendor/dropzone.min.js"></script>
         <!-- init js -->
@@ -201,17 +182,15 @@
           $('.js-example-basic-multiple').select2();
           });
        </script>
-       <!-- ajax -->
-       <script>
-         $(document).ready(function() {
+        <script>
+               $(document).ready(function() {
             $('#category-dropdown').on('change', function() {
                   var category_id = this.value;
-                  console.log(category_id);
                   $.ajax({
                      url: "get-subcat.php",
                      type: "POST",
                      data: {
-                        category_id : category_id
+                        category_id: category_id
                      },
                      cache: false,
                      success: function(result){
@@ -220,7 +199,7 @@
                   });
             });
          });
-    </script>
+        </script>
      
 
    </body>
