@@ -114,6 +114,9 @@
                                $parent_id= $row1['blogcategories'];
                                $subcat_id = $row1['subcategory'];
                                             include("include/connection.php");
+
+                               $sub_cat= $row1['subcategory'];
+
                                            $sql = "SELECT * FROM subcategories WHERE `cat_id` = $parent_id ";
                                             $result = mysqli_query($conn , $sql);
                                             if(mysqli_num_rows($result) > 0){
@@ -121,7 +124,11 @@
                                                    ?>
                                                    <option
                                                    <?php
+
                                                    if ($subcat_id == $row['id']) {
+
+                                                   if ($sub_cat == $row['id']) {
+
                                                       echo "selected";
                                                    }
                                                    else{
@@ -189,7 +196,8 @@
                                              ?>
                        
                                  <?php    }
-                                        } ?>
+                                        } 
+                                       }?>
                                  <div>
                                     <input class="btn btn-primary" type="submit" name="submit" value="Update">
                                  </div>
