@@ -2,7 +2,8 @@
 if (isset($_POST['submit'])) {
     include("include/connection.php");
     $catname = $_POST['category'];
-    $sql1 = " INSERT INTO `blogcategories`( `categories`) VALUES ('$catname')"; 
+    $show = $_POST['show'];
+    $sql1 = " INSERT INTO `blogcategories`( `categories`,`shownavbar`) VALUES ('$catname','$show')"; 
     $result = mysqli_query($conn , $sql1);
     header("location:blogs-categories.php");
 }
@@ -54,7 +55,16 @@ if (isset($_POST['submit'])) {
                                     <label for="simpleinput">Category Name</label>
                                     <input type="text" id="simpleinput" required class="form-control" 
                                        value="" name="category" >
-                                 </div>          
+                                 </div> 
+                                 <div class="form-group">
+                                    <label for="simpleinput">Show on Navbar</label>
+                                    <select name="show" class="form-control">
+                                       <option value="">Select</option>
+                                       <option value="Yes">Yes</option>
+                                       <option value="No">No</option>
+                                    </select>
+                                 </div> 
+
                                  <div>
                                     <input class="btn btn-primary" type="submit" name="submit" value="Add">
                                  </div>

@@ -18,6 +18,11 @@
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <title>Document</title>
     <link rel="icon" type="image/x-icon" href="admin/<?php echo $row['favicon']?>">
+    <style>
+        body{
+            font-family:times;
+        }
+    </style>
 </head>
 <body>
    

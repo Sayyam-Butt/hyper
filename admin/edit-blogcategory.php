@@ -3,7 +3,8 @@ if (isset($_POST['submit'])) {
     include("include/connection.php");
     $catname = $_POST['category'];
     $cat_id = $_GET['blogs_id'];
-    $sql1 = " UPDATE `blogcategories` SET `categories`='$catname' WHERE blogs_id = $cat_id"; 
+    $shownav = $_POST['show'];
+    $sql1 = " UPDATE `blogcategories` SET `categories`='$catname',`shownavbar`='$shownav' WHERE blogs_id = $cat_id"; 
     $result = mysqli_query($conn , $sql1);
    
     header("location:blogs-categories.php");
@@ -64,11 +65,30 @@ if (isset($_POST['submit'])) {
                                     ?>
                                     <input type="text" id="simpleinput" required class="form-control" 
                                        value="<?php echo $row['categories']?>" name="category" >
+                                 </div> 
+                                 <div class="form-group">
+                                    <label for="simpleinput">Show on Navbar</label>
+                                    <select name="show" class="form-control">
+                                       <option value="">Select</option>
+                                       <?php
+                                       $check = $row['shownavbar'];
                                        
+                                       ?>
+                                       <option <?php 
+                                       if ($check=='Yes') {
+                                           echo "selected";
+                                       }
+                                        ?> value="Yes">Yes</option>
+                                       <option <?php 
+                                       if ($check=='No') {
+                                          echo "selected";
+                                      }
+                                       ?> value="No">No</option>
+                                    </select>
                                  </div>          
                                  <?php
                                  
-                                            }}?>  
+                                   }}?>  
                                  <div>
                                     <input class="btn btn-primary" type="submit" name="submit" value="Update">
                                  </div>

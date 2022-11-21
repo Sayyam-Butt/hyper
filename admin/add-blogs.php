@@ -83,7 +83,7 @@
                                  
                             <div class="form-group">
                                 <label for="CATEGORY-DROPDOWN">Category</label>
-                                <select name="category" class="form-control" id="category-dropdown">
+                                <select name="category" required class="form-control" id="category-dropdown">
                                     <option value="">Select Category</option>
                                     <?php
                                         $result = mysqli_query($conn,"SELECT * FROM blogcategories");
@@ -97,7 +97,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="SUBCATEGORY">Sub Category</label>
-                                <select name="sub-cat" class="form-control" id="sub-category-dropdown">
+                                <select required name="sub-cat" class="form-control" id="sub-category-dropdown">
                                     <option value="">Select Sub Category</option>
                                 </select>
                             </div>
@@ -105,7 +105,7 @@
 
                                  <div class="form-group">
                                     <label for="example-textarea"> Description</label>
-                                    <textarea class="form-control" name="discription" id="summernote-basic" rows="5" ></textarea>
+                                    <textarea required class="form-control" name="discription" id="summernote-basic" rows="5" ></textarea>
                                  </div>
                                
                                  <div class="form-group">
@@ -127,12 +127,12 @@
                                  </div>
                                  <div class="form-group">
                                     <label for="simpleinput">Website URL</label>
-                                    <input type="url" id="simpleinput"  class="form-control" 
+                                    <input required type="url" id="simpleinput"  class="form-control" 
                                        value="" name="weburl" >
                                  </div>
                                  <div class="form-group">
                                     <label for="simpleinput">Picture</label>
-                                    <input accept="image/png, image/gif, image/jpeg" type="file" id="simpleinput"  class="form-control-file border " 
+                                    <input required accept="image/png, image/gif, image/jpeg" type="file" id="simpleinput"  class="form-control-file border" 
                                         name="img" >
                                  </div>
                                  <div>

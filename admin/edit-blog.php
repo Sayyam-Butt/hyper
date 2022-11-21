@@ -4,6 +4,7 @@
    if(isset($_POST['submit'])){
     $title=$_POST['title'];
     $caty=$_POST['category'];
+    $subcat = $_POST['sub-cat'];
     $tag = implode(",",$_POST['tags']);
     $disc=$_POST['discription'];
     $date=date("d M Y");
@@ -14,16 +15,13 @@
    {
     $destinationfile = 'upload/'.$img; 
     move_uploaded_file($img_temp ,$destinationfile );
-    $query="UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`img`='$destinationfile',`url`='$url' WHERE id=$id";
+    $query="UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`subcategory`='$subcat',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`img`='$destinationfile',`url`='$url' WHERE id=$id";
    }else
    {
-      $query="UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`url`='$url' WHERE id=$id";
+      $query="UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`subcategory`='$subcat',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`url`='$url' WHERE id=$id";
    }
     mysqli_query($conn,$query);
     header("location:all-blogs.php");
-
-
-
    }
 ?>
 <!DOCTYPE html>
@@ -87,9 +85,9 @@
                                        value="<?php echo$row1['title']?>" name="title" >
                                  </div>
                                  <div class="form-group">
-                                    <label for="simpleinput">Category</label>
-                                    <select name="category" id="simpleinput" class="form-control" required>
-                                        <option >Select Category</option>
+                                    <label for="CATEGORY-DROPDOWN">Category</label>
+                                    <select name="category" id="category-dropdown" class="form-control" required>
+                                        <option value="" >Select Category</option>
                                         <?php
                                             include("include/connection.php");
 
@@ -114,9 +112,8 @@
                                 <option value="">Select Sub Category</option>
                                 <?php
                                $parent_id= $row1['blogcategories'];
-                               
+                               $subcat_id = $row1['subcategory'];
                                             include("include/connection.php");
-
                                            $sql = "SELECT * FROM subcategories WHERE `cat_id` = $parent_id ";
                                             $result = mysqli_query($conn , $sql);
                                             if(mysqli_num_rows($result) > 0){
@@ -124,7 +121,7 @@
                                                    ?>
                                                    <option
                                                    <?php
-                                                   if ($parent_id == $row['cat_id']) {
+                                                   if ($subcat_id == $row['id']) {
                                                       echo "selected";
                                                    }
                                                    else{
@@ -184,7 +181,7 @@
                                     <label for="simpleinput">Picture</label>
                                     <input accept="image/png, image/gif, image/jpeg" type="file" id="simpleinput"  class="form-control-file border " name="img" >
                                  </div>
-                                         <div class="border p-1">
+                                         <div class="border my-2 p-1">
                                           <img style="width:70px;height:70;" src="<?php echo$row1['img'];?>"alt=""> </div>
                                              <?php
                                             }
