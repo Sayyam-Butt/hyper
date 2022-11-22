@@ -1,5 +1,6 @@
 <?php
  include("include/connection.php");
+ $id=$_GET['id'];
  $query="SELECT * FROM site_setting";
  $run= mysqli_query($conn,$query);
  $row= mysqli_fetch_assoc($run);
@@ -38,12 +39,17 @@
     </div>
     <!-- ######### Corona ########## -->
     <div class="corona text-center  container py-4">
+        <?php 
+         $query1 = "SELECT * FROM blogs WHERE `id`=$id";
+         $result=mysqli_query($conn,$query1);
+         $row1 = mysqli_fetch_assoc($result);
+        ?>
     <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
              <strong>Corona Virus Update -World</strong>
-        <h2 class=" pt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, dolorem.</h2>
-        <p class="text-secondary pt-4">10 July 2016 | By SemiColonWeb</p>
+        <h2 class=" pt-3"><?php echo $row1['title']?></h2>
+        <p class="text-secondary pt-4"><?php echo $row1['post_date']?> | By SemiColonWeb</p>
     </div>
         <div class="col-lg-4"> 
 
@@ -78,80 +84,9 @@
             </div>
             <div class="col-lg-1"></div>
             <div class="col-lg-6 my-5 data-right">
-                <p>
-                    Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
-                    Cras mattis consectetur purus sit amet fermentum. Morbi leo risus, porta ac consectetur ac,
-                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+                <p><?php echo $row1['discription']?></p>
                 <h2 class="py-5">Content</h2>
-                <p>In this chat Sheet , we will go over the following</p>
-                <ol class="py-3">
-                    <li>Dropdown styles</li>
-                    <li>Dropdown styles</li>
-                    <li>Dropdown styles</li>
-                    <li>Dropdown styles</li>
-                    <li>Dropdown styles</li>
-                    <li>Dropdown styles</li>
-                    <li>Dropdown styles</li>
-                    <li>Dropdown styles</li>
-                    <li>Dropdown styles</li>
-                </ol>
-                <p class="py-3">Nullam id dolor id nibh <span class="color"> ultricies vehicula ut id elit. Curabitur
-                        blandit tempus
-                    </span> porttitor. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cras justo
-                    odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper.
-                    Donec id elit non mi porta gravida at eget metus. Vestibulum id ligula porta felis euismod semper.
-                </p>
-
-                <p class="py-3">Nullam id dolor id nibh <span class="color"> ultricies vehicula ut id elit. Curabitur
-                        blandit tempus
-                    </span> porttitor. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cras justo
-                    odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper.
-                    Donec id elit non mi porta gravida at eget metus. Vestibulum id ligula porta felis euismod semper.
-                </p>
-
-                <div class="anatomy">
-                    <p class="py-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. In sed molestias fuga
-                        impedit aut vero
-                        voluptas iste quisquam delectus et nulla nam commodi harum enim, nihil ipsa. Fugiat, veniam
-                        eius!</p>
-                    <p class="py-3">Nullam id dolor id nibh <span class="color"> ultricies vehicula ut id elit.
-                            Curabitur blandit
-                            tempus </span> porttitor. Integer posuere erat a ante venenatis dapibus posuere velit
-                        aliquet. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta
-                        felis euismod semper. Donec id elit non mi porta gravida at eget metus. Vestibulum id ligula
-                        porta felis euismod semper.</p>
-                    <p class="py-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores nam ratione
-                        consequatur sequi
-                        fugit sed et doloribus eveniet. Ullam harum illo facilis facere! Cupiditate, possimus.</p>
-                </div>                                                                                             
-                <div class="solution">
-                    <p class="py-3">Nullam id dolor id nibh <span class="color"> ultricies vehicula ut id elit.
-                            Curabitur blandit
-                            tempus </span> porttitor. Integer posuere erat a ante venenatis dapibus posuere velit
-                        aliquet. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta
-                        felis euismod semper. Donec id elit non mi porta gravida at eget metus. Vestibulum id ligula
-                        porta felis euismod semper.</p>
-                    <div class="row">
-                        <div class="col-6">
-                            <a href="./canvas-b.html"><img src="./img/6.jpg" alt="" class="rounded"></a>
-
-                        </div>
-                        <div class="col-6">
-                            <a href="./canvas-b.html"><img src="./img/7.jpg" alt="" class="rounded"></a>
-
-                        </div>
-                    </div>
-
-                    <p class="py-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores nam ratione
-                        consequatur sequi
-                        fugit sed et doloribus eveniet. Ullam harum illo facilis facere! Cupiditate, possimus.</p>
-
-                    <p class="py-3">Nullam id dolor id nibh <span class="color"> ultricies vehicula ut id elit.
-                            Curabitur blandit
-                            tempus </span> porttitor. Integer posuere erat a ante venenatis dapibus posuere velit
-                        aliquet. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta
-                        felis euismod semper. Donec id elit non mi porta gravida at eget metus. Vestibulum id ligula
-                        porta felis euismod semper.</p>
+                <p><?php echo $row1['content']?></p>
 
                     <hr>
 

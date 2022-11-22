@@ -104,7 +104,7 @@
                               <td class="align-middle"><?php echo $row["title"]?></td>
                               <td class="align-middle"><?php echo $row["categories"]?></td>
                               <td class="align-middle"><?php echo $row["post_date"]?></td>
-                              <td class="align-middle"><a style="color:grey;" href="edit-blog.php?id=<?php echo $row["id"];?>"> <i class='far fa-edit'></i></a></td>
+                              <td class="align-middle"><a style="color:grey;" href="edit-blog.php?id=<?php echo $row["id"]?>"> <i class='far fa-edit'></i></a></td>
                               <td class="align-middle"><a style="color:grey;"  href="delete-blog.php?id=<?php echo $row["id"]?>&cat_id=<?php echo $row["blogs_id"];?>"><i class='fas fa-trash'></i></a></td>
                            </tr>
                            <?php $a++; }} ?>

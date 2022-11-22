@@ -220,6 +220,55 @@
                </div>
                <!-- end row -->
                </form>         
+               </form>  
+                  <form action="#" method="post">
+                     <div class="row">
+                        <div class="col-12">
+                           <div class="card">
+                              <div class="card-body">
+                                 <h4 class="page-title mb-4">Meta Tags</h4>
+                                 <div class="form-group">
+                                    <label for="metaTitle">Meta Title</label>
+                                    <div class="input-group input-group-merge">
+                                       <input type="text" id="metaTitle" class="form-control"   name=""
+                                       value="">
+                                       
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="metadisc">Meta Discription</label>
+                                    <div class="input-group input-group-merge">
+                                       <input type="tel" id="metadisc" class="form-control"  name="" value="">
+                                      
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="metaImg">Meta Image</label>
+                                    <div class="input-group input-group-merge">
+                                       <input type="file" id="metaImg" class="form-control-file border p-1" name="" value="">
+                                       <div class="input-group-append" data-password="false">
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="metaTag">Meta Tag</label>
+                                    <div class="input-group input-group-merge">
+                                       <input type="text" id="metaTag" class="form-control" name="" value="">
+                                       <div class="input-group-append" data-password="false">
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <input class="btn btn-primary" type="submit" name="" value="Update">
+                              </div>
+                           </div>
+                           <!-- end card-body -->
+                        </div>
+                        <!-- end card -->
+                     </div>
+                     <!-- end col -->
+               </div>
+               <!-- end row -->
+               </form>         
             </div>
             <!-- End Content -->
          </div>

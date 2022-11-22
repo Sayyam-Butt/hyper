@@ -7,18 +7,19 @@
     $subcat = $_POST['sub-cat'];
     $tag = implode(",",$_POST['tags']);
     $disc=$_POST['discription'];
+    $content = $_POST['content'];
     $date=date("d M Y");
-    $url=$_POST['url'];
+    $url=$_POST['link'];
     $img= $_FILES['img']['name'];
     $img_temp=$_FILES['img']['tmp_name'];
     if($img_temp != "")
    {
     $destinationfile = 'upload/'.$img; 
     move_uploaded_file($img_temp ,$destinationfile );
-    $query="UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`subcategory`='$subcat',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`img`='$destinationfile',`url`='$url' WHERE id=$id";
+    $query="UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`subcategory`='$subcat',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`content`='$content',`img`='$destinationfile',`pageurl`='$url' WHERE id=$id";
    }else
    {
-      $query="UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`subcategory`='$subcat',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`url`='$url' WHERE id=$id";
+      $query="UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`subcategory`='$subcat',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`content`='$content',`pageurl`='$url' WHERE id=$id";
    }
     mysqli_query($conn,$query);
     header("location:all-blogs.php");
@@ -107,15 +108,15 @@
                                     </select>
                                  </div>
                                  <div class="form-group">
-                                <label for="SUBCATEGORY">Sub Category</label>
-                                <select name="sub-cat" class="form-control" id="sub-category-dropdown">
-                                <option value="">Select Sub Category</option>
-                                <?php
-                               $parent_id= $row1['blogcategories'];
-                               $subcat_id = $row1['subcategory'];
-                                            include("include/connection.php");
+                                  <label for="SUBCATEGORY">Sub Category</label>
+                                     <select name="sub-cat" class="form-control" id="sub-category-dropdown">
+                                  <option value="">Select Sub Category</option>
+                                  <?php
+                                   $parent_id= $row1['blogcategories'];
+                                   $subcat_id = $row1['subcategory'];
+                                     include("include/connection.php");
 
-                               $sub_cat= $row1['subcategory'];
+                                   $sub_cat= $row1['subcategory'];
 
                                            $sql = "SELECT * FROM subcategories WHERE `cat_id` = $parent_id ";
                                             $result = mysqli_query($conn , $sql);
@@ -141,14 +142,16 @@
                                             }
                                         ?> 
                                     
-                                </select>
-                            </div>
+                                     </select>
+                                   </div>
                                  <div class="form-group">
-                                    <label for="example-textarea">Description</label>
-                                    <textarea class="form-control" name="discription" id="summernote-basic" rows="5" ><?php echo$row1['discription']?></textarea>
+                                    <label for="textarea">Description</label>
+                                    <textarea class="form-control" name="discription" id="summernote" rows="5" ><?php echo$row1['discription']?></textarea>
                                  </div>
-                                 
-
+                                 <div class="form-group">
+                                    <label for="textarea">Content</label>
+                                    <textarea class="form-control" name="content" id="summernote-basic" rows="5" ><?php echo$row1['content']?></textarea>
+                                 </div>
                                  <div class="form-group">
                                     <label for="simpleinput">Meta Tags</label>
                                     <select name="tags[]" id="simpleinput" class="form-control-file
@@ -180,9 +183,9 @@
                                         if (mysqli_num_rows($result1)>0) {
                                             while ($row1 = mysqli_fetch_assoc($result1)) {  
                                              ?>
-                                    <label for="simpleinput">Website URL</label>
-                                    <input type="url" id="simpleinput"  class="form-control" 
-                                       value="<?php echo$row1['url'];?>" name="url" >
+                                    <label for="simpleinput">Link</label>
+                                    <input type="text" id="simpleinput"  class="form-control" 
+                                       value="<?php echo$row1['pageurl']?>" name="link" >
                                  </div>
                                  <div class="form-group">
                                     <label for="simpleinput">Picture</label>
@@ -235,6 +238,11 @@
       <script src="assets/js/vendor/summernote-bs4.min.js"></script>
       <!-- Summernote demo -->
       <script src="assets/js/pages/demo.summernote.js"></script>
+      <script>
+            $(document).ready(function() {
+            $('#summernote').summernote();
+             });   
+       </script>
       <!-- Select2 -->
       <script>
          $(document).ready(function() {

@@ -4,7 +4,8 @@ if (isset($_POST['submit'])) {
     $catname = $_POST['category'];
     $cat_id = $_GET['blogs_id'];
     $shownav = $_POST['show'];
-    $sql1 = " UPDATE `blogcategories` SET `categories`='$catname',`shownavbar`='$shownav' WHERE blogs_id = $cat_id"; 
+    $link = $_POST['link'];
+    $sql1 = " UPDATE `blogcategories` SET `categories`='$catname',`caturl`='$link',`shownavbar`='$shownav' WHERE blogs_id = $cat_id"; 
     $result = mysqli_query($conn , $sql1);
    
     header("location:blogs-categories.php");
@@ -66,6 +67,10 @@ if (isset($_POST['submit'])) {
                                     <input type="text" id="simpleinput" required class="form-control" 
                                        value="<?php echo $row['categories']?>" name="category" >
                                  </div> 
+                                 <div class="form-group"> 
+                                    <label for="">Page Link</label>
+                                    <input type="text" value="<?php echo $row['caturl']?>" name="link" class="form-control" required>
+                                 </div>
                                  <div class="form-group">
                                     <label for="simpleinput">Show on Navbar</label>
                                     <select name="show" class="form-control">

@@ -87,7 +87,8 @@
                            <tr>
                               <th>SN</th>
                               <th>Categories</th>
-                              <th>No of Blogs</th>
+                              <th>Blogs</th>
+                              <th>Status</th>
                               <th>Edit</th>
                               <th>Delete</th>
                            </tr>
@@ -113,6 +114,16 @@
                               <td><?php echo $a ?></td>
                               <td><?php echo $row["categories"]?></td>
                               <td><?php echo $row["post"]?></td>
+                              <td>
+                                 <?php 
+                                    $status= $row['shownavbar'];
+                                    if ($status=='Yes') {
+                                       echo "Published";
+                                    }else {
+                                       echo "Not Publish";
+                                    }
+                                 ?>
+                              </td>
                               <td><a style="color:grey;" href="edit-blogcategory.php?blogs_id=<?php echo $row["blogs_id"]?>"><i class='far fa-edit'></i></a></td>
                               <td><a style="color:grey;" href="delete-inline.php?blogs_id=<?php echo $row["blogs_id"]?>"><i class='fas fa-trash'></i></a></td>
                            </tr>

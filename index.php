@@ -26,10 +26,7 @@
         }
     </style>
 </head>
-
-
 <body>
-    
     <div class="div sticky-top bg-white">
        <!-- ######## top-bar ######### -->
        <?php include("include/topbar.php")?>
@@ -56,57 +53,28 @@
             </div>
             <div class="col-lg-5 ps-md-4 ps-sm-0  hero-2">
                 <h2>Highlight</h2>
-                <div class="row mt-3  border-bottom">
+                <?php
+                $query="SELECT  * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' GROUP BY categories  LIMIT 3 ";
+                $result= mysqli_query($conn,$query);
+                while ($row1= mysqli_fetch_assoc($result)) {
+                  ?>
+                    <div class="row mt-3  border-bottom">
                     <div class="col-md-4  ">
-                        <a href="./canvas-b.html">
-                            <img src="admin/<?php echo $row['img']?>" class="rounded w-100" alt="">
+                        <a href="<?php echo $row1['pageurl']?>?id=<?php echo $row1['id']?>">
+                            <img src="admin/<?php echo $row1['img']?>" class="rounded w-100" alt="">
                         </a>
                     </div>
                     <div class="col-md-8 ps-md-4">
-                        <strong class="my-2 d-block">Market</strong>
-                        <h5>Lorem ipsum dolor , ipsum dolor sit amet consectetur adipisicing elit. Totam, reprehenderit. amet, consectetur adipisicing elit. Ipsam, neque.</h5>
-                        <P class="text-secondary">March 11,2016</P>
+                        <strong class="my-2 d-block"><?php echo $row1['categories']?></strong>
+                        
+                        <h5><?php echo $row1['discription']?></h5>
+                        <P class="text-secondary"><?php echo $row1['post_date']?></P>
                     </div>
-                </div>
-                <div class="row mt-3 border-bottom">
-                    <div class="col-md-4 ">
-                        <a href="./canvas-b.html">
-                            <img src="assets/images/1 (3).jpg" class="rounded w-100" alt="">
-                        </a>
-                    </div>
-                    <div class="col-md-8 ps-md-4">
-                        <strong class="my-2  d-block">Market</strong>
-                        <h5>Lorem ipsum dolor , ipsum dolor sit amet consectetur adipisicing elit. Totam, reprehenderit.
-                            amet, consectetur adipisicing elit. Ipsam, neque.</h5>
-                        <P class="text-secondary">March 11,2016</P>
-                    </div>
-                </div>
-                <div class="row mt-3 border-bottom">
-                    <div class="col-md-4 ">
-                        <a href="./canvas-b.html">
-                            <img src="assets/images/2 (1).jpg" class="rounded  w-100" alt="">
-                        </a>
-                    </div>
-                    <div class="col-md-8 ps-md-4">
-                        <strong class="my-2  d-block">Market</strong>
-                        <h5>Lorem ipsum dolor , ipsum dolor sit amet consectetur adipisicing elit. Totam, reprehenderit.
-                            amet, consectetur adipisicing elit. Ipsam, neque.</h5>
-                        <P class="text-secondary">March 11,2016</P>
-                    </div>
-                </div>
-                <div class="row mt-3 ">
-                    <div class="col-md-4 ">
-                        <a href="./canvas-b.html">
-                            <img src="assets/images/3.jpg" class="rounded w-100" alt="">
-                        </a>
-                    </div>
-                    <div class="col-md-8 ps-md-4">
-                        <strong class="my-2  d-block">Market</strong>
-                        <h5>Lorem ipsum dolor , ipsum dolor sit amet consectetur adipisicing elit. Totam, reprehenderit.
-                            amet, consectetur adipisicing elit. Ipsam, neque.</h5>
-                        <P class="text-secondary">March 11,2016</P>
-                    </div>
-                </div>
+                    </div>    
+                    <?php 
+                    }
+                    ?>
+                  
             </div>
         </div>
     </section>
@@ -179,9 +147,10 @@
 
     </div>
     <!-- ######## Spotlight ######### -->
-    <div class="spotlight bg-dark text-white">
+    <div class="spotlight text-white" style="background-color:black">
         <div class="container ">
             <h2 class="py-5">Spotlight</h2>
+           
             <div class="row">
                 <div class="col-lg-7 g-0 hero  pe-md-5">
                     <a href="./canvas-b.html" class="">
@@ -200,56 +169,24 @@
                 <div class="col-lg-5 ps-md-5 mb-4  hero-2">
                     <h2>Highlight</h2>
                     <div class="row mt-3 border-bottom">
+                    <?php
+                      $query="SELECT  * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' GROUP BY categories  LIMIT 3 ";
+                      $result= mysqli_query($conn,$query);
+                      while ($row1= mysqli_fetch_assoc($result)) {
+                    ?>
                         <div class="col-md-4 ">
-                            <a href="./canvas-b.html">
-                                <img src="assets/images/3 (1).jpg" class="rounded w-100" alt="">
+                            <a href="<?php echo $row1['pageurl']?>?id=<?php echo $row1['id']?>">
+                                <img src="admin/<?php echo $row1['img']?>" class="rounded w-100" alt="">
                             </a>
                         </div>
                         <div class="col-md-8 ps-md-4">
-                            <strong class="my-2  d-block">Market</strong>
-                            <h5>Lorem ipsum dolor , ipsum dolor sit amet consectetur adipisicing elit. Totam,
-                                reprehenderit. amet, consectetur adipisicing elit. Ipsam, neque.</h5>
-                            <P class="text-secondary">March 11,2016</P>
+                            <strong class="my-2  d-block"><?php echo $row1['categories']?></strong>
+                            <h5 class="text-white"><?php echo $row1['discription']?></h5>
+                            <P class="text-secondary"><?php echo $row1['post_date']?></P>
                         </div>
-                    </div>
-                    <div class="row mt-3 border-bottom">
-                        <div class="col-md-4 ">
-                            <a href="./canvas-b.html">
-                                <img src="assets/images/3 (3).jpg" class="rounded w-100" alt="">
-                            </a>
-                        </div>
-                        <div class="col-md-8 ps-md-4">
-                            <strong class="my-2  d-block">Market</strong>
-                            <h5>Lorem ipsum dolor , ipsum dolor sit amet consectetur adipisicing elit. Totam,
-                                reprehenderit. amet, consectetur adipisicing elit. Ipsam, neque.</h5>
-                            <P class="text-secondary">March 11,2016</P>
-                        </div>
-                    </div>
-                    <div class="row mt-3 border-bottom">
-                        <div class="col-md-4 ">
-                            <a href="./canvas-b.html">
-                                <img src="assets/images/4 (1).jpg" class="rounded w-100" alt="">
-                            </a>
-                        </div>
-                        <div class="col-md-8 ps-md-4">
-                            <strong class="my-2  d-block">Market</strong>
-                            <h5>Lorem ipsum dolor , ipsum dolor sit amet consectetur adipisicing elit. Totam,
-                                reprehenderit. amet, consectetur adipisicing elit. Ipsam, neque.</h5>
-                            <P class="text-secondary">March 11,2016</P>
-                        </div>
-                    </div>
-                    <div class="row mt-3  ">
-                        <div class="col-md-4 ">
-                            <a href="./canvas-b.html">
-                                <img src="assets/images/4 (2).jpg" class="rounded w-100" alt="">
-                            </a>
-                        </div>
-                        <div class="col-md-8 ps-md-4">
-                            <strong class="my-2  d-block">Market</strong>
-                            <h5>Lorem ipsum dolor , ipsum dolor sit amet consectetur adipisicing elit. Totam,
-                                reprehenderit. amet, consectetur adipisicing elit. Ipsam, neque.</h5>
-                            <P class="text-secondary">March 11,2016</P>
-                        </div>
+                        <?php 
+                          }
+                         ?>
                     </div>
                 </div>
             </div>

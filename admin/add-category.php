@@ -3,7 +3,8 @@ if (isset($_POST['submit'])) {
     include("include/connection.php");
     $catname = $_POST['category'];
     $show = $_POST['show'];
-    $sql1 = " INSERT INTO `blogcategories`( `categories`,`shownavbar`) VALUES ('$catname','$show')"; 
+    $catlink = $_POST['link'];
+    $sql1=" INSERT INTO `blogcategories`( `categories`,`shownavbar`,`caturl`) VALUES ('$catname','$show','$catlink')"; 
     $result = mysqli_query($conn , $sql1);
     header("location:blogs-categories.php");
 }
@@ -55,6 +56,11 @@ if (isset($_POST['submit'])) {
                                     <label for="simpleinput">Category Name</label>
                                     <input type="text" id="simpleinput" required class="form-control" 
                                        value="" name="category" >
+                                 </div> 
+                                 <div class="form-group">
+                                    <label for="simpleinput">Page Link</label>
+                                    <input type="text" id="simpleinput" required class="form-control" 
+                                       value="" name="link" >
                                  </div> 
                                  <div class="form-group">
                                     <label for="simpleinput">Show on Navbar</label>

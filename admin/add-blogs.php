@@ -4,8 +4,9 @@
       $category = $_POST['category'];
       $subcat = $_POST['sub-cat'];
       $tag = implode(",",$_POST['tags']);
+      $content = $_POST['content'];
       $disc = $_POST['discription'];
-      $url = $_POST['weburl'];
+      $url = $_POST['link'];
       $date = date("d M Y");
       $files = $_FILES['img'];
       $filename = $files['name'];
@@ -19,7 +20,7 @@
          move_uploaded_file($filetmp,$destinationfile);
        }
       include("include/connection.php");
-         $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `subcategory`,`discription`, `post_date`,`tagname`,`url`,`img`) VALUES ('$title ',' $category','$subcat','$disc',' $date','$tag','$url','$destinationfile');";
+         $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `subcategory`,`discription`,`content`, `post_date`,`tagname`,'pageurl`,`img`) VALUES ('$title ',' $category','$subcat','$disc','$content',' $date','$tag','$url','$destinationfile');";
          $query .="UPDATE blogcategories SET post=post+1 WHERE blogs_id=$category ;";
          $query_run =  mysqli_multi_query($conn , $query);
       header("location:all-blogs.php");
@@ -105,7 +106,12 @@
 
                                  <div class="form-group">
                                     <label for="example-textarea"> Description</label>
-                                    <textarea required class="form-control" name="discription" id="summernote-basic" rows="5" ></textarea>
+                                    <textarea required class="form-control " name="discription" id="summernote" rows="5" ></textarea>
+                                 </div>
+
+                                 <div class="form-group">
+                                    <label for="example-textarea"> Content</label>
+                                    <textarea required class="form-control" name="content" id="summernote-basic" rows="10" ></textarea>
                                  </div>
                                
                                  <div class="form-group">
@@ -126,9 +132,9 @@
                                     </select>
                                  </div>
                                  <div class="form-group">
-                                    <label for="simpleinput">Website URL</label>
-                                    <input required type="url" id="simpleinput"  class="form-control" 
-                                       value="" name="weburl" >
+                                    <label for="simpleinput">Page Link</label>
+                                    <input required type="text" id="simpleinput"  class="form-control" 
+                                       value="" name="link" >
                                  </div>
                                  <div class="form-group">
                                     <label for="simpleinput">Picture</label>
@@ -176,6 +182,11 @@
        <script src="assets/js/vendor/summernote-bs4.min.js"></script>
        <!-- Summernote demo -->
        <script src="assets/js/pages/demo.summernote.js"></script>
+       <script>
+            $(document).ready(function() {
+            $('#summernote').summernote();
+             });   
+       </script>
        <!-- Select2 -->
        <script>
          $(document).ready(function() {

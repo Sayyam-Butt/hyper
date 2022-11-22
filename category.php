@@ -1,5 +1,6 @@
 <?php
  include("include/connection.php");
+ $id = $_GET['id'];
  $query="SELECT * FROM site_setting";
  $run= mysqli_query($conn,$query);
  $row= mysqli_fetch_assoc($run);
@@ -12,7 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/cancas.css">
     <script src="https://kit.fontawesome.com/1e891c0bbd.js" crossorigin="anonymous"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
@@ -39,9 +39,15 @@
         <div class="container text-center py-5 ">
             <div class="row">
                 <div class="col-lg-4"></div>
+                <?php
+                 $query1="SELECT * FROM blogcategories WHERE `blogs_id`=$id";
+                 $run1=mysqli_query($conn,$query1);
+                 $row1=mysqli_fetch_assoc($run1)
+                 ?>
+                
                 <div class="col-lg-4">
                     <h1>
-                        LIFESTYLE
+                       <?php echo $row1['categories']?> 
                     </h1>
                     <P class=""> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam modi nisi vitae dicta ipsam,
                         ab quisquam architecto illum magnam voluptate ratione ipsum, fuga minima ad.</P>
@@ -61,37 +67,23 @@
                 </div>
                <div class=" side-bar">
                 <ul class="nav  fw-bold py-4">
-                    <li class="nav-item active ">
-                      <a class="nav-link  " href="#" >Fashion</a>
-                    </li>
-                    <li class="nav-item ">
-                      <a class="nav-link  " href="#" >Fashion</a>
-                    </li>
-                    <li class="nav-item ">
-                      <a class="nav-link  " href="#" >Fashion</a>
-                    </li>
-                    <li class="nav-item ">
-                      <a class="nav-link  " href="#" >Fashion</a>
-                    </li>
-                    <li class="nav-item ">
-                      <a class="nav-link  " href="#" >Fashion</a>
-                    </li>
-                    <li class="nav-item ">
-                      <a class="nav-link  " href="#" >Fashion</a>
-                    </li>
-                    <li class="nav-item ">
-                      <a class="nav-link  " href="#" >Fashion</a>
-                    </li>
-                    <li class="nav-item ">
-                      <a class="nav-link  " href="#" >Fashion</a>
-                    </li>
-                   
+                    <?php
+                     $query3="SELECT * FROM subcategories WHERE `cat_id` = $id";
+                     $run3=mysqli_query($conn,$query3);
+                     while ( $row3=mysqli_fetch_assoc($run3)) {
+                        ?>
+                        <li class="nav-item active ">
+                          <a class="nav-link  " href="#" ><?php echo $row3['name']?></a>
+                       </li>
+                        <?php
+                     }
+                    ?>
                   </ul>
                 </div>
             </div>
             <div class="col-lg-9 ">
                 <div class="clearfix ">
-                    <div class="float-start"><h2>All LifeStyle Posts</h2></div>
+                    <div class="float-start"><h2>All   <?php echo $row1['categories']?>  Posts</h2></div>
                     <div class="float-end">
                         <div class="dropdown">
                             <button type="button" class="btn btn-outline-dark dropdown-toggle"
@@ -108,148 +100,28 @@
                 </div>
 
                 <div class="row py-4">
+                <?php
+                 $query2="SELECT * FROM blogs WHERE `blogcategories`= $id";
+                 $run2 = mysqli_query($conn,$query2);
+                    while ($row2=mysqli_fetch_assoc($run2)) {
+                        ?>
                     <div class="col-md-4  ">
                         <div class="card border-0">
-                           <a href="./canvas-b.html"> <img class="card-img-top rounded" src="assets/images/2 (1).jpg" alt="Card image" style="width:100%"></a>
+                           <a href=""> <img class="card-img-top rounded" src="admin/<?php echo$row2['img']?>" alt="Card image" style="width:100%"></a>
 
                             <div class="card-body px-0">
                                 <strong class="card-title">Arts And Agriculture</strong>
-                                <h5 class="card-text">Some example text some example text. John Doe is an architect and
-                                    engineer
-                                </h5>
-                                <p>March 11, 2016</p>
-                                <p> eum maxime maiores itaque tempora illum non veniam blanditiis?</p>
+                                <h5 class="card-text"><?php echo $row2['title']?></h5>
+                                <p><?php echo $row2['post_date']?></p>
+                                <p><?php echo $row2['discription']?></p>
                                 <a href="" class="text-dark">Read The Article</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4  ">
-                        <div class="card border-0">
-                           <a href="./canvas-b.html"> <img class="card-img-top rounded" src="assets/images/1 (2).jpg" alt="Card image" style="width:100%"></a>
-
-                            <div class="card-body px-0">
-                                <strong class="card-title">Arts And Agriculture</strong>
-                                <h5 class="card-text">Some example text some example text. John Doe is an architect and
-                                    engineer
-                                </h5>
-                                <p>March 11, 2016</p>
-                                <p> eum maxime maiores itaque tempora illum non veniam blanditiis?</p>
-                                <a href="" class="text-dark">Read The Article</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4  ">
-                        <div class="card border-0">
-                           <a href="./canvas-b.html"> <img class="card-img-top rounded" src="assets/images/3 (1).jpg" alt="Card image" style="width:100%"></a>
-
-                            <div class="card-body px-0">
-                                <strong class="card-title">Arts And Agriculture</strong>
-                                <h5 class="card-text">Some example text some example text. John Doe is an architect and
-                                    engineer
-                                </h5>
-                                <p>March 11, 2016</p>
-                                <p> eum maxime maiores itaque tempora illum non veniam blanditiis?</p>
-                                <a href="" class="text-dark">Read The Article</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row py-3">
-                    <div class="col-md-4  ">
-                        <div class="card border-0">
-                           <a href="./canvas-b.html"> <img class="card-img-top rounded" src="assets/images/1.jpg" alt="Card image" style="width:100%"></a>
-
-                            <div class="card-body px-0">
-                                <strong class="card-title">Arts And Agriculture</strong>
-                                <h5 class="card-text">Some example text some example text. John Doe is an architect and
-                                    engineer
-                                </h5>
-                                <p>March 11, 2016</p>
-                                <p> eum maxime maiores itaque tempora illum non veniam blanditiis?</p>
-                                <a href="" class="text-dark">Read The Article</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4  ">
-                        <div class="card border-0">
-                           <a href="./canvas-b.html"> <img class="card-img-top rounded" src="assets/images/5 (1).jpg" alt="Card image" style="width:100%"></a>
-
-                            <div class="card-body px-0">
-                                <strong class="card-title">Arts And Agriculture</strong>
-                                <h5 class="card-text">Some example text some example text. John Doe is an architect and
-                                    engineer
-                                </h5>
-                                <p>March 11, 2016</p>
-                                <p> eum maxime maiores itaque tempora illum non veniam blanditiis?</p>
-                                <a href="" class="text-dark">Read The Article</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4  ">
-                        <div class="card border-0">
-                           <a href="./canvas-b.html"> <img class="card-img-top rounded" src="assets/images/2.jpg" alt="Card image" style="width:100%"></a>
-
-                            <div class="card-body px-0">
-                                <strong class="card-title">Arts And Agriculture</strong>
-                                <h5 class="card-text">Some example text some example text. John Doe is an architect and
-                                    engineer
-                                </h5>
-                                <p>March 11, 2016</p>
-                                <p> eum maxime maiores itaque tempora illum non veniam blanditiis?</p>
-                                <a href="" class="text-dark">Read The Article</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row py-3">
-                    <div class="col-md-4  ">
-                        <div class="card border-0">
-                           <a href="./canvas-b.html"> <img class="card-img-top rounded" src="assets/images/9.jpg" alt="Card image" style="width:100%"></a>
-
-                            <div class="card-body px-0">
-                                <strong class="card-title">Arts And Agriculture</strong>
-                                <h5 class="card-text">Some example text some example text. John Doe is an architect and
-                                    engineer
-                                </h5>
-                                <p>March 11, 2016</p>
-                                <p> eum maxime maiores itaque tempora illum non veniam blanditiis?</p>
-                                <a href="" class="text-dark">Read The Article</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4  ">
-                        <div class="card border-0">
-                           <a href="./canvas-b.html"> <img class="card-img-top rounded" src="assets/images/5 (2).jpg" alt="Card image" style="width:100%"></a>
-
-                            <div class="card-body px-0">
-                                <strong class="card-title">Arts And Agriculture</strong>
-                                <h5 class="card-text">Some example text some example text. John Doe is an architect and
-                                    engineer
-                                </h5>
-                                <p>March 11, 2016</p>
-                                <p> eum maxime maiores itaque tempora illum non veniam blanditiis?</p>
-                                <a href="" class="text-dark">Read The Article</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4  ">
-                        <div class="card border-0">
-                           <a href="./canvas-b.html"> <img class="card-img-top rounded" src="assets/images/8.jpg" alt="Card image" style="width:100%"></a>
-
-                            <div class="card-body px-0">
-                                <strong class="card-title">Arts And Agriculture</strong>
-                                <h5 class="card-text">Some example text some example text. John Doe is an architect and
-                                    engineer
-                                </h5>
-                                <p>March 11, 2016</p>
-                                <p> eum maxime maiores itaque tempora illum non veniam blanditiis?</p>
-                                <a href="" class="text-dark">Read The Article</a>
-                            </div>
-                        </div>
-                    </div>
-
+                        <?php
+                    }
+                ?>
+                   
                 </div>
             </div>
         </div>
@@ -264,8 +136,6 @@
                 <form action="" class=" d-flex">
            
                 <input type="email" name="" class=" me-lg-5 e-box-1 me-sm-3 mb-sm-5 form-control form-control-lg  rounded-0" id="" placeholder="Your Email Address">
-          
-           
                 <button class="btn btn-dark btn-sm px-5 rounded-0 ms-0 g-0 mb-sm-5 ">Subscribe Now</button>
            </form>
         </div>
@@ -365,12 +235,12 @@
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo maiores eum sunt molestiae
                         perspiciatis velit?</p>
                     <div class="button-a">
-                        <a href="" class="btn btn-block w-100 mb-2 fw-bold btn-dark text-white"><i
+                        <a href="#" class="btn btn-block w-100 mb-2 fw-bold btn-dark text-white"><i
                                 class="fa-brands fa-apple text-white"></i> <Span> Apple
                                 Store</Span></a>
                     </div>
                     <div class="button-b">
-                        <a href="" class="btn btn-dark btn-block w-100 fw-bold text-white"><i
+                        <a href="#" class="btn btn-dark btn-block w-100 fw-bold text-white"><i
                                 class="fa-brands fa-google-play text-white"></i> <Span> Google
                                 Play</Span></a>
                     </div>

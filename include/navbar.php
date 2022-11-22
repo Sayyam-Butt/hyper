@@ -26,7 +26,7 @@
               <?php 
                while ($row1 = mysqli_fetch_assoc($result1)) {  
               ?>
-                <li><a href="<?php echo $row['url']?>" class="dropdown-items ms-2 "><?php echo $row1['name']?> </a></li>
+                <li><a href="<?php echo $row['caturl']?>?id=<?php echo$row['blogs_id']?>" class="dropdown-items ms-2 "><?php echo $row1['name']?> </a></li>
        <?php 
         } 
         ?>

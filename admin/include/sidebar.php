@@ -43,7 +43,7 @@
          </a>
          <ul class="side-nav-second-level" aria-expanded="false">
             <li>
-               <a href="blogs-categories.php">Blog Catergories</a>
+               <a href="blogs-categories.php">Catergories</a>
             </li>
             <li>
                <a href="Sub-category.php">Subcategories</a>
