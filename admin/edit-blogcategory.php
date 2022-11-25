@@ -64,12 +64,13 @@ if (isset($_POST['submit'])) {
                                         if(mysqli_num_rows($result) > 0){
                                             while ( $row =  mysqli_fetch_assoc($result)) {
                                     ?>
-                                    <input type="text" id="simpleinput" required class="form-control" 
+                                    <input onkeyup="createurl(this.value)" type="text" id="simpleinput" required class="form-control" 
                                        value="<?php echo $row['categories']?>" name="category" >
                                  </div> 
-                                 <div class="form-group"> 
-                                    <label for="">Page Link</label>
-                                    <input type="text" value="<?php echo $row['caturl']?>" name="link" class="form-control" required>
+                                 <div class="form-group">
+                                    <label for="simpleinput">Url</label>
+                                    <input required type="text" id="sluggenrated"  class="form-control" 
+                                       value="<?php echo $row['caturl']?>" name="link" >
                                  </div>
                                  <div class="form-group">
                                     <label for="simpleinput">Show on Navbar</label>
@@ -116,21 +117,7 @@ if (isset($_POST['submit'])) {
          <!-- end wrapper-->
       </div>
       <!-- END Container -->
-      <!-- bundle -->
-      <script src="assets/js/vendor.min.js"></script>
-      <script src="assets/js/app.min.js"></script>
-      <!-- third party js -->
-      <script src="assets/js/vendor/apexcharts.min.js"></script>
-      <script src="assets/js/vendor/jquery-jvectormap-1.2.2.min.js"></script>
-      <script src="assets/js/vendor/jquery-jvectormap-world-mill-en.js"></script>
-      <!-- third party js ends -->
-      <!-- demo app -->
-      <script src="assets/js/pages/demo.dashboard.js"></script>
-        <!-- Select2 -->
-        <script>
-         $(document).ready(function() {
-          $('.js-example-basic-multiple').select2();
-          });
-      </script>
+      <?php include("include/script.php")?>
+     
    </body>
 </html>

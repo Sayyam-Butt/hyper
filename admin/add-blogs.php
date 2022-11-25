@@ -6,7 +6,7 @@
       $tag = implode(",",$_POST['tags']);
       $content = $_POST['content'];
       $disc = $_POST['discription'];
-      $url = $_POST['link'];
+      $url ='/'.$_POST['link'];
       $date = date("d M Y");
       $files = $_FILES['img'];
       $filename = $files['name'];
@@ -20,7 +20,7 @@
          move_uploaded_file($filetmp,$destinationfile);
        }
       include("include/connection.php");
-         $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `subcategory`,`discription`,`content`, `post_date`,`tagname`,'pageurl`,`img`) VALUES ('$title ',' $category','$subcat','$disc','$content',' $date','$tag','$url','$destinationfile');";
+         $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `subcategory`,`discription`,`content`, `post_date`,`tagname`,`pageurl`,`img`) VALUES ('$title ',' $category','$subcat','$disc','$content',' $date','$tag','$url','$destinationfile');";
          $query .="UPDATE blogcategories SET post=post+1 WHERE blogs_id=$category ;";
          $query_run =  mysqli_multi_query($conn , $query);
       header("location:all-blogs.php");
@@ -78,10 +78,14 @@
                               <div class="card-body">
                                  <div class="form-group">
                                     <label for="simpleinput">Title</label>
-                                    <input type="text" id="simpleinput" required class="form-control" 
+                                    <input onkeyup="createurl(this.value)" type="text" id="simpleinput" required class="form-control" 
                                        value="" name="title" >
                                  </div>
-                                 
+                                 <div class="form-group">
+                                    <label for="simpleinput">Url</label>
+                                    <input required type="text" id="sluggenrated"  class="form-control" 
+                                       value="" name="link" >
+                                 </div>
                             <div class="form-group">
                                 <label for="CATEGORY-DROPDOWN">Category</label>
                                 <select name="category" required class="form-control" id="category-dropdown">
@@ -106,7 +110,7 @@
 
                                  <div class="form-group">
                                     <label for="example-textarea"> Description</label>
-                                    <textarea required class="form-control " name="discription" id="summernote" rows="5" ></textarea>
+                                    <textarea required class="form-control " name="discription" id="" rows="3" ></textarea>
                                  </div>
 
                                  <div class="form-group">
@@ -131,11 +135,7 @@
                                         ?> 
                                     </select>
                                  </div>
-                                 <div class="form-group">
-                                    <label for="simpleinput">Page Link</label>
-                                    <input required type="text" id="simpleinput"  class="form-control" 
-                                       value="" name="link" >
-                                 </div>
+                                 
                                  <div class="form-group">
                                     <label for="simpleinput">Picture</label>
                                     <input required accept="image/png, image/gif, image/jpeg" type="file" id="simpleinput"  class="form-control-file border" 
@@ -162,56 +162,7 @@
          <!-- end wrapper-->
       </div>
       <!-- END Container -->
-       <!-- plugin js -->
-       <script src="assets/js/vendor/dropzone.min.js"></script>
-        <!-- init js -->
-        <script src="assets/js/ui/component.fileupload.js"></script>
-      <!-- bundle -->
-      <script src="assets/js/vendor.min.js"></script>
-      <script src="assets/js/app.min.js"></script>
-      <!-- third party js -->
-      <script src="assets/js/vendor/apexcharts.min.js"></script>
-      <script src="assets/js/vendor/jquery-jvectormap-1.2.2.min.js"></script>
-      <script src="assets/js/vendor/jquery-jvectormap-world-mill-en.js"></script>
-      <!-- third party js ends -->
-      <!-- demo app -->
-      <script src="assets/js/pages/demo.dashboard.js"></script>
-      <!-- end demo js-->
-      
-      <!-- plugin js -->
-       <script src="assets/js/vendor/summernote-bs4.min.js"></script>
-       <!-- Summernote demo -->
-       <script src="assets/js/pages/demo.summernote.js"></script>
-       <script>
-            $(document).ready(function() {
-            $('#summernote').summernote();
-             });   
-       </script>
-       <!-- Select2 -->
-       <script>
-         $(document).ready(function() {
-          $('.js-example-basic-multiple').select2();
-          });
-       </script>
-        <script>
-               $(document).ready(function() {
-            $('#category-dropdown').on('change', function() {
-                  var category_id = this.value;
-                  $.ajax({
-                     url: "get-subcat.php",
-                     type: "POST",
-                     data: {
-                        category_id: category_id
-                     },
-                     cache: false,
-                     success: function(result){
-                        $("#sub-category-dropdown").html(result);
-                     }
-                  });
-            });
-         });
-        </script>
      
-
+     <?php include("include/script.php")?>
    </body>
 </html>

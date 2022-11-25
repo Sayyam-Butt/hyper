@@ -1,30 +1,27 @@
 <?php
  include("include/connection.php");
+ function shorter($text, $chars_limit)
+{
+    if (strlen($text) > $chars_limit)
+    {
+        $new_text = substr($text, 0, $chars_limit);
+        $new_text = trim($new_text);
+        return $new_text . "...";
+    }
+    else
+    {
+    return $text;
+    }
+}
  $query="SELECT * FROM site_setting";
  $run= mysqli_query($conn,$query);
  $row= mysqli_fetch_assoc($run);
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include("include/head.php")?>
     <title>The Canvas Times</title>
-    <link rel="stylesheet" href="./assets/css/cancas.css">
-    <script src="https://kit.fontawesome.com/1e891c0bbd.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="icon" type="image/x-icon" href="admin/<?php echo $row['favicon']?>">
-    <style>
-        body{
-            font-family:times;
-        }
-    </style>
 </head>
 <body>
     <div class="div sticky-top bg-white">
@@ -54,20 +51,19 @@
             <div class="col-lg-5 ps-md-4 ps-sm-0  hero-2">
                 <h2>Highlight</h2>
                 <?php
-                $query="SELECT  * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' GROUP BY categories  LIMIT 3 ";
+                $query="SELECT  * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' GROUP BY categories  LIMIT 4 ";
                 $result= mysqli_query($conn,$query);
                 while ($row1= mysqli_fetch_assoc($result)) {
                   ?>
-                    <div class="row mt-3  border-bottom">
+                    <div class="row my-3 pb-3  border-bottom">
                     <div class="col-md-4  ">
-                        <a href="<?php echo $row1['pageurl']?>?id=<?php echo $row1['id']?>">
+                        <a href="http://localhost/hyper<?php echo$row1['pageurl']?>">
                             <img src="admin/<?php echo $row1['img']?>" class="rounded w-100" alt="">
                         </a>
                     </div>
                     <div class="col-md-8 ps-md-4">
-                        <strong class="my-2 d-block"><?php echo $row1['categories']?></strong>
-                        
-                        <h5><?php echo $row1['discription']?></h5>
+                        <strong class="mb-2 d-block"><?php echo $row1['categories']?></strong>
+                        <h5><?php echo shorter($row1['title'],40)?></h5>
                         <P class="text-secondary"><?php echo $row1['post_date']?></P>
                     </div>
                     </div>    
@@ -168,26 +164,28 @@
                 </div>
                 <div class="col-lg-5 ps-md-5 mb-4  hero-2">
                     <h2>Highlight</h2>
-                    <div class="row mt-3 border-bottom">
+                    
                     <?php
-                      $query="SELECT  * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' GROUP BY categories  LIMIT 3 ";
+                      $query="SELECT  * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' GROUP BY categories  LIMIT 4 ";
                       $result= mysqli_query($conn,$query);
                       while ($row1= mysqli_fetch_assoc($result)) {
                     ?>
+                        <div class="row mt-3 pb-3  border-bottom">
                         <div class="col-md-4 ">
-                            <a href="<?php echo $row1['pageurl']?>?id=<?php echo $row1['id']?>">
+                            <a href="http://localhost/hyper<?php echo$row1['pageurl']?>">
                                 <img src="admin/<?php echo $row1['img']?>" class="rounded w-100" alt="">
                             </a>
                         </div>
                         <div class="col-md-8 ps-md-4">
                             <strong class="my-2  d-block"><?php echo $row1['categories']?></strong>
-                            <h5 class="text-white"><?php echo $row1['discription']?></h5>
+                            <h5 class="text-white"><?php echo shorter($row1['title'],40)?></h5>
                             <P class="text-secondary"><?php echo $row1['post_date']?></P>
+                        </div>
                         </div>
                         <?php 
                           }
                          ?>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -196,10 +194,10 @@
     <div class="container history py-5">
         <div class="row history-a">
             <div class="col-lg-8   history-border pe-4">
-                <h3 class="">based on your Reading History</h3>
+                <h3 class="">Latest Posts</h3>
                 <div class="row py-3">
                     <div class="col-md-6">
-                        <a href="./canvas-b.html">
+                        <a href="">
                             <img src="assets/images/5 (1).jpg" class="rounded" alt="">
                         </a>
                     </div>
@@ -214,7 +212,7 @@
                 </div>
                 <div class="row py-3">
                     <div class="col-md-6">
-                        <a href="./canvas-b.html">
+                        <a href="">
                             <img src="assets/images/1 (1).jpg" class="rounded" alt="">
                         </a>
                     </div>
@@ -229,7 +227,7 @@
                 </div>
                 <div class="row py-3">
                     <div class="col-md-6">
-                        <a href="./canvas-b.html">
+                        <a href="">
                             <img src="assets/images/5 (2).jpg" class="rounded" alt="">
                         </a>
                     </div>
@@ -244,7 +242,7 @@
                 </div>
                 <div class="row py-3">
                     <div class="col-md-6">
-                        <a href="./canvas-b.html">
+                        <a href="">
                             <img src="assets/images/5.jpg" class="rounded" alt="">
                         </a>
                     </div>

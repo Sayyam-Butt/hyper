@@ -91,21 +91,7 @@ if (isset($_POST['submit'])) {
          <!-- end wrapper-->
       </div>
       <!-- END Container -->
-      <!-- bundle -->
-      <script src="assets/js/vendor.min.js"></script>
-      <script src="assets/js/app.min.js"></script>
-      <!-- third party js -->
-      <script src="assets/js/vendor/apexcharts.min.js"></script>
-      <script src="assets/js/vendor/jquery-jvectormap-1.2.2.min.js"></script>
-      <script src="assets/js/vendor/jquery-jvectormap-world-mill-en.js"></script>
-      <!-- third party js ends -->
-      <!-- demo app -->
-      <script src="assets/js/pages/demo.dashboard.js"></script>
-        <!-- Select2 -->
-        <script>
-         $(document).ready(function() {
-          $('.js-example-basic-multiple').select2();
-          });
-      </script>
+      <?php include("include/script.php")?>
+     
    </body>
 </html>

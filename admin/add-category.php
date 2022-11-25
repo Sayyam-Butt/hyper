@@ -2,9 +2,9 @@
 if (isset($_POST['submit'])) {
     include("include/connection.php");
     $catname = $_POST['category'];
+    $url ='/'.$_POST['link'];
     $show = $_POST['show'];
-    $catlink = $_POST['link'];
-    $sql1=" INSERT INTO `blogcategories`( `categories`,`shownavbar`,`caturl`) VALUES ('$catname','$show','$catlink')"; 
+    $sql1=" INSERT INTO `blogcategories`( `categories`,`shownavbar`,`caturl`) VALUES ('$catname','$show','$url')"; 
     $result = mysqli_query($conn , $sql1);
     header("location:blogs-categories.php");
 }
@@ -54,14 +54,14 @@ if (isset($_POST['submit'])) {
                               <div class="card-body">
                                  <div class="form-group">
                                     <label for="simpleinput">Category Name</label>
-                                    <input type="text" id="simpleinput" required class="form-control" 
+                                    <input onkeyup="createurl(this.value)" type="text" id="simpleinput" required class="form-control" 
                                        value="" name="category" >
                                  </div> 
                                  <div class="form-group">
-                                    <label for="simpleinput">Page Link</label>
-                                    <input type="text" id="simpleinput" required class="form-control" 
+                                    <label for="simpleinput">Url</label>
+                                    <input required type="text" id="sluggenrated"  class="form-control" 
                                        value="" name="link" >
-                                 </div> 
+                                 </div>
                                  <div class="form-group">
                                     <label for="simpleinput">Show on Navbar</label>
                                     <select name="show" class="form-control">
@@ -91,16 +91,6 @@ if (isset($_POST['submit'])) {
          <!-- end wrapper-->
       </div>
       <!-- END Container -->
-      <!-- bundle -->
-      <script src="assets/js/vendor.min.js"></script>
-      <script src="assets/js/app.min.js"></script>
-      <!-- third party js -->
-      <script src="assets/js/vendor/apexcharts.min.js"></script>
-      <script src="assets/js/vendor/jquery-jvectormap-1.2.2.min.js"></script>
-      <script src="assets/js/vendor/jquery-jvectormap-world-mill-en.js"></script>
-      <!-- third party js ends -->
-      <!-- demo app -->
-      <script src="assets/js/pages/demo.dashboard.js"></script>
-      <!-- end demo js-->
+      <?php include("include/script.php")?>
    </body>
 </html>

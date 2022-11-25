@@ -1,6 +1,6 @@
 <?php
  include("include/connection.php");
- $id=$_GET['id'];
+ $url = $_SERVER['PATH_INFO'];
  $query="SELECT * FROM site_setting";
  $run= mysqli_query($conn,$query);
  $row= mysqli_fetch_assoc($run);
@@ -9,25 +9,9 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./cancas.css">
-    <script src="https://kit.fontawesome.com/1e891c0bbd.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="assets/css/cancas.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <?php include("include/head.php")?>
     <title>The Canvas Times</title>
-    <link rel="icon" type="image/x-icon" href="admin/<?php echo $row['favicon']?>">
-    <style>
-        body{
-            font-family:times;
-        }
-    </style>
+    
 </head>
 
 <body>
@@ -40,14 +24,21 @@
     <!-- ######### Corona ########## -->
     <div class="corona text-center  container py-4">
         <?php 
-         $query1 = "SELECT * FROM blogs WHERE `id`=$id";
+         $query1 = "SELECT * FROM blogs WHERE `pageurl`='$url'";
          $result=mysqli_query($conn,$query1);
          $row1 = mysqli_fetch_assoc($result);
+
         ?>
     <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
-             <strong>Corona Virus Update -World</strong>
+            <?php
+            $catid=$row1['blogcategories'];
+                $catquery="SELECT * FROM blogcategories WHERE blogs_id=$catid";
+                $catqueryrun=mysqli_query($conn,$catquery);
+                $catrow=mysqli_fetch_assoc($catqueryrun);
+            ?>
+             <strong><?php echo $catrow['categories']?></strong>
         <h2 class=" pt-3"><?php echo $row1['title']?></h2>
         <p class="text-secondary pt-4"><?php echo $row1['post_date']?> | By SemiColonWeb</p>
     </div>
@@ -59,8 +50,8 @@
     <!-- ########## content ########## -->
     <div class="container fw-bold content">
         <div class="row">
-            <a href="./canvas-b.html">
-                <img src="./img/hero.jpg" class="rounded" alt="">
+            <a href="">
+                <img style="" src="admin/<?php echo $row1['img']?>" class="rounded" alt="">
             </a>
             <div class="col-lg-2 my-5 data-left ">
                 <p>All online Conferences to save your box, get Inspired and Stay Connected
@@ -93,13 +84,15 @@
                     <div class="tags">
                         <h4 class="py-3">Related Tags</h4>
                         <div class="tag  py-5 ">
-                            <a href="">Terms</a>
-                            <a href="">conditions</a>
-                            <a href="">subjects</a>
-                            <a href="">sources</a>
-                            <a href="">address</a>
-                            <a href="">hello</a>
-                            <a href="">World</a>
+                            <?php
+                               $tags=explode(",",$row1['tagname']);
+                               foreach($tags as $t){
+                                ?>
+                                     <a ><?php echo $t ?></a>
+                                <?php
+                               }
+                            ?>
+                           
                         </div>
                     </div>
 

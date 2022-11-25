@@ -6,10 +6,10 @@
             </div>
             <div class=" col-lg-auto text-center  ">
                 <p class="text-style-none">
-                    <a href="">Home / </a> 
+                    <a href="index.php">Home / </a> 
                     <a href=""> FAQs /</a>
-                    <a href=""> Contact us /</a> 
-                    <a href=""> About us</a> 
+                    <a href="contact-us.php"> Contact us /</a> 
+                    <a href="aboutus.php"> About us</a> 
                 </p>
             </div>
         </div>
