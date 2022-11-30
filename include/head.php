@@ -1,3 +1,9 @@
+    <?php
+         include("include/connection.php");
+         $query="SELECT * FROM site_setting";
+         $run= mysqli_query($conn,$query);
+         $row= mysqli_fetch_assoc($run);
+    ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

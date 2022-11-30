@@ -15,7 +15,7 @@
      while($row = mysqli_fetch_assoc($result)){
       ?>
       <li class="dropdown ">
-        <a  class=" border-0   font-weight-bold " href=""  data-bs-toggle="dropdown"><?php echo $row['categories']?></a>
+        <a  class=" border-0   font-weight-bold " href="<?php echo $row['caturl']?>"  data-bs-toggle="dropdown"><?php echo $row['categories']?></a>
         <?php
         $category = $row['blogs_id'];
         $query1 = "SELECT * FROM subcategories WHERE `cat_id`=$category";
@@ -26,7 +26,7 @@
               <?php 
                while ($row1 = mysqli_fetch_assoc($result1)) {  
               ?>
-                <li><a href="category.php?url=<?php echo $row['caturl']?>" class="dropdown-items ms-2 "><?php echo $row1['name']?> </a></li>
+                <li><a href="<?php echo $row['caturl']?>" class="dropdown-items ms-2 "><?php echo $row1['name']?> </a></li>
        <?php 
         } 
         ?>

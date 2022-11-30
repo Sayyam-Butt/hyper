@@ -28,24 +28,8 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <meta charset="utf-8" />
       <title>Hyper |  Edit Blog </title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-      <meta content="Coderthemes" name="author" />
-      <!-- App favicon -->
-      <link rel="shortcut icon" href="assets/images/favicon.ico">
-      <!-- third party css -->
-      <link href="assets/css/vendor/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
-      <!-- third party css end -->
-      <!-- App css -->
-      <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-      <link href="assets/css/app-modern.min.css" rel="stylesheet" type="text/css" id="light-style" />
-      <link href="assets/css/app-modern-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
-      <!-- Font awesome -->
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-      <!-- Summernote css -->
-      <link href="assets/css/vendor/summernote-bs4.css" rel="stylesheet" type="text/css" />
+      <?php include("include/head.php")?>
    </head>
    <body class="loading" data-layout="detached" data-layout-config='{"leftSidebarCondensed":false,"darkMode":false, "showRightSidebarOnStart": true}'>
       <?php include('include/navbar.php'); ?>
@@ -77,7 +61,7 @@
                                         $sql1 = "SELECT * FROM blogs where id=$id";
                                         $result1=mysqli_query($conn,$sql1);
                                         if (mysqli_num_rows($result1)>0) {
-                                            while ($row1 = mysqli_fetch_assoc($result1)) {         
+                                         $row1 = mysqli_fetch_array($result1)     
                                     ?>
                                     <label for="simpleinput">Title</label>
                                     <input onkeyup="createurl(this.value)" type="text" id="simpleinput" required class="form-control" 
@@ -184,9 +168,9 @@
                                     <input accept="image/png, image/gif, image/jpeg" type="file" id="simpleinput"  class="form-control-file border " name="img" >
                                  </div>
                                          <div class="border my-2 p-1">
-                                          <img style="width:70px;height:70;" src="<?php echo$row1['img']?>"alt=""> </div>
+                                           <img style="width:70px;height:70;" src="<?php echo $row1['img']?>"alt="">
+                                         </div>
                                              <?php
-                                            }
                                           }
                                              ?>
                        

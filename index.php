@@ -13,9 +13,7 @@
     return $text;
     }
 }
- $query="SELECT * FROM site_setting";
- $run= mysqli_query($conn,$query);
- $row= mysqli_fetch_assoc($run);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,22 +29,17 @@
        <?php include("include/navbar.php")?>
     </div>
     <!-- ######### Highlight ########### -->
-    <?php
-      include("include/connection.php");
-      $query="SELECT * FROM blogs";
-      $run= mysqli_query($conn,$query);
-      $row= mysqli_fetch_assoc($run);
-    ?>
+   
     <section class="container my-5 highlight">
         <div class="row">
             <div class="col-lg-7 g-0 hero border-end-md pe-md-4">
                 <a href="" class="">
-                    <img src="admin/<?php echo $row['img']?>" class="rounded mx-1" alt="">
+                    <img src="assets/images/3 (1).jpg" class="rounded mx-1" alt="">
                 </a>
                 <strong class="text-secondary py-4 ps-1 d-block">Coronavirus Update - World</strong>
-                <h3 class="ps-1"><?php echo $row['title']?></h3>
-                <p class="text-secondary"><?php echo $row['post_date']?></p>
-                <p class="text-secondary"><?php echo $row['discription']?></p>
+                <h3 class="ps-1"></h3>
+                <p class="text-secondary"></p>
+                <p class="text-secondary"></p>
             </div>
             <div class="col-lg-5 ps-md-4 ps-sm-0  hero-2">
                 <h2>Highlight</h2>
@@ -57,7 +50,7 @@
                   ?>
                     <div class="row my-3 pb-3  border-bottom">
                     <div class="col-md-4  ">
-                        <a href="http://localhost/hyper<?php echo$row1['pageurl']?>">
+                        <a href="http://localhost/hyper/<?php echo$row1['pageurl']?>">
                             <img src="admin/<?php echo $row1['img']?>" class="rounded w-100" alt="">
                         </a>
                     </div>
@@ -149,7 +142,7 @@
            
             <div class="row">
                 <div class="col-lg-7 g-0 hero  pe-md-5">
-                    <a href="./canvas-b.html" class="">
+                    <a href="" class="">
                         <img src="assets/images/3 (1).jpg" class="rounded " alt="">
                     </a>
                     <strong class=" py-4 d-block">Coronavirus Update - World</strong>
@@ -343,8 +336,14 @@
     <!-- ############# World ########### -->
     <div class="container world">
         <div class="row">
+        <?php
+          include("include/connection.php");
+          $query = "SELECT * FROM blogcategories WHERE `shownavbar` = 'Yes'";
+          $result = mysqli_query($conn , $query);
+           while($row = mysqli_fetch_assoc($result)){
+        ?>
             <div class="col-lg-3 col-md-6   mt-5 history-border pe-4">
-                <h2 class="">World</h2>
+                <h2 class=""><?php echo $row['categories']?></h2>
                 <div class="row border-bottom py-3">
                     <h4>Coronavirus Live Updates: Singapore Sees Record Number Number of new Cases.</h4>
                     <p class="text-secondary pt-3">March 11, 2016</p>
@@ -359,63 +358,10 @@
                     <a href="" class="text-dark">View More &rarr; </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 ">
-                <div class=" mt-5 history-border ps-2 pe-4">
-                    <h2 class="">Travel</h2>
-                    <div class="row border-bottom py-3">
-                        <h4>Coronavirus Live Updates: Singapore Sees Record Number Number of new Cases.</h4>
-                        <p class="text-secondary pt-3">March 11, 2016</p>
-                    </div>
-                    <div class="row border-bottom py-5">
-                        <h4>Coronavirus Live Updates: Singapore Sees Record Number Number of new Cases.</h4>
-                        <p class="text-secondary pt-3">March 11, 2016</p>
-                    </div>
-                    <div class="row py-5">
-                        <h4>Coronavirus Live Updates: Singapore Sees Record Number Number of new Cases.</h4>
-                        <p class="text-secondary pt-3">March 11, 2016</p>
-                        <a href="" class="text-dark">View More &rarr; </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6  ">
-                <div class=" mt-5 history-border ps-2 pe-4">
-                    <h2 class="">Fashion</h2>
-                    <div class="row border-bottom py-3">
-                        <h4>Coronavirus Live Updates: Singapore Sees Record of new Cases.</h4>
-                        <p class="text-secondary pt-3">March 11, 2016</p>
-                    </div>
-                    <div class="row border-bottom py-5">
-                        <h4>Coronavirus Live Updates: Singapore Sees Record Number of new Cases of the Infected
-                            Patients.</h4>
-                        <p class="text-secondary pt-3">March 11, 2016</p>
-                    </div>
-                    <div class="row py-5">
-                        <h4>Coronavirus Live Updates: Singapore Record Number of Cases of Corona Virus patients show
-                            Symmptoms.</h4>
-                        <p class="text-secondary pt-3">March 11, 2016</p>
-                        <a href="" class="text-dark">View More &rarr; </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class=" mt-5  ps-2 ">
-                    <h2 class="">Food</h2>
-                    <div class="row border-bottom py-3">
-                        <h4>Coronavirus Live Updates: Recently Very Short Of times Singapore Sees Record Number Number
-                            of new Cases.</h4>
-                        <p class="text-secondary pt-3">March 11, 2016</p>
-                    </div>
-                    <div class="row border-bottom py-5">
-                        <h4>Coronavirus Live Updates: Singapore Sees Record Number Number of new Cases.</h4>
-                        <p class="text-secondary pt-3">March 11, 2016</p>
-                    </div>
-                    <div class="row py-5">
-                        <h4>Coronavirus Live Updates: Singapore Sees Record Number Number of new Cases.</h4>
-                        <p class="text-secondary pt-3">March 11, 2016</p>
-                        <a href="" class="text-dark">View More &rarr; </a>
-                    </div>
-                </div>
-            </div>
+            
+            <?php }?>
+           
+            
         </div>
     </div>
     <!-- ########### Product ########## -->
@@ -426,51 +372,39 @@
                     <h5>Management</h5>
                     <ul class="pt-3">
                         <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
+                        About Us</li>
                         <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
+                        Careers</li>
                         <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
+                        Customers</li>
                         <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
-                        <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
-                        <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
-                        <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
-                        <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
+                        Themes</li>
                     </ul>
                 </div>
                 <div class="col-lg-2 col-md-6">
                     <h5>Our Products</h5>
                     <ul class="pt-3">
                         <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
+                        Real Estate</li>
                         <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
+                        Movers</li>
                         <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
+                        Stores</li>
                         <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
-                        <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
-                        <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
+                        Landing</li>
                     </ul>
                 </div>
                 <div class="col-lg-2 col-md-6">
                     <h5>Support</h5>
                     <ul class="pt-3">
                         <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
+                        Privacy</li>
                         <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
+                        Help Center</li>
                         <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
+                        Chat</li>
                         <li><i class="fa-solid fa-chevron-right"></i>
-                            Career</li>
+                        Email Us</li>
                     </ul>
                     <div class="social-icons ">
                         <a href="" class="social-icon si-rounded si-dark si-mini si-facebook" target="_blank">
@@ -489,22 +423,18 @@
                 </div>
                 <div class="col-lg-3  col-md-6 cloud">
                     <h5>TagCloud</h5>
-                    <div class="tag py-3  ">
-                        <a href="">Terms</a>
-                        <a href="">conditions</a>
-                        <a href="">subjects</a>
-                        <a href="">sources</a>
-                        <a href="">address</a>
-                        <a href="">hello</a>
-                        <a href="">World</a>
-                        <a href="">Terms</a>
-                        <a href="">what</a>
-                        <a href="">Terms</a>
-                        <a href="">that is</a>
-                        <a href="">abouts</a>
-                        <a href="">hye</a>
-                        <a href="">Terms</a>
-                        <a href="">Terms</a>
+                    <div class="tag py-3 ">
+                        <?php
+                        include("include/connection.php");
+                         $tagquery = "SELECT * FROM `tags`";
+                         $tagresult=mysqli_query($conn,$tagquery);
+                          while ($tagrow= mysqli_fetch_array($tagresult)) {
+
+                        ?>
+                        <a href=""><?php echo $tagrow['tagname']?></a>
+                         <?php
+                        }
+                        ?>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">

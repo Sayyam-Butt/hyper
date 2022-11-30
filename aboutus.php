@@ -1,9 +1,3 @@
-<?php
-    include("include/connection.php");
-    $query="SELECT * FROM site_setting";
-    $run= mysqli_query($conn,$query);
-    $row= mysqli_fetch_assoc($run);
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
