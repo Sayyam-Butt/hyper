@@ -5,8 +5,8 @@ if (isset($_POST['submit'])) {
     $sub_cat = $_POST['subcategory'];
     $url=$_POST['link'];
     $result = "INSERT INTO `subcategories`(`cat_id`, `name`,`subcaturl`) VALUES ('$cat_id','$sub_cat','$url')";
-    mysqli_query($conn,$result);
-    header("location:Sub-category.php");
+    $run=mysqli_query($conn,$result);
+    header("location:Sub-category.php?add=$run");
 }
 ?>
 <!DOCTYPE html>
@@ -14,7 +14,6 @@ if (isset($_POST['submit'])) {
    <head>
       <?php include("include/head.php")?>
       <title>Hyper | Add Category </title>
-      
    </head>
    <body class="loading" data-layout="detached" data-layout-config='{"leftSidebarCondensed":false,"darkMode":false, "showRightSidebarOnStart": true}'>
       <?php include('include/navbar.php'); ?>
@@ -41,7 +40,7 @@ if (isset($_POST['submit'])) {
                               <div class="card-body">
                               <div class="form-group"> 
                                     <label for="slcat">Select Category</label>
-                                    <select name="cat_id" id="slcat" class="form-control">
+                                    <select name="cat_id" id="slcat" class="form-control" required>
                                        <option value="">Select Category</option>
                                     <?php 
                                        $query = "SELECT * FROM blogcategories";

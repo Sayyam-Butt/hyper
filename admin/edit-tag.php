@@ -5,7 +5,7 @@ if (isset($_POST['submit'])) {
     $id = $_GET['id'];
     $sql1 = " UPDATE `tags` SET `tagname`='$tagname' WHERE id = $id"; 
     $result = mysqli_query($conn , $sql1);
-    header("location:blogs-tags.php");
+    header("location:blogs-tags.php?edit=$result");
 }
 ?>
 <!DOCTYPE html>

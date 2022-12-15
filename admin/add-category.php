@@ -4,9 +4,6 @@ include 'include/admin_class.php';
 
 $siteurl = new admin_class;
 
-
-
-
 if (isset($_POST['submit'])) {
     include("include/connection.php");
     $catname = $_POST['category'];
@@ -15,7 +12,7 @@ if (isset($_POST['submit'])) {
     $siteurl->savesiteurl($url,'blogmaincategory');
     $sql1=" INSERT INTO `blogcategories`( `categories`,`shownavbar`,`caturl`) VALUES ('$catname','$show','$url')"; 
     $result = mysqli_query($conn , $sql1);
-    header("location:blogs-categories.php");
+    header("location:blogs-categories.php?add=$result");
 }
 ?>
 <!DOCTYPE html>
@@ -59,7 +56,7 @@ if (isset($_POST['submit'])) {
                                  </div>
                                  <div class="form-group">
                                     <label for="simpleinput">Show on Navbar</label>
-                                    <select name="show" class="form-control">
+                                    <select name="show" class="form-control" required>
                                        <option value="">Select</option>
                                        <option value="Yes">Yes</option>
                                        <option value="No">No</option>

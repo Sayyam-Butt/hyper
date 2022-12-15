@@ -12,12 +12,20 @@
  $resultforblogscategories=mysqli_query($conn,$sqlforblogscategories);
  $finalresultcategories = mysqli_num_rows($resultforblogscategories);
 
+
+ $sqlforblogssubcategories = 'SELECT * FROM subcategories where subcaturl="'.$currenturl.'"';
+ $resultforblogssubcategories=mysqli_query($conn,$sqlforblogssubcategories);
+ $finalresultsubcategories = mysqli_num_rows($resultforblogssubcategories);
+
  if($finalresultblogs > 0)
  {
     include 'blogdetailpage.php';
  }else if($finalresultcategories > 0)
  {
     include 'blogmaincategory.php';
+ }else if($finalresultsubcategories > 0)
+   { 
+    include 'blogsubcategory.php';
  }else{
     include '404.php';
  }

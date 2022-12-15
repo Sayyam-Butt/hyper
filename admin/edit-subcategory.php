@@ -6,7 +6,7 @@ if (isset($_POST['submit'])) {
     $sql1 = " UPDATE `subcategories` SET `name`='$subcat_name' WHERE id = $sub_id"; 
     $result = mysqli_query($conn , $sql1);
    
-    header("location:Sub-category.php");
+    header("location:Sub-category.php?edit=$result");
 }
 ?>
 <!DOCTYPE html>

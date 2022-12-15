@@ -1,5 +1,5 @@
-  <!-- plugin js -->
-  <script src="assets/js/vendor/dropzone.min.js"></script>
+      <!-- plugin js -->
+      <script src="assets/js/vendor/dropzone.min.js"></script>
         <!-- init js -->
         <script src="assets/js/ui/component.fileupload.js"></script>
       <!-- bundle -->
@@ -47,3 +47,65 @@
             });
          });
         </script>
+        
+
+    <script>
+       // Live Search for blog
+     $("#searchblog").on("keyup",function(){
+       var search_term = $(this).val();
+       $.ajax({
+         url: "ajax-search-blog.php",
+         type: "POST",
+         data : {search:search_term },
+         success: function(data) {
+           $("#table-data-blog").html(data);
+         }
+       });
+     });
+    </script>
+
+
+    <script>
+       // Live Search for cat
+     $("#searchcat").on("keyup",function(){
+       var search_term = $(this).val();
+       $.ajax({
+         url: "ajax-search-cat.php",
+         type: "POST",
+         data : {search:search_term },
+         success: function(data) {
+           $("#table-data-cat").html(data);
+         }
+       });
+     });
+    </script>
+    <script>
+       // Live Search for Subcat
+     $("#searchsubcat").on("keyup",function(){
+       var search_term = $(this).val();
+       $.ajax({
+         url: "ajax-search-subcat.php",
+         type: "POST",
+         data : {search:search_term },
+         success: function(data) {
+           $("#table-data-subcat").html(data);
+         }
+       });
+     });
+    </script>
+    <script>
+       // Live Search for tag
+     $("#searchtag").on("keyup",function(){
+       var search_term = $(this).val();
+       $.ajax({
+         url: "ajax-search-tag.php",
+         type: "POST",
+         data : {search:search_term },
+         success: function(data) {
+           $("#table-data-tag").html(data);
+         }
+       });
+     });
+    </script>
+
+ 

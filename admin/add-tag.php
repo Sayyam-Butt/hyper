@@ -4,7 +4,7 @@ if (isset($_POST['submit'])) {
     $tagname = $_POST['tag'];
     $sql1 = " INSERT INTO `tags`( `tagname`) VALUES ('$tagname')"; 
     $result = mysqli_query($conn , $sql1);
-    header("location:blogs-tags.php");
+    header("location:blogs-tags.php?add=$result");
 }
 ?>
 <!DOCTYPE html>

@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
     $sql1 = " UPDATE `blogcategories` SET `categories`='$catname',`caturl`='$link',`shownavbar`='$shownav' WHERE blogs_id = $cat_id"; 
     $result = mysqli_query($conn , $sql1);
    
-    header("location:blogs-categories.php");
+    header("location:blogs-categories.php?edit=$result");
 }
 ?>
 <!DOCTYPE html>
