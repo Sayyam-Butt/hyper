@@ -1,5 +1,8 @@
 <?php
 include("include/connection.php");
+if (isset($_POST['search'])) {
+    $search = $_POST['search'];
+}
 $query = "SELECT * FROM site_setting";
 $run = mysqli_query($conn, $query);
 $row = mysqli_fetch_assoc($run);
@@ -76,8 +79,10 @@ $row = mysqli_fetch_assoc($run);
                     </div>
                 </div>
                 <div id="box">
-                    <input placeholder="Search Here" id="searchbox" type="search" />
-                    <input type="submit" value="Search" class="btn btn-secondary">
+                    <form action="search.php" method="get">
+                        <input placeholder="Search Here" id="searchbox" type="search" name="search" />
+                        <input type="submit" class="btn btn-secondary" value="Search">
+
                 </div>
             </div>
 

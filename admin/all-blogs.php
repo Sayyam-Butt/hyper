@@ -112,8 +112,7 @@ if (isset($_GET['del'])) {
                                        <th>Image</th>
                                        <th>Title</th>
                                        <th>Category</th>
-                                       <th>Section 1</th>
-                                       <th>Section 2</th>
+                                       <th>Visible</th>
                                        <th>Date</th>
                                        <th>Edit</th>
                                        <th>Delete</th>
@@ -141,22 +140,19 @@ if (isset($_GET['del'])) {
                                              <td class="align-middle"><img style="width:70px;height:70;border-radius:2px;" src="<?php echo $row['img'] ?>"> </td>
                                              <td class="align-middle"><?php echo $row["title"] ?></td>
                                              <td class="align-middle"><?php echo $row["categories"] ?></td>
-                                             <td class="align-middle"><?php 
-                                              if ($row["section_one"]!="") {
-                                                echo "Visible";
-                                              } else {
-                                                echo "Not Visible";
-                                              }
-                                              ?>
-                                              </td>
-                                             <td class="align-middle">  
-                                             <?php
-                                               if ($row["section_two"]!="") {
-                                                echo "Visible";
-                                              } else {
-                                                echo "Not Visible";
-                                              }
-                                             ?>
+                                             <td class="align-middle">
+                                                <?php
+                                                  if ($row["section"]==1) {
+                                                   echo "Section 1";
+                                                  }
+                                                  elseif ($row["section"]==2) {
+                                                   echo "Section 2";
+                                                  }
+                                                  else  {
+                                                   echo "Null";
+                                                  }
+                                                  
+                                                ?>
                                              </td>
                                              <td class="align-middle"><?php echo $row["post_date"] ?></td>
                                              <td class="align-middle"><a style="color:grey;" href="edit-blog.php?id=<?php echo $row["id"] ?>"> <i class='far fa-edit'></i></a></td>

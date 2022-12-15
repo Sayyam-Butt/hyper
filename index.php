@@ -32,13 +32,24 @@ function shorter($text, $chars_limit)
     <section class="container my-5 highlight">
         <div class="row">
             <div class="col-lg-7 g-0 hero border-end-md pe-md-4">
+                <?php
+                $queryforsectionone = "SELECT  * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `section` = '1'";
+                $resultforsectinone = mysqli_query($conn, $queryforsectionone);
+                $rowforsectionone = mysqli_fetch_assoc($resultforsectinone);
+                ?>
                 <a href="" class="">
-                    <img src="assets/images/3 (1).jpg" class="rounded mx-1" alt="">
+                    <?php if (!empty($rowforsectionone['img'])) {  ?>
+                        <img src="admin/<?php echo $rowforsectionone['img'] ?>" class="rounded mx-1" alt="Nothing to show">
+                    <?php  } else {   ?>
+                        <img src="admin/upload/1 (1).jpg" class="rounded mx-1" alt="Nothing to show">
+                    <?php
+                    }
+                    ?>
                 </a>
-                <strong class="text-secondary py-4 ps-1 d-block">Coronavirus Update - World</strong>
-                <h3 class="ps-1"></h3>
-                <p class="text-secondary"></p>
-                <p class="text-secondary"></p>
+                <strong class="text-secondary py-4 ps-1 d-block"><?php echo $rowforsectionone['categories'] ?></strong>
+                <h3 class="ps-1"><?php echo $rowforsectionone['title'] ?></h3>
+                <p class="text-secondary"><?php echo $rowforsectionone['post_date'] ?></p>
+                <p class="text-secondary"><?php echo shorter($rowforsectionone['discription'], 250) ?></p>
             </div>
             <div class="col-lg-5 ps-md-4 ps-sm-0  hero-2">
                 <h2>Highlight</h2>
@@ -139,19 +150,19 @@ function shorter($text, $chars_limit)
             <h2 class="py-5">Spotlight</h2>
 
             <div class="row">
+                <?php
+                $queryforsectiontwo = "SELECT  * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `section` = '2'";
+                $resultforsectiontwo = mysqli_query($conn, $queryforsectiontwo);
+                $rowforsectiontwo = mysqli_fetch_assoc($resultforsectiontwo);
+                ?>
                 <div class="col-lg-7 g-0 hero  pe-md-5">
                     <a href="" class="">
-                        <img src="assets/images/3 (1).jpg" class="rounded " alt="">
+                        <img src="admin/<?php echo $rowforsectiontwo['img'] ?>" class="rounded " alt="">
                     </a>
-                    <strong class=" py-4 d-block">Coronavirus Update - World</strong>
-                    <h3>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem illo sunt voluptatibus? Totam,
-                        optio commodi.</h3>
-                    <p class="text-secondary">March-11, 2016</p>
-                    <p class="text-secondary">Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
-                        qui voluptatem illum ea laboriosam nam quis repellendus molestiae ab dolore doloribus sequi
-                        minima, natus a, corporis sit, ex nesciunt! At. ipsum dolor sit amet, consectetur adipisicing
-                        elit. Quisquam distinctio voluptatum saepe id ratione nulla in suscipit dolor tempore rerum ut
-                        optio nam tenetur, consectetur laudantium non illo odio est.</p>
+                    <strong class=" py-4 d-block"><?php echo $rowforsectiontwo['categories'] ?></strong>
+                    <h3><?php echo $rowforsectiontwo['title'] ?></h3>
+                    <p class="text-secondary"><?php echo $rowforsectiontwo['post_date'] ?></p>
+                    <p class="text-secondary"><?php echo shorter($rowforsectiontwo['discription'], 250) ?></p>
                 </div>
                 <div class="col-lg-5 ps-md-5 mb-4  hero-2">
                     <h2>Highlight</h2>
@@ -186,64 +197,64 @@ function shorter($text, $chars_limit)
         <div class="row history-a">
             <div class="col-lg-8   history-border pe-4">
                 <h3 class="">Latest Posts</h3>
-   
+
                 <?php
-                    $latestpostquery = "SELECT  * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' 
+                $latestpostquery = "SELECT  * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' 
                     ORDER BY id DESC
                      LIMIT 4 ";
-                    $latestpostresult = mysqli_query($conn, $latestpostquery);
-                    while ($latestpostrow = mysqli_fetch_assoc($latestpostresult)) {
+                $latestpostresult = mysqli_query($conn, $latestpostquery);
+                while ($latestpostrow = mysqli_fetch_assoc($latestpostresult)) {
                 ?>
                     <div class="row py-4">
-                    <div class="col-md-6">
-                        <a href="http://localhost/hyper/<?php echo $latestpostrow['pageurl'] ?>">
-                            <img src="admin/<?php echo $latestpostrow['img']?>" class="rounded" alt="">
-                        </a>
+                        <div class="col-md-6">
+                            <a href="http://localhost/hyper/<?php echo $latestpostrow['pageurl'] ?>">
+                                <img src="admin/<?php echo $latestpostrow['img'] ?>" class="rounded" alt="">
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <strong class="pb-3 pt-md-0 pt-sm-3 p  d-block"><?php echo $latestpostrow['categories'] ?></strong>
+                            <h4><?php echo shorter($latestpostrow['title'], 35) ?></h4>
+                            <p class="text-secondary"><?php echo $latestpostrow['post_date'] ?></p>
+                            <p><?php echo shorter($latestpostrow['discription'], 250) ?></p>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <strong class="pb-3 pt-md-0 pt-sm-3 p  d-block"><?php echo $latestpostrow['categories'] ?></strong>
-                        <h4><?php echo shorter($latestpostrow['title'],35)?></h4>
-                        <p class="text-secondary"><?php echo $latestpostrow['post_date']?></p>
-                        <p><?php echo shorter($latestpostrow['discription'],250)?></p>
-                    </div>
-                    </div>
-                    <?php
-                    }
-                    ?>     
+                <?php
+                }
+                ?>
             </div>
 
 
             <div class="col-lg-4 ps-4">
                 <h2 class="mb-4">This Week</h2>
                 <?php
-                    $thisweekquery = "SELECT  * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' 
+                $thisweekquery = "SELECT  * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' 
                     ORDER BY id DESC
                      LIMIT 5 ";
-                    $thisweekresult = mysqli_query($conn, $thisweekquery);
-                    $serial=1;
-                    while ($thisweekrow = mysqli_fetch_assoc($thisweekresult)) {
-                       
+                $thisweekresult = mysqli_query($conn, $thisweekquery);
+                $serial = 1;
+                while ($thisweekrow = mysqli_fetch_assoc($thisweekresult)) {
+
                 ?>
 
-                <div class="row  mt-3 py-4 border-bottom">
-                    <div class="col-2 ps-1 text-secondary">
-                        <h1>0<?php echo $serial ?>.</h1>
+                    <div class="row  mt-3 py-4 border-bottom">
+                        <div class="col-2 ps-1 text-secondary">
+                            <h1>0<?php echo $serial ?>.</h1>
+                        </div>
+                        <div class="col-10 ">
+                            <a href="http://localhost/hyper/<?php echo $thisweekrow['pageurl'] ?>" class="text-secondary">
+                                <h4><?php echo $thisweekrow['title'] ?></h4>
+                            </a>
+
+                            <P class="text-secondary"><?php echo $thisweekrow['post_date'] ?></P>
+                        </div>
                     </div>
-                    <div class="col-10 ">
-                        <a href="http://localhost/hyper/<?php echo $thisweekrow['pageurl'] ?>" class="text-secondary">
-                        <h4><?php echo $thisweekrow['title'] ?></h4>
-                        </a>
-                        
-                        <P class="text-secondary"><?php echo $thisweekrow['post_date'] ?></P>
-                    </div>
-                </div>
-              <?php
-                  $serial++;
-                    }
-              ?>
-               
-                
-              
+                <?php
+                    $serial++;
+                }
+                ?>
+
+
+
 
                 <div class=" ads mt-3 pt-4 pb-0">
                     <div>
@@ -289,23 +300,23 @@ function shorter($text, $chars_limit)
             $query = "SELECT * FROM blogcategories WHERE `shownavbar` = 'Yes' LIMIT 4";
             $result = mysqli_query($conn, $query);
             while ($row = mysqli_fetch_assoc($result)) {
-                $blog_id=$row['blogs_id'];
+                $blog_id = $row['blogs_id'];
             ?>
                 <div class="col-lg-3 col-md-6   mt-5 history-border pe-4">
                     <h2 class=""><?php echo $row['categories'] ?></h2>
-                   <?php
+                    <?php
                     $queryforblogs = "SELECT  * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories WHERE blogcategories = $blog_id LIMIT 4 ";
                     $resultforblogs = mysqli_query($conn, $queryforblogs);
                     while ($rowforblogs = mysqli_fetch_assoc($resultforblogs)) {
-                        ?>
-                    <div class="row border-bottom py-3">
-                        <h4><?php echo $rowforblogs['title']?></h4>
-                        <p class="text-secondary pt-3"><?php echo $rowforblogs['post_date']?></p>
-                    </div>
+                    ?>
+                        <div class="row border-bottom py-3">
+                            <h4><?php echo $rowforblogs['title'] ?></h4>
+                            <p class="text-secondary pt-3"><?php echo $rowforblogs['post_date'] ?></p>
+                        </div>
                     <?php
                     }
                     ?>
-                    <a href="<?php echo $row['caturl']?>" class="text-dark">View More &rarr; </a>
+                    <a href="<?php echo $row['caturl'] ?>" class="text-dark">View More &rarr; </a>
                 </div>
 
             <?php } ?>
@@ -318,8 +329,9 @@ function shorter($text, $chars_limit)
     <!-- ############# footer ########### -->
     <?php include("include/footer.php") ?>
 
-
     
+    <script src="assets/js/custom.js"></script>
+
 </body>
 
 </html>

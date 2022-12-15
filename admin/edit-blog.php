@@ -10,17 +10,18 @@ if (isset($_POST['submit'])) {
    $content = $_POST['content'];
    $date = date("d M Y");
    $url = $_POST['link'];
-   $sectionone = $_POST['sec-one'];
-   $sectiontwo = $_POST['sec-two'];
+   // $sectionone = $_POST['sec-one'];
+   // $sectiontwo = $_POST['sec-two'];
+   $section = $_POST['section'];
    $img = $_FILES['img']['name'];
    $img_temp = $_FILES['img']['tmp_name'];
    if ($img_temp != "") {
       $destinationfile = 'upload/' . $img;
       move_uploaded_file($img_temp, $destinationfile);
-      $query = "UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`subcategory`='$subcat',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`content`='$content',`img`='$destinationfile',`section_one`='$sectionone',`section_two`='$sectiontwo',`pageurl`='$url' WHERE id=$id";
+      $query = "UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`subcategory`='$subcat',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`content`='$content',`img`='$destinationfile',`section`='$section',`pageurl`='$url' WHERE id=$id";
    } else {
       $query = "UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`subcategory`='$subcat',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`content`='$content',
-      `section_one`='$sectionone',`section_two`='$sectiontwo',`pageurl`='$url' WHERE id=$id";
+      `section`='$section',`pageurl`='$url' WHERE id=$id";
    }
    $resultupdate = mysqli_query($conn, $query);
    header("location:all-blogs.php?edit=$resultupdate");
@@ -55,7 +56,7 @@ if (isset($_POST['submit'])) {
                <form action="#" method="post" enctype="multipart/form-data">
                   <div class="row">
                      <div class="col-12">
-                     
+
                         <div class="card">
                            <div class="card-body">
                               <div class="form-group">
@@ -66,8 +67,9 @@ if (isset($_POST['submit'])) {
                                  if (mysqli_num_rows($result1) > 0) {
                                     $row1 = mysqli_fetch_array($result1);
                                     $pic = $row1['img'];
-                                    $sectionOne = $row1['section_one'];
-                                    $sectionTwo = $row1['section_two'];
+                                    $section = $row1['section'];
+                                    // $sectionOne = $row1['section_one'];
+                                    // $sectionTwo = $row1['section_two'];
                                  ?>
                                     <label for="simpleinput">Title</label>
                                     <input onkeyup="createurl(this.value)" type="text" id="simpleinput" required class="form-control" value="<?php echo $row1['title'] ?> " name="title">
@@ -169,25 +171,54 @@ if (isset($_POST['submit'])) {
                                  <img style="width:120px;height:120;" src="<?php echo $pic; ?>" alt="">
                               </div>
 
-                              <div class="form-group py-2">
+                              <!-- <div class="form-group py-2">
                                  <input <?php
-                                          if ($sectionOne == 'section-one') {
-                                             echo 'checked';
-                                          } else {
-                                             echo '';
-                                          }
+                                          // if ($sectionOne == 'section-one') {
+                                          //    echo 'checked';
+                                          // } else {
+                                          //    echo '';
+                                          // }
                                           ?> type="checkbox" name="sec-one" value="section-one" id="section-one">&nbsp;
                                  <label for="section-one">Visible to Section 1</label>
                                  <br>
                                  <input <?php
-                                          if ($sectionTwo == 'section-two') {
-                                             echo 'checked';
-                                          } else {
-                                             echo '';
-                                          }
+                                          // if ($sectionTwo == 'section-two') {
+                                          //    echo 'checked';
+                                          // } else {
+                                          //    echo '';
+                                          // }
                                           ?> type="checkbox" name="sec-two" value="section-two" id="section-two">&nbsp;
                                  <label for="section-two">Visible to Section 2</label>
+                              </div> -->
+
+                              <div class="form-group">
+                                 <label for="section">Section</label>
+                                 <select class="form-control" name="section" id="section">
+                                    <option value="">Select Section </option>
+                                    <option
+                                    <?php
+                                       if ($section == 1) {
+                                          echo "selected";
+                                       } else {
+                                          echo "";
+                                       }
+                                       
+                                    ?>
+                                    value="1">Section One </option>
+                                    <option 
+                                    <?php
+                                       if ($section == 2) {
+                                          echo "selected";
+                                       } else {
+                                          echo "";
+                                       }
+                                       
+                                    ?>
+                                    value="2">Section Two</option>
+                                 </select>
                               </div>
+
+
                            <?php
                                  }
                            ?>

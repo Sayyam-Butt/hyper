@@ -8,3 +8,5 @@ function convertToSlug(Text) {
    var slug= convertToSlug(value);
     $('#sluggenrated').val(slug)
  }
+
+

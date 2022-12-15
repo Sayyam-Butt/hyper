@@ -1,5 +1,5 @@
 <?php include('cofig.php');
-  include("include/connection.php");
+include("include/connection.php");
 if (isset($_POST['submit'])) {
    $title = $_POST['title'];
    $category = $_POST['category'];
@@ -9,14 +9,15 @@ if (isset($_POST['submit'])) {
    $disc = $_POST['discription'];
    $url = $_POST['link'];
    $date = date("d M Y");
-      $sectionOne = $_POST['section-one'];
-      // $querysectionOne="SELECT section_one FROM blogs";
-      // $resultsectionOne = mysqli_query($conn,$querysectionOne);
-      
-      $sectionTwo = $_POST['section-two'];
-      // $querysectionTwo="SELECT section_two FROM blogs";
-      // $resultsectionTwo = mysqli_query($conn,$querysectionTwo);
-      
+   // $sectionOne = $_POST['section-one'];
+   // $querysectionOne="SELECT section_one FROM blogs";
+   // $resultsectionOne = mysqli_query($conn,$querysectionOne);
+
+   // $sectionTwo = $_POST['section-two'];
+   // $querysectionTwo="SELECT section_two FROM blogs";
+   // $resultsectionTwo = mysqli_query($conn,$querysectionTwo);
+
+   $section = $_POST['section'];
    $files = $_FILES['img'];
    $filename = $files['name'];
    $fileerror = $files['error'];
@@ -38,15 +39,16 @@ if (isset($_POST['submit'])) {
    //    <button type='button' class='close' data-dismiss='alert'>&times;</button>
    //    Section 2 is Filled </div>";
    //  } else{
-      $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `subcategory`,`discription`,`content`, `post_date`,`tagname`,`pageurl`,`img`,`section_one`,`section_two`) VALUES ('$title ',' $category','$subcat','$disc','$content',' $date','$tag','$url','$destinationfile','$sectionOne','$sectionTwo');";
-      $query .= "UPDATE blogcategories SET post=post+1 WHERE blogs_id=$category ;";
-      $query_run =  mysqli_multi_query($conn, $query);
-      header("location:all-blogs.php?add=$query_run");
+   $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `subcategory`,`discription`,`content`, `post_date`,`tagname`,`pageurl`,`img`,`section`,`section_one`,`section_two`) VALUES ('$title ',' $category','$subcat','$disc','$content',' $date','$tag','$url','$destinationfile','$section');";
+   $query .= "UPDATE blogcategories SET post=post+1 WHERE blogs_id=$category ;";
+   $query_run =  mysqli_multi_query($conn, $query);
+   header("location:all-blogs.php?add=$query_run");
    // }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <?php include("include/head.php") ?>
    <title>Hyper | Add Blog </title>
@@ -73,14 +75,14 @@ if (isset($_POST['submit'])) {
                <form action="#" method="post" enctype="multipart/form-data">
                   <div class="row">
                      <div class="col-12">
-                     <?php
-                     //  if (isset($alert1)) {
-                     //    echo $alert1;
-                     // }
-                     // if (isset($alert2)) {
-                     //    echo $alert2;
-                     // }
-                     ?>
+                        <?php
+                        //  if (isset($alert1)) {
+                        //    echo $alert1;
+                        // }
+                        // if (isset($alert2)) {
+                        //    echo $alert2;
+                        // }
+                        ?>
                         <div class="card">
                            <div class="card-body">
                               <div class="form-group">
@@ -145,12 +147,49 @@ if (isset($_POST['submit'])) {
                                  <input required accept="image/png, image/gif, image/jpeg" type="file" id="simpleinput3" class="form-control-file border" name="img">
                               </div>
 
-                              <div class="form-group py-2">
+                              <!-- <div class="form-group py-2">
                                  <input type="checkbox" name="section-one" value="section-one" id="section-one">&nbsp;
                                  <label for="section-one">Visible to Section 1</label>
                                  <br>
                                  <input type="checkbox" name="section-two" value="section-two" id="section-two">&nbsp;
                                  <label for="section-two">Visible to Section 2</label>
+                              </div> -->
+
+                              <?php
+                                       
+                                       $queryforsection= "SELECT * FROM blogs WHERE `section` = 1 ";
+                                       $resultforsection = mysqli_query($conn , $queryforsection);
+                                       $fetchrow = mysqli_fetch_assoc($resultforsection);
+                                       $sectionOne= $fetchrow['section'];
+                                       
+                                       
+                                       $queryforsectiontwo= "SELECT * FROM blogs WHERE `section` = 2 ";
+                                       $resultforsectiontwo = mysqli_query($conn , $queryforsectiontwo);
+                                       $fetchrowtwo = mysqli_fetch_assoc($resultforsectiontwo);
+                                       $sectionTwo= $fetchrowtwo['section'];
+                                     
+                                     ?>
+
+
+                              <div class="form-group">
+                                 <label for="section">Section</label>
+                                 <select class="form-control" name="section" id="section">
+                                    <option value="">Select Section </option>
+                                    <option
+                                    <?php
+                                    if($sectionOne==1){
+                                       echo "disabled";
+                                    }
+                                    ?>
+                                    value="1">Section One </option>
+                                    <option 
+                                    <?php
+                                    if($sectionTwo==2){
+                                       echo "disabled";
+                                    }
+                                    ?>
+                                    value="2">Section Two</option>
+                                 </select>
                               </div>
 
 
