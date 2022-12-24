@@ -9,6 +9,13 @@ if (isset($_POST['submit'])) {
    $disc = $_POST['discription'];
    $url = $_POST['link'];
    $date = date("d M Y");
+
+   $meta_title = mysqli_escape_string($conn,$_POST['meta_title']);
+   $meta_desc = mysqli_escape_string($conn,$_POST['meta_disc']);
+  echo $meta_keyword = mysqli_escape_string($conn,$_POST['meta_keyword']);
+   
+   $trending = $_POST['trend'];
+   $highlight = $_POST['highlight'];
    // $sectionOne = $_POST['section-one'];
    // $querysectionOne="SELECT section_one FROM blogs";
    // $resultsectionOne = mysqli_query($conn,$querysectionOne);
@@ -39,7 +46,21 @@ if (isset($_POST['submit'])) {
    //    <button type='button' class='close' data-dismiss='alert'>&times;</button>
    //    Section 2 is Filled </div>";
    //  } else{
-   $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `subcategory`,`discription`,`content`, `post_date`,`tagname`,`pageurl`,`img`,`section`,`section_one`,`section_two`) VALUES ('$title ',' $category','$subcat','$disc','$content',' $date','$tag','$url','$destinationfile','$section');";
+
+
+   $name = $_FILES['video']['name'];
+   $target_dir = "upload video/";
+   $target_file = $target_dir . $_FILES["video"]["name"];
+
+   // Select file type
+   $extension = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+
+   // Upload
+   move_uploaded_file($_FILES['video']['tmp_name'], $target_file);
+
+
+   $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `subcategory`,`discription`,`content`, `post_date`,`tagname`,`pageurl`,`img`,`video`,`section`,`trending`,`highlight`,`meta_title`, `meta_desc`, `meta_keyword`) VALUES ('$title ',' $category','$subcat','$disc','$content',' $date','$tag','$url','$destinationfile','$target_file','$section','$trending','$highlight','$meta_title','$meta_desc','$meta_keyword');";
    $query .= "UPDATE blogcategories SET post=post+1 WHERE blogs_id=$category ;";
    $query_run =  mysqli_multi_query($conn, $query);
    header("location:all-blogs.php?add=$query_run");
@@ -86,7 +107,7 @@ if (isset($_POST['submit'])) {
                         <div class="card">
                            <div class="card-body">
                               <div class="form-group">
-                                 <label for="simpleinput1">Title</label>
+                                 <label for="simpleinput1">Name</label>
                                  <input onkeyup="createurl(this.value)" type="text" id="simpleinput1" required class="form-control" value="" name="title">
                               </div>
                               <div class="form-group">
@@ -147,6 +168,13 @@ if (isset($_POST['submit'])) {
                                  <input required accept="image/png, image/gif, image/jpeg" type="file" id="simpleinput3" class="form-control-file border" name="img">
                               </div>
 
+                              <div class="form-group">
+                                 <label for="">Video</label>
+                                 <br>
+                                 <input class="form-control-file border" type="file" accept="video/mp4,video/x-m4v,video/*" name="video" id="">
+                              </div>
+
+
                               <!-- <div class="form-group py-2">
                                  <input type="checkbox" name="section-one" value="section-one" id="section-one">&nbsp;
                                  <label for="section-one">Visible to Section 1</label>
@@ -156,43 +184,69 @@ if (isset($_POST['submit'])) {
                               </div> -->
 
                               <?php
-                                       
-                                       $queryforsection= "SELECT * FROM blogs WHERE `section` = 1 ";
-                                       $resultforsection = mysqli_query($conn , $queryforsection);
-                                       $fetchrow = mysqli_fetch_assoc($resultforsection);
-                                       $sectionOne= $fetchrow['section'];
-                                       
-                                       
-                                       $queryforsectiontwo= "SELECT * FROM blogs WHERE `section` = 2 ";
-                                       $resultforsectiontwo = mysqli_query($conn , $queryforsectiontwo);
-                                       $fetchrowtwo = mysqli_fetch_assoc($resultforsectiontwo);
-                                       $sectionTwo= $fetchrowtwo['section'];
-                                     
-                                     ?>
+
+                              $queryforsection = "SELECT * FROM blogs WHERE `section` = 1 ";
+                              $resultforsection = mysqli_query($conn, $queryforsection);
+                              $fetchrow = mysqli_fetch_assoc($resultforsection);
+                              $sectionOne = $fetchrow['section'];
+
+
+                              $queryforsectiontwo = "SELECT * FROM blogs WHERE `section` = 2 ";
+                              $resultforsectiontwo = mysqli_query($conn, $queryforsectiontwo);
+                              $fetchrowtwo = mysqli_fetch_assoc($resultforsectiontwo);
+                              $sectionTwo = $fetchrowtwo['section'];
+
+                              ?>
 
 
                               <div class="form-group">
                                  <label for="section">Section</label>
                                  <select class="form-control" name="section" id="section">
                                     <option value="">Select Section </option>
-                                    <option
-                                    <?php
-                                    if($sectionOne==1){
-                                       echo "disabled";
-                                    }
-                                    ?>
-                                    value="1">Section One </option>
-                                    <option 
-                                    <?php
-                                    if($sectionTwo==2){
-                                       echo "disabled";
-                                    }
-                                    ?>
-                                    value="2">Section Two</option>
+                                    <option <?php
+                                             if ($sectionOne == 1) {
+                                                echo "disabled";
+                                             }
+                                             ?> value="1">Section One </option>
+                                    <option <?php
+                                             if ($sectionTwo == 2) {
+                                                echo "disabled";
+                                             }
+                                             ?> value="2">Section Two</option>
                                  </select>
                               </div>
 
+                              <div class="form-group py-2">
+                                 <input type="checkbox" name="trend" value="trending" id="trend">&nbsp;&nbsp;
+                                 <label for="trend">Trending</label>
+                                 <br>
+                                 <input type="checkbox" name="highlight" value="highlight" id="highlight">&nbsp;&nbsp;
+                                 <label for="highlight">Highlights</label>
 
+                              </div>
+
+                              <div class="form-group">
+                                 <label for="metaTitle">Meta Title</label>
+                                 <div class="input-group input-group-merge">
+                                    <input type="text" id="metaTitle" class="form-control" name="meta_title" value="">
+
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="metadisc">Meta Description</label>
+                                 <div class="input-group input-group-merge">
+                                    <input type="tel" id="metadisc" class="form-control" name="meta_disc" value="">
+
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="metaTag">Meta Keyword</label>
+                                 <div class="input-group input-group-merge">
+                                    <input type="text" id="metaTag" class="form-control" name="meta_keyword" value="">
+                                    <div class="input-group-append" data-password="false">
+                                    </div>
+                                 </div>
+                              </div>
 
                               <div>
                                  <input class="btn btn-primary" type="submit" name="submit" value="Save">

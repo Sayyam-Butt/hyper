@@ -1,5 +1,5 @@
-<?php 
- session_start();
+<?php
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,14 +19,14 @@
     <!-- ######### Corona ########## -->
     <div class="corona text-center  container py-4">
         <?php
-       
+
         $pageurl = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
         $currenturl = $pageurl[2];
         $query1 = "SELECT * FROM blogs WHERE `pageurl`='$currenturl'";
         $result = mysqli_query($conn, $query1);
         $row1 = mysqli_fetch_assoc($result);
         $blogid = $row1['id'];
-        $_SESSION['blogid']=$blogid;
+        $_SESSION['blogid'] = $blogid;
         $titletocheck = $row1['title'];
         ?>
         <div class="row">
@@ -51,9 +51,7 @@
     <!-- ########## content ########## -->
     <div class="container fw-bold content">
         <div class="row">
-            <a href="">
-                <img style="" src="admin/<?php echo $row1['img'] ?>" class="rounded" alt="">
-            </a>
+                <img style="width: 100%; height:420px;" src="admin/<?php echo $row1['img'] ?>" class="rounded" alt="">
             <div class="col-lg-2 my-5 data-left ">
                 <p>All online Conferences to save your box, get Inspired and Stay Connected
                 </p>
@@ -111,22 +109,22 @@
 
                 <hr>
 
-                <div class="leave py-3">
+                <div class="leave py-3 ">
                     <h2 class="py-3">Leave A Comment</h2>
                     <form id="commentForm" method="POST">
                         <div class="row py-3">
                             <div class="col-6 g-0">
                                 <label for="">Name</label>
-                                <input type="text" name="name" id="name" required class="form-control">
+                                <input placeholder="Enter Name" type="text" name="name" id="name" required class="form-control">
                             </div>
                             <div class="col-6">
                                 <label for="">Gmail</label>
-                                <input type="text" id="email" name="email" required class="form-control">
+                                <input placeholder="Enter Email" type="text" id="email" name="email" required class="form-control">
                             </div>
                         </div>
                         <div class="row">
                             <label for="" class="py-2">Comments</label>
-                            <textarea name="comment" id="comment" rows="5" class="form-control">
+                            <textarea placeholder="Enter Comment" name="comment" id="comment" rows="5" class="form-control">
                         </textarea>
                         </div>
                         <span id="message"></span>
@@ -168,7 +166,7 @@
                             <h5 class="card-text">
                                 <?php echo $rowforrelatedpost['title'] ?>
                             </h5>
-                            <p><?php echo $rowforrelatedpost['post_date'] ?></p>
+                            <small><?php echo $rowforrelatedpost['post_date'] ?></small>
                         </div>
                     </div>
                 </div>

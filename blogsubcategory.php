@@ -115,16 +115,17 @@ function shorter($text, $chars_limit)
                     while ($row2 = mysqli_fetch_assoc($run2)) {
                     ?>
                         <div class="col-md-4  ">
-                            <div class="card border-0 shadow">
+                            <div class="card border-0 ">
                                 <a href="http://localhost/hyper/<?php echo $row2['pageurl'] ?>">
-                                    <img class="card-img-top rounded" src="admin/<?php echo $row2['img'] ?>" alt="Card image" style="width:100%">
-                                </a>
-                                <div class="card-body p-2">
-                                    <strong class="card-title"><?php echo $row2['categories'] ?></strong>
-                                    <h5 class="card-text"><?php echo $row2['title'] ?></h5>
-                                    <p><?php echo $row2['post_date'] ?></p>
-                                    <p class="text-justify"><?php echo shorter($row2['discription'],250) ?></p>
-                                    <a href="http://localhost/hyper/<?php echo $row2['pageurl'] ?>" class="text-dark">Read The Article</a>
+                                    <img class="card-img-top rounded pb-2" src="admin/<?php echo $row2['img'] ?>" alt="Card image" style="width:100%">
+                                
+                                <div class="card-body p-0">
+                                    <strong class="card-title text-dark"><?php echo $row2['categories'] ?></strong>
+                                    <h5 class="card-text text-dark"><?php echo $row2['title'] ?></h5>
+                                    <small class="text-dark pb-2"><?php echo $row2['post_date'] ?></small>
+                                    <p class="text-justify text-secondary"><?php echo shorter($row2['discription'],200) ?></p>
+                                    <b class="text-dark">Read The Artical</b>
+                                    </a>
                                 </div>
                             </div>
                         </div>

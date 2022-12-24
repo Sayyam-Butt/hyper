@@ -17,6 +17,10 @@
  $resultforblogssubcategories=mysqli_query($conn,$sqlforblogssubcategories);
  $finalresultsubcategories = mysqli_num_rows($resultforblogssubcategories);
 
+ $sqlfortag = 'SELECT * FROM tags WHERE tagurl ="'.$currenturl.'" ';
+ $resultfortag = mysqli_query($conn , $sqlfortag);
+ $finalresultfortag = mysqli_num_rows($resultfortag);
+
  if($finalresultblogs > 0)
  {
     include 'blogdetailpage.php';
@@ -24,10 +28,12 @@
  {
     include 'blogmaincategory.php';
  }else if($finalresultsubcategories > 0)
-   { 
+ { 
     include 'blogsubcategory.php';
- }else{
+ }else if($finalresultfortag > 0)
+ {
+    include 'blogstag.php';
+ }
+ else{
     include '404.php';
  }
-
-?>

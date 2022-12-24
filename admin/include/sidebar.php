@@ -60,6 +60,12 @@
          </ul>
       </li>
       <li class="side-nav-item">
+        <a href="contactmessage.php" class="side-nav-link">
+            <i  style='font-size:15px' class="fas fa-comment-alt"></i>
+            <span> Contact Messages </span>
+        </a>
+      </li>
+      <li class="side-nav-item">
         <a href="site-settings.php" class="side-nav-link">
             <i class="uil-edit-alt"></i>
             <span> Site Settings </span>

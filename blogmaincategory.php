@@ -57,10 +57,13 @@ function shorter($text, $chars_limit)
     <div class="post container py-5">
         <div class="row">
             <div class="col-lg-3 all">
-                <div class="input-group">
-                    <input type="search" class="form-control" placeholder="Search">
-                    <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
-                </div>
+                <form action="search" method="get">
+                    <div class="input-group">
+                        <input type="search" name="s" class="form-control" placeholder="Search">
+                       
+                    </div>
+                </form>
+
                 <div class="side-bar">
                     <ul class="nav  fw-bold py-4">
                         <?php
@@ -69,7 +72,7 @@ function shorter($text, $chars_limit)
                         while ($row3 = mysqli_fetch_assoc($run3)) {
                         ?>
                             <li class="nav-item ">
-                                <a class="nav-link" href="<?php echo $row3['subcaturl']?>"><?php echo $row3['name'] ?></a>
+                                <a class="nav-link" href="<?php echo $row3['subcaturl'] ?>"><?php echo $row3['name'] ?></a>
                             </li>
                         <?php
                         }
@@ -103,26 +106,27 @@ function shorter($text, $chars_limit)
                     while ($row2 = mysqli_fetch_assoc($run2)) {
                     ?>
                         <div class="col-md-4  ">
-                            <div class="card border-0 shadow">
+                            <div class="card border-0 pb-3">
                                 <a href="http://localhost/hyper/<?php echo $row2['pageurl'] ?>">
-                                    <img class="card-img-top rounded" src="admin/<?php echo $row2['img'] ?>" alt="Card image" style="width:100%">
+                                    <img class="card-img-top rounded pb-2" src="admin/<?php echo $row2['img'] ?>" alt="Card image" style="width:100%">
+
+                                    <div class="card-body p-0">
+                                        <strong class="card-title text-dark"><?php echo $row2['categories'] ?></strong>
+                                        <h5 class="card-text text-dark"><?php echo $row2['title'] ?></h5>
+                                        <small class="text-dark"><?php echo $row2['post_date'] ?></small>
+                                        <p class="text-justify text-secondary"><?php echo shorter($row2['discription'], 200) ?></p>
+                                        <b class="text-dark">Read The Artical</b>
                                 </a>
-                                <div class="card-body p-2">
-                                    <strong class="card-title"><?php echo $row2['categories'] ?></strong>
-                                    <h5 class="card-text"><?php echo $row2['title'] ?></h5>
-                                    <p><?php echo $row2['post_date'] ?></p>
-                                    <p class="text-justify"><?php echo shorter($row2['discription'],250) ?></p>
-                                    <a href="http://localhost/hyper/<?php echo $row2['pageurl'] ?>" class="text-dark">Read The Article</a>
-                                </div>
                             </div>
                         </div>
-                    <?php
-                    }
-                    ?>
-
                 </div>
+            <?php
+                    }
+            ?>
+
             </div>
         </div>
+    </div>
     </div>
     <!-- ########## Email ########### -->
     <div class="container rounded email">

@@ -10,18 +10,47 @@ if (isset($_POST['submit'])) {
    $content = $_POST['content'];
    $date = date("d M Y");
    $url = $_POST['link'];
+
+   $title_meta = $_POST['meta_title'];
+   $desc_meta = $_POST['meta_desc'];
+   $keyword_meta = $_POST['meta_keyword'];
+
    // $sectionone = $_POST['sec-one'];
    // $sectiontwo = $_POST['sec-two'];
    $section = $_POST['section'];
+
+   $trending = $_POST['trend'];
+   $highlight = $_POST['highlight'];
+
    $img = $_FILES['img']['name'];
    $img_temp = $_FILES['img']['tmp_name'];
-   if ($img_temp != "") {
-      $destinationfile = 'upload/' . $img;
+   $destinationfile = 'upload/' . $img;
+
+
+
+   $name = $_FILES['video']['name'];
+   $target_dir = "upload video/";
+   $target_file = $target_dir . $_FILES["video"]["name"];
+
+
+   if (!empty($img_temp) and empty($name)) {
       move_uploaded_file($img_temp, $destinationfile);
-      $query = "UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`subcategory`='$subcat',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`content`='$content',`img`='$destinationfile',`section`='$section',`pageurl`='$url' WHERE id=$id";
-   } else {
+      $query = "UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`subcategory`='$subcat',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`content`='$content',`img`='$destinationfile',`section`='$section',`pageurl`='$url',`highlight`='$highlight',`trending`='$trending',`meta_title`='$title_meta',`meta_desc`='$desc_meta',`meta_keyword`='$keyword_meta' WHERE id=$id";
+   }
+   if (empty($img_temp) and !empty($name)) {
+      move_uploaded_file($_FILES['video']['tmp_name'], $target_file);
+      $query = "UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`subcategory`='$subcat',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`content`='$content',`video`='$target_file',
+      `section`='$section',`pageurl`='$url' ,`highlight`='$highlight',`trending`='$trending',`meta_title`='$title_meta',`meta_desc`='$desc_meta',`meta_keyword`='$keyword_meta' WHERE id=$id";
+   }
+   if (!empty($img_temp) and !empty($name)) {
+      move_uploaded_file($img_temp, $destinationfile);
+      move_uploaded_file($_FILES['video']['tmp_name'], $target_file);
       $query = "UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`subcategory`='$subcat',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`content`='$content',
-      `section`='$section',`pageurl`='$url' WHERE id=$id";
+      `section`='$section',`img`='$destinationfile',`video`='$target_file',`pageurl`='$url' ,`highlight`='$highlight',`trending`='$trending' ,`meta_title`='$title_meta',`meta_desc`='$desc_meta',`meta_keyword`='$keyword_meta' WHERE id=$id";
+   }
+   if (empty($img_temp) and empty($name)) {
+      $query = "UPDATE `blogs` SET `title`='$title',`blogcategories`='$caty',`subcategory`='$subcat',`post_date`='$date',`tagname`='$tag',`discription`='$disc',`content`='$content',
+      `section`='$section',`pageurl`='$url' ,`highlight`='$highlight',`trending`='$trending' ,`meta_title`='$title_meta',`meta_desc`='$desc_meta',`meta_keyword`='$keyword_meta' WHERE id=$id";
    }
    $resultupdate = mysqli_query($conn, $query);
    header("location:all-blogs.php?edit=$resultupdate");
@@ -68,10 +97,14 @@ if (isset($_POST['submit'])) {
                                     $row1 = mysqli_fetch_array($result1);
                                     $pic = $row1['img'];
                                     $section = $row1['section'];
-                                    // $sectionOne = $row1['section_one'];
-                                    // $sectionTwo = $row1['section_two'];
+                                    $trendcheck = $row1['trending'];
+                                    $highlightcheck = $row1['highlight'];
+                                    $videolocation = $row1['video'];
+                                    $meta_title = $row1['meta_title'];
+                                    $meta_desc = $row1['meta_desc'];
+                                    $meta_keyword = $row1['meta_keyword'];
                                  ?>
-                                    <label for="simpleinput">Title</label>
+                                    <label for="simpleinput">Name</label>
                                     <input onkeyup="createurl(this.value)" type="text" id="simpleinput" required class="form-control" value="<?php echo $row1['title'] ?> " name="title">
                               </div>
 
@@ -171,6 +204,17 @@ if (isset($_POST['submit'])) {
                                  <img style="width:120px;height:120;" src="<?php echo $pic; ?>" alt="">
                               </div>
 
+
+                              <div class="form-group">
+                                 <label for="">Video</label>
+                                 <br>
+                                 <input class="form-control-file border" type="file" accept="video/mp4,video/x-m4v,video/*" name="video" id="">
+                              </div>
+                              <div class="border my-2 p-1">
+                                 <video src="<?php echo $videolocation ?>" autoplay muted controls width="320px" height="200px"></video>
+                              </div>
+
+
                               <!-- <div class="form-group py-2">
                                  <input <?php
                                           // if ($sectionOne == 'section-one') {
@@ -195,27 +239,68 @@ if (isset($_POST['submit'])) {
                                  <label for="section">Section</label>
                                  <select class="form-control" name="section" id="section">
                                     <option value="">Select Section </option>
-                                    <option
-                                    <?php
-                                       if ($section == 1) {
-                                          echo "selected";
-                                       } else {
-                                          echo "";
-                                       }
-                                       
-                                    ?>
-                                    value="1">Section One </option>
-                                    <option 
-                                    <?php
-                                       if ($section == 2) {
-                                          echo "selected";
-                                       } else {
-                                          echo "";
-                                       }
-                                       
-                                    ?>
-                                    value="2">Section Two</option>
+                                    <option <?php
+                                             if ($section == 1) {
+                                                echo "selected";
+                                             } else {
+                                                echo "";
+                                             }
+
+                                             ?> value="1">Section One </option>
+                                    <option <?php
+                                             if ($section == 2) {
+                                                echo "selected";
+                                             } else {
+                                                echo "";
+                                             }
+
+                                             ?> value="2">Section Two</option>
                                  </select>
+                              </div>
+
+
+                              <div class="form-group py-2">
+                                 <input type="checkbox" name="trend" value="trending" id="trend" <?php
+                                                                                                   if ($trendcheck == "trending") {
+                                                                                                      echo "checked";
+                                                                                                   } else {
+                                                                                                      echo "";
+                                                                                                   }
+                                                                                                   ?>>&nbsp;&nbsp;
+                                 <label for="trend">Trending</label>
+                                 <br>
+                                 <input type="checkbox" name="highlight" value="highlight" id="highlight" <?php
+                                                                                                            if ($highlightcheck == "highlight") {
+                                                                                                               echo "checked";
+                                                                                                            } else {
+                                                                                                               echo "";
+                                                                                                            }
+                                                                                                            ?>>&nbsp;&nbsp;
+                                 <label for="highlight">Highlights</label>
+
+                              </div>
+
+                              <div class="form-group">
+                                 <label for="metaTitle">Meta Title</label>
+                                 <div class="input-group input-group-merge">
+                                    <input type="text" id="metaTitle" class="form-control" name="meta_title" value="<?php echo $meta_title?>">
+
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="metadisc">Meta Description</label>
+                                 <div class="input-group input-group-merge">
+                                    <input type="tel" id="metadisc" class="form-control" name="meta_desc" value="<?php echo $meta_desc?>">
+
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="metaTag">Meta Keyword</label>
+                                 <div class="input-group input-group-merge">
+                                    <input type="text" id="metaTag" class="form-control" name="meta_keyword" value="<?php echo $meta_keyword?>">
+                                    <div class="input-group-append" data-password="false">
+                                    </div>
+                                 </div>
                               </div>
 
 

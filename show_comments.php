@@ -13,10 +13,10 @@ while($comment = mysqli_fetch_assoc($commentsResult)){
                                 <div class="clearfix">
                                     <div class="float-start">
                                         <h4 class="">'.$comment["sender"].'</h4>
-                                        <p>'.$comment["date"].'</p>
+                                        <small>'.$comment["date"].'</small>
                                     </div>
                                 </div>
-                                <p style="padding-left:20px;">'.$comment["comment"].'</p>
+                                <h5 style="padding-left:20px;">'.$comment["comment"].'</h5>
 								<div class="panel-footer" align="right"><button type="button" class="btn btn-dark reply" id="'.$comment["id"].'">Reply</button></div>
                             </div>
                         </div> ';

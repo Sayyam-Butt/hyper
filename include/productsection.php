@@ -67,7 +67,7 @@
                         while ($tagrow = mysqli_fetch_array($tagresult)) {
 
                         ?>
-                            <a href=""><?php echo $tagrow['tagname'] ?></a>
+                            <a href="<?php echo $tagrow['tagurl']?>"><?php echo $tagrow['tagname'] ?></a>
                         <?php
                         }
                         ?>

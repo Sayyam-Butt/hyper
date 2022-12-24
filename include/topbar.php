@@ -1,14 +1,12 @@
 <?php
 include("include/connection.php");
-if (isset($_POST['search'])) {
-    $search = $_POST['search'];
-}
+// if (isset($_POST['search'])) {
+//     $search = $_POST['search'];
+// }
 $query = "SELECT * FROM site_setting";
 $run = mysqli_query($conn, $query);
 $row = mysqli_fetch_assoc($run);
 ?>
-
-
 
 
 
@@ -33,7 +31,7 @@ $row = mysqli_fetch_assoc($run);
                 </div>
             </div>
             <div class="col-md-4 logo-1 text-center g-0">
-                <a href="" class="text-decoration-none  text-dark">
+                <a href="index" class="text-decoration-none  text-dark">
                     <img src="admin/<?php echo $row['logo'] ?>" class="pb-1" alt="">
                 </a>
 
@@ -53,7 +51,7 @@ $row = mysqli_fetch_assoc($run);
 
 
         <div class="canvas-logo pt-1">
-            <a href="" class="text-decoration-none text-dark">
+            <a href="index" class="text-decoration-none text-dark">
                 <img src="admin/<?php echo $row['mobile_logo'] ?>" class="pb-1 ps-3" alt="">
             </a>
             <p class="text-secondary ps-3 ">Sat , October 15</p>
@@ -79,10 +77,10 @@ $row = mysqli_fetch_assoc($run);
                     </div>
                 </div>
                 <div id="box">
-                    <form action="search.php" method="get">
-                        <input placeholder="Search Here" id="searchbox" type="search" name="search" />
+                    <form action="search" method="get">
+                        <input placeholder="Search Here" id="searchbox" type="search" name="s" />
                         <input type="submit" class="btn btn-secondary" value="Search">
-
+                    </form>
                 </div>
             </div>
 

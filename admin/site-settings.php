@@ -239,7 +239,6 @@ if (isset($_POST['submit-contact-info'])) {
             </div>
             <!-- end row -->
             </form>
-            </form>
             <form action="#" method="post">
                <div class="row">
                   <div class="col-12">

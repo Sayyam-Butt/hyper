@@ -1,6 +1,6 @@
 <?php
 include("include/connection.php");
-$search = $_GET['search'];
+$search = $_GET['s'];
 function shorter($text, $chars_limit)
 {
     if (strlen($text) > $chars_limit) {
@@ -34,32 +34,33 @@ function shorter($text, $chars_limit)
         <div class="row py-4">
             <?php
             include("include/connection.php");
-             $searchquery = "SELECT * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' AND `title` LIKE '%$search%'";
+             $searchquery = "SELECT * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' AND `title` LIKE '%$search%' OR `discription` LIKE '%$search%'";
             $searchqueryresult = mysqli_query($conn, $searchquery);
+            // if(mysqli_num_rows($searchqueryresult)>1){
             while ($searchrow = mysqli_fetch_assoc($searchqueryresult)) {
             ?>
                 <div class="col-md-3  ">
-                    <div class="card border-0 shadow">
-                        <a href="">
-                            <img class="card-img-top rounded" src="admin/<?php echo $searchrow['img'] ?>" alt="Card image" style="width:100%">
-                        </a>
-                        <div class="card-body p-2">
-                            <strong class="card-title"><?php echo $searchrow['categories'] ?></strong>
-                            <h5 class="card-text"><?php echo $searchrow['title'] ?></h5>
-                            <p><?php echo $searchrow['post_date'] ?></p>
-                            <p class="text-justify"><?php echo shorter($searchrow['discription'], 250) ?></p>
-                            <a href="http://localhost/hyper/<?php echo $searchrow['pageurl'] ?>" class="text-dark">Read The Article</a>
+                    <div class="card border-0 ">
+                        <a href="http://localhost/hyper/<?php echo $searchrow['pageurl']?>">
+                            <img class="card-img-top rounded pb-2" src="admin/<?php echo $searchrow['img'] ?>" alt="Card image" style="width:100%">
+                        
+                        <div class="card-body p-0">
+                            <strong class="card-title text-dark"><?php echo $searchrow['categories'] ?></strong>
+                            <h5 class="card-text text-dark"><?php echo $searchrow['title'] ?></h5>
+                            <p class="text-dark"><?php echo $searchrow['post_date'] ?></p>
+                            <p class="text-justify text-secondary"><?php echo shorter($searchrow['discription'], 200) ?></p>
+                            <b class="text-dark">Read The Artical</b>
+                            </a>
                         </div>
                     </div>
                 </div>
 
             <?php
             }
-
+        // }else{
+        //     echo "<h5 class='text-center'> No result found for this search </h5>";
+        // }
             ?>
-
-
-
         </div>
     </div>
 
