@@ -3,7 +3,10 @@ if (isset($_POST['submit'])) {
    include("include/connection.php");
    $tagname = $_POST['tag'];
    $tagurl = $_POST['link'];
-   $sql1 = "INSERT INTO `tags`(`tagname`, `tagurl`) VALUES ('$tagname','$tagurl')";
+   $meta_title = $_POST['meta_title'];
+   $meta_desc = $_POST['meta_desc'];
+   $meta_keyword = $_POST['meta_keyword'];
+   $sql1 = "INSERT INTO `tags`(`tagname`, `tagurl`,`meta_title`,`meta_desc`,`meta_keyword`) VALUES ('$tagname','$tagurl','$meta_title','$meta_desc','$meta_keyword')";
    $result = mysqli_query($conn, $sql1);
    header("location:blogs-tags.php?add=$result");
 }
@@ -48,6 +51,27 @@ if (isset($_POST['submit'])) {
                                  <label for="simpleinput">Url</label>
                                  <input required type="text" id="sluggenrated" class="form-control" value="" name="link">
                               </div>
+                              <div class="form-group">
+                                 <label for="metaTitle">Meta Title</label>
+                                 <div class="input-group input-group-merge">
+                                    <input required type="text" id="input2" class="form-control" name="meta_title" value="">
+
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="metadisc">Meta Description</label>
+                                 <div class="input-group input-group-merge">
+                                    <input required type="tel" id="metadisc" class="form-control" name="meta_desc" value="">
+
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="metaTag">Meta Keyword</label>
+                                 <div class="input-group input-group-merge">
+                                    <input required type="text" id="metaTag" class="form-control" name="meta_keyword" value="">
+                                 </div>
+                              </div>
+
                               <div>
                                  <input class="btn btn-primary" type="submit" name="submit" value="Add">
                               </div>

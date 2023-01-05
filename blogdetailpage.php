@@ -6,7 +6,6 @@ session_start();
 
 <head>
     <?php include("include/head.php") ?>
-    <title>The Canvas Times</title>
 </head>
 
 <body>
@@ -17,9 +16,10 @@ session_start();
         <?php include("include/navbar.php") ?>
     </div>
     <!-- ######### Corona ########## -->
+   
     <div class="corona text-center  container py-4">
         <?php
-
+        
         $pageurl = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
         $currenturl = $pageurl[2];
         $query1 = "SELECT * FROM blogs WHERE `pageurl`='$currenturl'";

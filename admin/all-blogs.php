@@ -142,16 +142,14 @@ if (isset($_GET['del'])) {
                                              <td class="align-middle"><?php echo $row["categories"] ?></td>
                                              <td class="align-middle">
                                                 <?php
-                                                  if ($row["section"]==1) {
+                                                if ($row["section"] == 1) {
                                                    echo "Section 1";
-                                                  }
-                                                  elseif ($row["section"]==2) {
+                                                } elseif ($row["section"] == 2) {
                                                    echo "Section 2";
-                                                  }
-                                                  else  {
+                                                } else {
                                                    echo "Null";
-                                                  }
-                                                  
+                                                }
+
                                                 ?>
                                              </td>
                                              <td class="align-middle"><?php echo $row["post_date"] ?></td>

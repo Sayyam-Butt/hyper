@@ -107,5 +107,19 @@
        });
      });
     </script>
+    <script>
+       // Live Search for faq
+     $("#searchfaq").on("keyup",function(){
+       var search_term = $(this).val();
+       $.ajax({
+         url: "ajax-search-faq.php",
+         type: "POST",
+         data : {search:search_term },
+         success: function(data) {
+           $("#table-data-faq").html(data);
+         }
+       });
+     });
+    </script>
 
  

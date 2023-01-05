@@ -5,6 +5,7 @@ function convertToSlug(Text) {
   }
 
  function createurl(value){
+  $("#input2").val(value);
    var slug= convertToSlug(value);
     $('#sluggenrated').val(slug)
  }

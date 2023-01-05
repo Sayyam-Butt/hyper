@@ -211,7 +211,17 @@ if (isset($_POST['submit'])) {
                                  <input class="form-control-file border" type="file" accept="video/mp4,video/x-m4v,video/*" name="video" id="">
                               </div>
                               <div class="border my-2 p-1">
-                                 <video src="<?php echo $videolocation ?>" autoplay muted controls width="320px" height="200px"></video>
+                                 <?php
+                                 if(!empty($videolocation)){
+                                    ?>
+                                    <video src="<?php echo $videolocation ?>" autoplay muted controls width="320px" height="200px"></video>
+                                 <?php
+                                 }else
+                                 {
+                                    echo"<strong>No Video</strong>";
+                                 }
+                                 ?>
+                                 
                               </div>
 
 

@@ -15,7 +15,6 @@ function shorter($text, $chars_limit)
 <html lang="en">
 
 <head>
-    <title>Document</title>
     <?php include("include/head.php") ?>
 </head>
 

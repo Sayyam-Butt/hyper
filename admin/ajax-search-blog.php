@@ -1,12 +1,10 @@
 <?php
 
 $search_value = $_POST["search"];
-
 include("include/connection.php");
-
 $sql = "SELECT * FROM blogs
  INNER JOIN blogcategories ON blogs.blogcategories = blogcategories.blogs_id
- WHERE title LIKE '%{$search_value}%'";
+ WHERE title LIKE '%{$search_value}%' OR categories LIKE '%{$search_value}%'";
 $result = mysqli_query($conn, $sql) or die("SQL Query Failed.");
 $output = "";
 if(mysqli_num_rows($result) > 0 ){
@@ -18,7 +16,7 @@ if(mysqli_num_rows($result) > 0 ){
                  if ($row["section"]==2) {
                     $section =  "Section 2";
                  }
-                 if ($row["section"]=="") {
+                 if ($row["section"]=="0") {
                    $section = "Null";
                  }
                 $output .= "<tr><td class='align-middle'>$a </td>

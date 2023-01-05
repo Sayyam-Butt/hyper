@@ -3,7 +3,10 @@ if (isset($_POST['submit'])) {
    include("include/connection.php");
    $tagname = $_POST['tag'];
    $id = $_GET['id'];
-   $sql1 = " UPDATE `tags` SET `tagname`='$tagname' WHERE id = $id";
+   $meta_title = $_POST['meta_title'];
+   $meta_desc = $_POST['meta_desc'];
+   $meta_keyword = $_POST['meta_keyword'];
+   $sql1 = " UPDATE `tags` SET `tagname`='$tagname' , `meta_title`='$meta_title',`meta_desc`='$meta_desc',`meta_keyword`='$meta_keyword' WHERE id = $id";
    $result = mysqli_query($conn, $sql1);
    header("location:blogs-tags.php?edit=$result");
 }
@@ -49,11 +52,31 @@ if (isset($_POST['submit'])) {
                                  if (mysqli_num_rows($result) > 0) {
                                     while ($row =  mysqli_fetch_assoc($result)) {
                                  ?>
-                                       <input type="text" id="simpleinput" required class="form-control" value="<?php echo $row['tagname'] ?>" name="tag">
+                                       <input onkeyup="createurl(this.value)" type="text" id="simpleinput" required class="form-control" value="<?php echo $row['tagname'] ?>" name="tag">
                               </div>
                               <div class="form-group">
                                  <label for="simpleinput">Url</label>
-                                 <input required type="text" id="sluggenrated" class="form-control" value="<?php echo $row['tagurl']?>" name="link">
+                                 <input required type="text" id="sluggenrated" class="form-control" value="<?php echo $row['tagurl'] ?>" name="link">
+                              </div>
+                              <div class="form-group">
+                                 <label for="metaTitle">Meta Title</label>
+                                 <div class="input-group input-group-merge">
+                                    <input required type="text" id="input2" class="form-control" name="meta_title" value="<?php echo $row['meta_title']?>">
+
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="metadisc">Meta Description</label>
+                                 <div class="input-group input-group-merge">
+                                    <input required type="tel" id="metadisc" class="form-control" name="meta_desc" value="<?php echo $row['meta_desc']?>">
+
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="metaTag">Meta Keyword</label>
+                                 <div class="input-group input-group-merge">
+                                    <input required type="text" id="metaTag" class="form-control" name="meta_keyword" value="<?php echo $row['meta_keyword']?>">
+                                 </div>
                               </div>
                               <div>
                                  <input class="btn btn-primary" type="submit" name="submit" value="Update">

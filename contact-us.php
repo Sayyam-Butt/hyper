@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
     $message = $_POST['message'];
     $queryformessage = "INSERT INTO `contactmessage`( `name`, `email`, `message`) VALUES ('$username','$email','$message')";
     $resultformessage = mysqli_query($conn, $queryformessage);
-   
+
 
 
 

@@ -130,7 +130,7 @@ if (isset($_POST['submit'])) {
                               </div>
                               <div class="form-group">
                                  <label for="SUBCATEGORY">Sub Category</label>
-                                 <select required name="sub-cat" class="form-control" id="sub-category-dropdown">
+                                 <select  name="sub-cat" class="form-control" id="sub-category-dropdown">
                                     <option value="">Select Sub Category</option>
                                  </select>
                               </div>
@@ -228,21 +228,21 @@ if (isset($_POST['submit'])) {
                               <div class="form-group">
                                  <label for="metaTitle">Meta Title</label>
                                  <div class="input-group input-group-merge">
-                                    <input type="text" id="metaTitle" class="form-control" name="meta_title" value="">
+                                    <input required type="text" id="metaTitle" class="form-control" name="meta_title" value="">
 
                                  </div>
                               </div>
                               <div class="form-group">
                                  <label for="metadisc">Meta Description</label>
-                                 <div class="input-group input-group-merge">
-                                    <input type="tel" id="metadisc" class="form-control" name="meta_disc" value="">
+                                 <div re class="input-group input-group-merge">
+                                    <input required type="tel" id="metadisc" class="form-control" name="meta_disc" value="">
 
                                  </div>
                               </div>
                               <div class="form-group">
                                  <label for="metaTag">Meta Keyword</label>
                                  <div class="input-group input-group-merge">
-                                    <input type="text" id="metaTag" class="form-control" name="meta_keyword" value="">
+                                    <input required type="text" id="metaTag" class="form-control" name="meta_keyword" value="">
                                     <div class="input-group-append" data-password="false">
                                     </div>
                                  </div>
