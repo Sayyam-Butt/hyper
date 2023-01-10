@@ -9,8 +9,12 @@ if (isset($_POST['submit'])) {
    $meta_keyword = $_POST['meta_keyword'];
    $sql1 = " UPDATE `subcategories` SET `name`='$subcat_name',`subcaturl`='$link',`meta_title`='$meta_title',`meta_desc`='$meta_desc' ,`meta_keyword`='$meta_keyword' WHERE id = $sub_id";
    $result = mysqli_query($conn, $sql1);
-
-   header("location:Sub-category.php?edit=$result");
+   if ($result) {
+		$_SESSION['status'] = "Subcategory Edited Successfully";
+      header("location:Sub-category.php");
+	}
+  
+   
 }
 ?>
 <!DOCTYPE html>

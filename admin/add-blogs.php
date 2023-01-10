@@ -9,6 +9,8 @@ if (isset($_POST['submit'])) {
    $disc = $_POST['discription'];
    $url = $_POST['link'];
    $date = date("d M Y");
+   
+   
 
    $meta_title = mysqli_escape_string($conn,$_POST['meta_title']);
    $meta_desc = mysqli_escape_string($conn,$_POST['meta_disc']);
@@ -63,7 +65,10 @@ if (isset($_POST['submit'])) {
    $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `subcategory`,`discription`,`content`, `post_date`,`tagname`,`pageurl`,`img`,`video`,`section`,`trending`,`highlight`,`meta_title`, `meta_desc`, `meta_keyword`) VALUES ('$title ',' $category','$subcat','$disc','$content',' $date','$tag','$url','$destinationfile','$target_file','$section','$trending','$highlight','$meta_title','$meta_desc','$meta_keyword');";
    $query .= "UPDATE blogcategories SET post=post+1 WHERE blogs_id=$category ;";
    $query_run =  mysqli_multi_query($conn, $query);
-   header("location:all-blogs.php?add=$query_run");
+   if ($query_run) {
+		$_SESSION['status'] = "Blog Added Successfully";
+      header("location:all-blogs.php");	}
+   
    // }
 }
 ?>

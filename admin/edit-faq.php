@@ -6,7 +6,12 @@ if (isset($_POST['submit'])) {
   $answer = $_POST["answer"];
   $query = "UPDATE `faq` SET `question`='$question',`answer`='$answer' WHERE id=$faq_id";
   $result = mysqli_query($conn,$query);
-  header("location:allFaq.php");
+  if ($result) {
+   $_SESSION['status'] = "Faq Edited Successfully";
+   header("location:allFaq.php");  
+ }
+
+  
 }
 ?>
 <!DOCTYPE html>

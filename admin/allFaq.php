@@ -9,8 +9,7 @@ function shorter($text, $chars_limit)
         return $text;
     }
 }
-if (isset($_GET['add'])) {
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,8 +72,22 @@ if (isset($_GET['add'])) {
                                 </div>
                                 <h4 class="page-title">All FaQ's </h4>
                             </div>
-                            <?php if (isset($info_alert)) {
-                                echo $info_alert;
+                            <?php
+                            //  if (isset($info_alert)) {
+                            //     echo $info_alert;
+                            // }
+                            ?>
+
+                            <?php
+                            if (isset($_SESSION['status'])) {
+                            ?>
+                                <div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <?php echo $_SESSION['status']; ?>
+                                </div>
+                            <?php
+
+                                unset($_SESSION['status']);
                             }
                             ?>
                             <div class="card">
@@ -120,15 +133,15 @@ if (isset($_GET['add'])) {
                                                 ?>
                                                         <tr>
                                                             <td class="align-middle"><?php echo $a; ?> </td>
-                                                            <td><?php echo shorter($row['question'],80)?></td>
+                                                            <td><?php echo shorter($row['question'], 80) ?></td>
                                                             <td class="align-middle">
-                                                                <a style="color:grey;" href="edit-faq.php?id=<?php echo $row['id']?>"><i class='far fa-edit'></i></a>
+                                                                <a style="color:grey;" href="edit-faq.php?id=<?php echo $row['id'] ?>"><i class='far fa-edit'></i></a>
                                                             </td>
-                                                            <td class="align-middle ">           
-                                                                <a style="color:grey;" href="del-faq.php?id=<?php echo $row['id']?>"><i class='fas fa-trash'></i>
+                                                            <td class="align-middle ">
+                                                                <a style="color:grey;" href="del-faq.php?id=<?php echo $row['id'] ?>"><i class='fas fa-trash'></i>
                                                             </td>
                                                         </tr>
-                                                      
+
                                                 <?php $a++;
                                                     }
                                                 } ?>

@@ -9,7 +9,11 @@ if (isset($_POST['submit'])) {
    $meta_keyword = $_POST['meta_keyword'];
    $result = "INSERT INTO `subcategories`(`cat_id`, `name`,`subcaturl`,`meta_title`,`meta_desc`,`meta_keyword`) VALUES ('$cat_id','$sub_cat','$url','$meta_title','$meta_desc','$meta_keyword')";
    $run = mysqli_query($conn, $result);
-   header("location:Sub-category.php?add=$run");
+   if ($run) {
+		$_SESSION['status'] = "Subcategory Added Successfully";
+      header("location:Sub-category.php");
+	}
+  
 }
 ?>
 <!DOCTYPE html>

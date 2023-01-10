@@ -5,5 +5,9 @@
       $sql1.="DELETE FROM `subcategories` WHERE cat_id=$cat_id;";
       $sql1.="DELETE FROM `blogs` WHERE blogcategories=$cat_id;";
       $result = mysqli_multi_query($conn , $sql1);
-      header("location:blogs-categories.php?del=$result");
+      if ($result) {
+		$_SESSION['status'] = "Category Deleted Successfully";
+      header("location:blogs-categories.php");
+	}
+      
 ?>

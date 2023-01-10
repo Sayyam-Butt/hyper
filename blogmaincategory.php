@@ -60,7 +60,7 @@ function shorter($text, $chars_limit)
                 <form action="search" method="get">
                     <div class="input-group">
                         <input type="search" name="s" class="form-control" placeholder="Search">
-                       
+
                     </div>
                 </form>
 
@@ -86,43 +86,53 @@ function shorter($text, $chars_limit)
                         <h2>All <?php echo $row1['categories'] ?> Posts</h2>
                     </div>
                     <div class="float-end">
+                        <!-- <select class="form-control" name="" id="">
+                            <option value="">Filter By</option>
+                            <option value=""> <a href="https://www.youtube.com/watch?v=0K4-DkwmoPk&ab_channel=SaurabhChaudhary">Latest Post</a> </option>
+                            <option value=""> <a href="">Most Comments</a> </option>
+                        </select> -->
+
                         <div class="dropdown">
                             <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown">
-                                Most Papular
+                                Filter By
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Link 1</a></li>
-                                <li><a class="dropdown-item" href="#">Link 2</a></li>
-                                <li><a class="dropdown-item" href="#">Link 3</a></li>
+                                <li><a class="dropdown-item latestpost" data-pageurl="<?php echo $currenturl ?>">Latest Post</a></li>
+                                <li><a class="dropdown-item mostcomments" data-pageurl1="<?php echo $currenturl ?>">Most Comments</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="row py-4">
+                <div class="row py-4" id="fetchblog">
+
                     <?php
-                    $query2 = "SELECT * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' AND `blogcategories`= $catid";
+                    $query2 = "SELECT * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' AND `blogcategories`= $catid ";
                     $run2 = mysqli_query($conn, $query2);
                     while ($row2 = mysqli_fetch_assoc($run2)) {
                     ?>
-                        <div class="col-md-4  ">
+                        <div class="col-md-4">
                             <div class="card border-0 pb-3">
+
                                 <a href="http://localhost/hyper/<?php echo $row2['pageurl'] ?>">
                                     <img class="card-img-top rounded pb-2" src="admin/<?php echo $row2['img'] ?>" alt="Card image" style="width:100%">
-
                                     <div class="card-body p-0">
                                         <strong class="card-title text-dark"><?php echo $row2['categories'] ?></strong>
                                         <h5 class="card-text text-dark"><?php echo $row2['title'] ?></h5>
                                         <small class="text-dark"><?php echo $row2['post_date'] ?></small>
                                         <p class="text-justify text-secondary"><?php echo shorter($row2['discription'], 200) ?></p>
                                         <b class="text-dark">Read The Artical</b>
+                                    </div>
                                 </a>
+
                             </div>
+
                         </div>
-                </div>
-            <?php
+                        <?php
                     }
             ?>
+                </div>
+            
 
             </div>
         </div>
@@ -147,6 +157,45 @@ function shorter($text, $chars_limit)
     <?php include("include/productsection.php") ?>
     <!-- ############# footer ########### -->
     <?php include("include/footer.php") ?>
+
+    <script>
+        $(document).ready(function() {
+            $(".latestpost").on("click", function(e) {
+
+                var pageurl = $(this).data("pageurl");
+                $.ajax({
+                    url: "ajax-viewlatestpost.php",
+                    type: "POST",
+                    data: {
+                        pageurl: pageurl
+                    },
+                    success: function(data) {
+                        $("#fetchblog").html(data);
+                    }
+
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $(".mostcomments").on("click", function(e) {
+                var pageurl1 = $(this).data("pageurl1");
+                $.ajax({
+                    url: "ajax-viewmostComment.php",
+                    type: "POST",
+                    data: {
+                        pageurl1: pageurl1
+                    },
+                    success: function(data) {
+                        $("#fetchblog").html(data);
+                    }
+
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

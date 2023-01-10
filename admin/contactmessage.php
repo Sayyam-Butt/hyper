@@ -76,10 +76,10 @@ function shorter($text, $chars_limit)
                                                             <td class="align-middle"><?php echo $row["time"] ?></td>
                                                             <td class="align-middle justify-contact-end">
                                                                 <a style="color:white" class=" viewbutton btn btn-sm btn-success" data-id="<?php echo $row["id"]
-                                                                                                                                            ?>">View</a>
+                                                                    ?>">View</a>
                                                                 <a style="color:white;" data-id="<?php
-                                                                                                    echo $row["id"]
-                                                                                                    ?>" class="delbutton btn btn-sm btn-danger">Delete</a>
+                                                                echo $row["id"]
+                                                                ?>" class="delbutton btn btn-sm btn-danger">Delete</a>
                                                             </td>
 
                                                         </tr>

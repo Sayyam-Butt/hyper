@@ -7,30 +7,30 @@
 //       header("location:blogs-categories.php"); 
 //   }
 
-if (isset($_GET['add'])) {
-   $var = $_GET['add'];
-   if (!empty($var)) {
-      $info_alert = "<div class='alert alert-success alert-dismissible p-2'>
-         <button type='button' class='close' data-dismiss='alert'>&times;</button>
-         Subcategory Added  </div>";
-   }
-}
-if (isset($_GET['edit'])) {
-   $var = $_GET['edit'];
-   if (!empty($var)) {
-      $info_alert = "<div class='alert alert-success alert-dismissible p-2'>
-         <button type='button' class='close' data-dismiss='alert'>&times;</button>
-         Subcategory Updated  </div>";
-   }
-}
-if (isset($_GET['del'])) {
-   $var = $_GET['del'];
-   if (!empty($var)) {
-      $info_alert = "<div class='alert alert-success alert-dismissible p-2'>
-         <button type='button' class='close' data-dismiss='alert'>&times;</button>
-         Subcategory Deleted  </div>";
-   }
-}
+// if (isset($_GET['add'])) {
+//    $var = $_GET['add'];
+//    if (!empty($var)) {
+//       $info_alert = "<div class='alert alert-success alert-dismissible p-2'>
+//          <button type='button' class='close' data-dismiss='alert'>&times;</button>
+//          Subcategory Added  </div>";
+//    }
+// }
+// if (isset($_GET['edit'])) {
+//    $var = $_GET['edit'];
+//    if (!empty($var)) {
+//       $info_alert = "<div class='alert alert-success alert-dismissible p-2'>
+//          <button type='button' class='close' data-dismiss='alert'>&times;</button>
+//          Subcategory Updated  </div>";
+//    }
+// }
+// if (isset($_GET['del'])) {
+//    $var = $_GET['del'];
+//    if (!empty($var)) {
+//       $info_alert = "<div class='alert alert-success alert-dismissible p-2'>
+//          <button type='button' class='close' data-dismiss='alert'>&times;</button>
+//          Subcategory Deleted  </div>";
+//    }
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,13 +94,27 @@ if (isset($_GET['del'])) {
                         <h4 class="page-title">Subcategories</h4>
                      </div>
 
-                     <?php if (isset($info_alert)) {
-                        echo $info_alert;
+                     <?php
+                     // if (isset($info_alert)) {
+                     //    echo $info_alert;
+                     // }
+                     ?>
+
+                     <?php
+                     if (isset($_SESSION['status'])) {
+                     ?>
+                        <div class="alert alert-success alert-dismissible">
+                           <button type="button" class="close" data-dismiss="alert">&times;</button>
+                           <?php echo $_SESSION['status']; ?>
+                        </div>
+                     <?php
+
+                        unset($_SESSION['status']);
                      }
                      ?>
                      <div class="card">
                         <div class="card-body">
-                        <div class="row mb-3">
+                           <div class="row mb-3">
                               <div class="col-md-4"></div>
                               <div class="col-md-4"></div>
                               <div class="col-md-4">
@@ -119,7 +133,7 @@ if (isset($_GET['del'])) {
                                        <th>Delete</th>
                                     </tr>
                                  </thead>
-                                 <tbody  id="table-data-subcat">
+                                 <tbody id="table-data-subcat">
                                     <?php
                                     include("include/connection.php");
                                     $limit = 5;

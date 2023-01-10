@@ -6,8 +6,8 @@ $currenturl = $pageurl[2];
 $queryforcatid = "SELECT * FROM subcategories WHERE `subcaturl` = '$currenturl'";
 $resultforcatid = mysqli_query($conn, $queryforcatid);
 $rowforcatid = mysqli_fetch_assoc($resultforcatid);
-   $catid =  $rowforcatid['cat_id'];
-   $subcatid = $rowforcatid['id'];
+$catid =  $rowforcatid['cat_id'];
+$subcatid = $rowforcatid['id'];
 
 function shorter($text, $chars_limit)
 {
@@ -74,14 +74,12 @@ function shorter($text, $chars_limit)
                         while ($row3 = mysqli_fetch_assoc($run3)) {
                         ?>
                             <li class="nav-item ">
-                                <a class="nav-link" 
-                                <?php if($currenturl == $row3['subcaturl']){
-                                    echo"style='color: #da5b37'";
-                                } else{
-                                    echo"";
-                                }
-                                ?>
-                                 href="<?php echo $row3['subcaturl']?>"><?php echo $row3['name'] ?></a>
+                                <a class="nav-link" <?php if ($currenturl == $row3['subcaturl']) {
+                                                        echo "style='color: #da5b37'";
+                                                    } else {
+                                                        echo "";
+                                                    }
+                                                    ?> href="<?php echo $row3['subcaturl'] ?>"><?php echo $row3['name'] ?></a>
                             </li>
                         <?php
                         }
@@ -97,18 +95,17 @@ function shorter($text, $chars_limit)
                     <div class="float-end">
                         <div class="dropdown">
                             <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown">
-                                Most Papular
+                                Filter By
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Link 1</a></li>
-                                <li><a class="dropdown-item" href="#">Link 2</a></li>
-                                <li><a class="dropdown-item" href="#">Link 3</a></li>
+                                <li><a class="dropdown-item latestpost" data-pageurl="<?php echo $currenturl ?>">Latest Post</a></li>
+                                <li><a class="dropdown-item mostcomments" data-pageurl1="<?php echo $currenturl ?>">Most Comments</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="row py-4">
+                <div class="row py-4" id="fetchblog">
                     <?php
                     $query2 = "SELECT * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' AND `subcategory`= $subcatid";
                     $run2 = mysqli_query($conn, $query2);
@@ -118,24 +115,24 @@ function shorter($text, $chars_limit)
                             <div class="card border-0 ">
                                 <a href="http://localhost/hyper/<?php echo $row2['pageurl'] ?>">
                                     <img class="card-img-top rounded pb-2" src="admin/<?php echo $row2['img'] ?>" alt="Card image" style="width:100%">
-                                
-                                <div class="card-body p-0">
-                                    <strong class="card-title text-dark"><?php echo $row2['categories'] ?></strong>
-                                    <h5 class="card-text text-dark"><?php echo $row2['title'] ?></h5>
-                                    <small class="text-dark pb-2"><?php echo $row2['post_date'] ?></small>
-                                    <p class="text-justify text-secondary"><?php echo shorter($row2['discription'],200) ?></p>
-                                    <b class="text-dark">Read The Artical</b>
-                                    </a>
-                                </div>
+
+                                    <div class="card-body p-0">
+                                        <strong class="card-title text-dark"><?php echo $row2['categories'] ?></strong>
+                                        <h5 class="card-text text-dark"><?php echo $row2['title'] ?></h5>
+                                        <small class="text-dark pb-2"><?php echo $row2['post_date'] ?></small>
+                                        <p class="text-justify text-secondary"><?php echo shorter($row2['discription'], 200) ?></p>
+                                        <b class="text-dark">Read The Artical</b>
+                                </a>
                             </div>
                         </div>
-                    <?php
-                    }
-                    ?>
-
                 </div>
+            <?php
+                    }
+            ?>
+
             </div>
         </div>
+    </div>
     </div>
     <!-- ########## Email ########### -->
     <div class="container rounded email">
@@ -156,6 +153,45 @@ function shorter($text, $chars_limit)
     <?php include("include/productsection.php") ?>
     <!-- ############# footer ########### -->
     <?php include("include/footer.php") ?>
+
+    <script>
+        $(document).ready(function() {
+            $(".latestpost").on("click", function(e) {
+
+                var pageurl = $(this).data("pageurl");
+                $.ajax({
+                    url: "ajax-viewlatestpostforsubcat.php",
+                    type: "POST",
+                    data: {
+                        pageurl: pageurl
+                    },
+                    success: function(data) {
+                        $("#fetchblog").html(data);
+                    }
+
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $(".mostcomments").on("click", function(e) {
+                var pageurl1 = $(this).data("pageurl1");
+                $.ajax({
+                    url: "ajax-viewmostCommentforsubcat.php",
+                    type: "POST",
+                    data: {
+                        pageurl1: pageurl1
+                    },
+                    success: function(data) {
+                        $("#fetchblog").html(data);
+                    }
+
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

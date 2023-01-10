@@ -53,7 +53,10 @@ if (isset($_POST['submit'])) {
       `section`='$section',`pageurl`='$url' ,`highlight`='$highlight',`trending`='$trending' ,`meta_title`='$title_meta',`meta_desc`='$desc_meta',`meta_keyword`='$keyword_meta' WHERE id=$id";
    }
    $resultupdate = mysqli_query($conn, $query);
-   header("location:all-blogs.php?edit=$resultupdate");
+   if ($resultupdate) {
+		$_SESSION['status'] = "Blog Edited Successfully";
+      header("location:all-blogs.php");	}
+   
 }
 ?>
 <!DOCTYPE html>

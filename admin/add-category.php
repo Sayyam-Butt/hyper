@@ -15,7 +15,11 @@ if (isset($_POST['submit'])) {
    $siteurl->savesiteurl($url, 'blogmaincategory');
    $sql1 = " INSERT INTO `blogcategories`( `categories`,`shownavbar`,`caturl`,`meta_title`,`meta_desc`,`meta_keyword`) VALUES ('$catname','$show','$url','$meta_title','$meta_desc','$meta_keyword')";
    $result = mysqli_query($conn, $sql1);
-   header("location:blogs-categories.php?add=$result");
+   if ($result) {
+		$_SESSION['status'] = "Category Added Successfully";
+      header("location:blogs-categories.php");
+	}
+  
 }
 ?>
 <!DOCTYPE html>

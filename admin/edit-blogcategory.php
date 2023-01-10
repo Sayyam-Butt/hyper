@@ -10,8 +10,13 @@ if (isset($_POST['submit'])) {
    $meta_keyword = $_POST['meta_keyword'];
    $sql1 = " UPDATE `blogcategories` SET `categories`='$catname',`caturl`='$link',`shownavbar`='$shownav',`meta_title`='$meta_title',`meta_desc`='$meta_desc',`meta_keyword`='$meta_keyword' WHERE blogs_id = $cat_id";
    $result = mysqli_query($conn, $sql1);
+   if ($result) {
+		$_SESSION['status'] = "Category Edited Successfully";
+      header("location:blogs-categories.php");
+	}
+  
 
-   header("location:blogs-categories.php?edit=$result");
+   
 }
 ?>
 <!DOCTYPE html>

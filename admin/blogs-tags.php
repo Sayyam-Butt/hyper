@@ -1,29 +1,29 @@
 <?php
 include('cofig.php');
-if (isset($_GET['add'])) {
-   $var = $_GET['add'];
-   if (!empty($var)) {
-      $info_alert = "<div class='alert alert-success alert-dismissible p-2'>
-         <button type='button' class='close' data-dismiss='alert'>&times;</button>
-         Tag Added Successfully  </div>";
-   }
-}
-if (isset($_GET['edit'])) {
-   $var = $_GET['edit'];
-   if (!empty($var)) {
-      $info_alert = "<div class='alert alert-success alert-dismissible p-2'>
-         <button type='button' class='close' data-dismiss='alert'>&times;</button>
-         Tag Updated Successfully </div>";
-   }
-}
-if (isset($_GET['del'])) {
-   $var = $_GET['del'];
-   if (!empty($var)) {
-      $info_alert = "<div class='alert alert-success alert-dismissible p-2'>
-         <button type='button' class='close' data-dismiss='alert'>&times;</button>
-         Tag Deleted Successfully </div>";
-   }
-}
+// if (isset($_GET['add'])) {
+//    $var = $_GET['add'];
+//    if (!empty($var)) {
+//       $info_alert = "<div class='alert alert-success alert-dismissible p-2'>
+//          <button type='button' class='close' data-dismiss='alert'>&times;</button>
+//          Tag Added Successfully  </div>";
+//    }
+// }
+// if (isset($_GET['edit'])) {
+//    $var = $_GET['edit'];
+//    if (!empty($var)) {
+//       $info_alert = "<div class='alert alert-success alert-dismissible p-2'>
+//          <button type='button' class='close' data-dismiss='alert'>&times;</button>
+//          Tag Updated Successfully </div>";
+//    }
+// }
+// if (isset($_GET['del'])) {
+//    $var = $_GET['del'];
+//    if (!empty($var)) {
+//       $info_alert = "<div class='alert alert-success alert-dismissible p-2'>
+//          <button type='button' class='close' data-dismiss='alert'>&times;</button>
+//          Tag Deleted Successfully </div>";
+//    }
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,8 +87,22 @@ if (isset($_GET['del'])) {
                         </div>
                         <h4 class="page-title">Meta Tags</h4>
                      </div>
-                     <?php if (isset($info_alert)) {
-                        echo $info_alert;
+                     <?php 
+                     // if (isset($info_alert)) {
+                     //    echo $info_alert;
+                     // }
+                     ?>
+
+                     <?php
+                     if (isset($_SESSION['status'])) {
+                     ?>
+                        <div class="alert alert-success alert-dismissible">
+                           <button type="button" class="close" data-dismiss="alert">&times;</button>
+                           <?php echo $_SESSION['status']; ?>
+                        </div>
+                     <?php
+
+                        unset($_SESSION['status']);
                      }
                      ?>
                      <div class="card">

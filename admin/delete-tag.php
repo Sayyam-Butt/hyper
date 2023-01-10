@@ -3,5 +3,9 @@
       $id = $_GET['id'];
       $sql1 = " DELETE FROM `tags` WHERE id = $id"; 
       $result = mysqli_query($conn , $sql1);
-      header("location:blogs-tags.php?del=$result");
+      if ($result) {
+		$_SESSION['status'] = "Tag Deleted Successfully";
+      header("location:blogs-tags.php");
+   	}
+    
 ?>

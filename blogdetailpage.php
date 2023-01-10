@@ -1,10 +1,23 @@
 <?php
 session_start();
+$baseurl = "http://localhost/hyper/";
+$pageurl = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+        $currenturl = $pageurl[2];
+        $queryforurl = "SELECT `title`,`img`,`pageurl` FROM blogs WHERE `pageurl`='$currenturl'";
+        $queryforurl_res = mysqli_query($conn, $queryforurl);
+        $rowforurl = mysqli_fetch_assoc($queryforurl_res);
+         $ogurl=$rowforurl['pageurl'];
+         $ogtitle=$rowforurl['title'];
+         $ogimg = $rowforurl['img'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <meta property="og:url" content="<?php echo $baseurl.$ogurl?>"> 
+    <meta property="og:type" content="Blog">
+    <meta property="og:title" content="<?php echo $ogtitle?>" />
+    <meta property="og:image" content="<?php echo $ogimg ?>" />
     <?php include("include/head.php") ?>
 </head>
 
@@ -16,12 +29,11 @@ session_start();
         <?php include("include/navbar.php") ?>
     </div>
     <!-- ######### Corona ########## -->
-   
+
     <div class="corona text-center  container py-4">
         <?php
-        
-        $pageurl = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
-        $currenturl = $pageurl[2];
+
+       
         $query1 = "SELECT * FROM blogs WHERE `pageurl`='$currenturl'";
         $result = mysqli_query($conn, $query1);
         $row1 = mysqli_fetch_assoc($result);
@@ -51,24 +63,24 @@ session_start();
     <!-- ########## content ########## -->
     <div class="container fw-bold content">
         <div class="row">
-                <img style="width: 100%; height:420px;" src="admin/<?php echo $row1['img'] ?>" class="rounded" alt="">
+            <img style="width: 100%; " src="admin/<?php echo $row1['img'] ?>" class="rounded" alt="">
             <div class="col-lg-2 my-5 data-left ">
                 <p>All online Conferences to save your box, get Inspired and Stay Connected
                 </p>
                 <hr>
                 <p>Share This Post</p>
                 <div class="social-icons">
-                    <a href="https://facebook.com/semicolonweb" class="social-icon si-rounded si-dark si-mini si-facebook" target="_blank">
+                    <a href="https://www.facebook.com/sharer.php?u=<?php echo $baseurl . $row1['pageurl'] ?>" class="social-icon si-rounded si-dark si-mini si-facebook" target="_blank">
                         <i class="fa fa-facebook"></i>
                         <i class="fa fa-facebook"></i>
                     </a>
-                    <a href="https://twitter.com/__semicolon" class="social-icon si-rounded si-dark si-mini si-twitter" target="_blank">
+                    <a href="http://twitter.com/share?text=<?php echo $row1['title'] ?>&url=<?php echo $baseurl . $row1['pageurl'] ?>&hashtags=<?php echo $row1['tagname'] ?> " class="social-icon si-rounded si-dark si-mini si-twitter" target="_blank">
                         <i class="fa fa-twitter"></i>
                         <i class="fa fa-twitter"></i>
                     </a>
-                    <a href=" https://instagram.com/semicolonweb" class="social-icon si-rounded si-dark si-mini si-instagram" target="_blank">
-                        <i class="fa fa-instagram"></i>
-                        <i class="fa fa-instagram"></i>
+                    <a href="https://api.whatsapp.com/send?text=<?php echo urlencode($row1['title'])?> <?php echo  $baseurl . $row1['pageurl'] ?>" class="social-icon si-rounded si-dark si-mini si-instagram" target="_blank">
+                        <i class="fa fa-whatsapp"></i>
+                        <i class="fa fa-whatsapp"></i>
                     </a>
                 </div>
             </div>

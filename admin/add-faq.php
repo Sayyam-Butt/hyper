@@ -5,7 +5,11 @@ if (isset($_POST['submit'])) {
   $answer = $_POST["answer"];
   $query = "INSERT INTO `faq`(`question`, `answer`) VALUES ('$question','$answer')";
   $result = mysqli_query($conn,$query);
-  header("location:allFaq.php");
+  if ($result) {
+   $_SESSION['status'] = "Faq Added Successfully";
+   header("location:allFaq.php");  
+ }
+
 }
 ?>
 <!DOCTYPE html>

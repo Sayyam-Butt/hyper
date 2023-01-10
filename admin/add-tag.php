@@ -8,7 +8,11 @@ if (isset($_POST['submit'])) {
    $meta_keyword = $_POST['meta_keyword'];
    $sql1 = "INSERT INTO `tags`(`tagname`, `tagurl`,`meta_title`,`meta_desc`,`meta_keyword`) VALUES ('$tagname','$tagurl','$meta_title','$meta_desc','$meta_keyword')";
    $result = mysqli_query($conn, $sql1);
-   header("location:blogs-tags.php?add=$result");
+   if ($result) {
+		$_SESSION['status'] = "Tag Added Successfully";
+      header("location:blogs-tags.php");
+   	}
+   
 }
 ?>
 <!DOCTYPE html>

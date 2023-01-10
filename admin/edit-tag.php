@@ -8,7 +8,11 @@ if (isset($_POST['submit'])) {
    $meta_keyword = $_POST['meta_keyword'];
    $sql1 = " UPDATE `tags` SET `tagname`='$tagname' , `meta_title`='$meta_title',`meta_desc`='$meta_desc',`meta_keyword`='$meta_keyword' WHERE id = $id";
    $result = mysqli_query($conn, $sql1);
-   header("location:blogs-tags.php?edit=$result");
+   if ($result) {
+		$_SESSION['status'] = "Tag Edited Successfully";
+      header("location:blogs-tags.php");
+   	}
+  
 }
 ?>
 <!DOCTYPE html>
