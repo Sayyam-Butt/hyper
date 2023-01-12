@@ -1,18 +1,27 @@
 <?php include('cofig.php');
 if (isset($_POST['submit'])) {
    include("include/connection.php");
-   $tagname = $_POST['tag'];
+   $tagname = trim($_POST['tag']);
    $tagurl = $_POST['link'];
    $meta_title = $_POST['meta_title'];
    $meta_desc = $_POST['meta_desc'];
    $meta_keyword = $_POST['meta_keyword'];
-   $sql1 = "INSERT INTO `tags`(`tagname`, `tagurl`,`meta_title`,`meta_desc`,`meta_keyword`) VALUES ('$tagname','$tagurl','$meta_title','$meta_desc','$meta_keyword')";
+
+   $querytocheck = "SELECT * FROM tags WHERE tagname = '$tagname'";
+   $querytocheck_res = mysqli_query($conn,$querytocheck);
+   if(mysqli_num_rows($querytocheck_res)>0){
+      $_SESSION['check']="Tag Already Exits!!";
+      header("location:blogs-tags.php");
+   }else{
+      $sql1 = "INSERT INTO `tags`(`tagname`, `tagurl`,`meta_title`,`meta_desc`,`meta_keyword`) VALUES ('$tagname','$tagurl','$meta_title','$meta_desc','$meta_keyword')";
    $result = mysqli_query($conn, $sql1);
    if ($result) {
 		$_SESSION['status'] = "Tag Added Successfully";
       header("location:blogs-tags.php");
    	}
+
    
+   }  
 }
 ?>
 <!DOCTYPE html>

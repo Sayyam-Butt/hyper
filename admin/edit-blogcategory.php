@@ -1,7 +1,7 @@
 <?php include('cofig.php');
 if (isset($_POST['submit'])) {
    include("include/connection.php");
-   $catname = $_POST['category'];
+   $catname = trim($_POST['category']);
    $cat_id = $_GET['blogs_id'];
    $shownav = $_POST['show'];
    $link = $_POST['link'];

@@ -60,7 +60,7 @@ function shorter($text, $chars_limit)
                                                 <?php
 
 
-                                                $sql = "SELECT * FROM  contactmessage ";
+                                                $sql = "SELECT * FROM  contactmessage ORDER BY id DESC";
                                                 $result = mysqli_query($conn, $sql);
                                                 if (mysqli_num_rows($result) > 0) {
                                                     $a = 1;

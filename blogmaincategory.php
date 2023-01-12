@@ -139,7 +139,7 @@ function shorter($text, $chars_limit)
     </div>
     </div>
     <!-- ########## Email ########### -->
-    <div class="container rounded email">
+    <!-- <div class="container rounded email">
         <div class="row px-4 ">
             <div class="col-lg-5 my-lg-5 pt-sm-5">
                 <h4 class="pt-2  ">Sign Up for Updates And NewsLetters.</h4>
@@ -152,7 +152,7 @@ function shorter($text, $chars_limit)
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- ############# product section ########### -->
     <?php include("include/productsection.php") ?>
     <!-- ############# footer ########### -->

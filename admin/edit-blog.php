@@ -2,7 +2,7 @@
 include("include/connection.php");
 $id = $_GET['id'];
 if (isset($_POST['submit'])) {
-   $title = $_POST['title'];
+   $title = trim($_POST['title']);
    $caty = $_POST['category'];
    $subcat = $_POST['sub-cat'];
    $tag = implode(",", $_POST['tags']);

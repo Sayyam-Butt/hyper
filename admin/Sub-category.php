@@ -1,36 +1,5 @@
 <?php include('cofig.php');
-//    if (isset($_POST['submit'])) {
-//       include("include/connection.php");
-//       $catname = $_POST['category'];
-//       $sql1 = " INSERT INTO `blogcategories`( `categories`) VALUES ('$catname')"; 
-//       $result1 = mysqli_query($conn , $sql1);
-//       header("location:blogs-categories.php"); 
-//   }
 
-// if (isset($_GET['add'])) {
-//    $var = $_GET['add'];
-//    if (!empty($var)) {
-//       $info_alert = "<div class='alert alert-success alert-dismissible p-2'>
-//          <button type='button' class='close' data-dismiss='alert'>&times;</button>
-//          Subcategory Added  </div>";
-//    }
-// }
-// if (isset($_GET['edit'])) {
-//    $var = $_GET['edit'];
-//    if (!empty($var)) {
-//       $info_alert = "<div class='alert alert-success alert-dismissible p-2'>
-//          <button type='button' class='close' data-dismiss='alert'>&times;</button>
-//          Subcategory Updated  </div>";
-//    }
-// }
-// if (isset($_GET['del'])) {
-//    $var = $_GET['del'];
-//    if (!empty($var)) {
-//       $info_alert = "<div class='alert alert-success alert-dismissible p-2'>
-//          <button type='button' class='close' data-dismiss='alert'>&times;</button>
-//          Subcategory Deleted  </div>";
-//    }
-// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -110,6 +79,19 @@
                      <?php
 
                         unset($_SESSION['status']);
+                     }
+                     ?>
+
+                     <?php
+                     if (isset($_SESSION['check'])) {
+                     ?>
+                        <div class="alert alert-danger alert-dismissible">
+                           <button type="button" class="close" data-dismiss="alert">&times;</button>
+                           <?php echo $_SESSION['check']; ?>
+                        </div>
+                     <?php
+
+                        unset($_SESSION['check']);
                      }
                      ?>
                      <div class="card">

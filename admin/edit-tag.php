@@ -1,7 +1,7 @@
 <?php include('cofig.php');
 if (isset($_POST['submit'])) {
    include("include/connection.php");
-   $tagname = $_POST['tag'];
+   $tagname = trim($_POST['tag']);
    $id = $_GET['id'];
    $meta_title = $_POST['meta_title'];
    $meta_desc = $_POST['meta_desc'];

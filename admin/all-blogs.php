@@ -103,6 +103,19 @@
                         unset($_SESSION['status']);
                      }
                      ?>
+
+                     <?php
+                     if (isset($_SESSION['check'])) {
+                     ?>
+                        <div class="alert alert-danger alert-dismissible">
+                           <button type="button" class="close" data-dismiss="alert">&times;</button>
+                           <?php echo $_SESSION['check']; ?>
+                        </div>
+                     <?php
+
+                        unset($_SESSION['check']);
+                     }
+                     ?>
                      <div class="card">
                         <div class="card-body">
                            <div class="row mb-3">
@@ -124,6 +137,7 @@
                                     <tr>
                                        <th>SN</th>
                                        <th>Image</th>
+                                       <th>Video</th>
                                        <th>Title</th>
                                        <th>Category</th>
                                        <th>Visible</th>
@@ -147,11 +161,25 @@
                                     if (mysqli_num_rows($result) > 0) {
                                        $a = 1;
                                        while ($row =  mysqli_fetch_assoc($result)) {
+                                          $video = $row['video'];
                                     ?>
 
                                           <tr>
                                              <td class="align-middle"><?php echo $a; ?> </td>
-                                             <td class="align-middle"><img style="width:70px;height:70;border-radius:2px;" src="<?php echo $row['img'] ?>"> </td>
+                                             <td class="align-middle"><img style="width:70px;height:70;border-radius:2px;" src="<?php echo $row['img'] ?>"></td>
+
+                                             <td class="align-middle">
+                                                <?php
+                                                if (empty($video)) {
+                                                   echo "<small> No Video</small>";
+                                                } else {
+                                                ?>
+                                                   <video style="width: 70px;height:70px" src="<?php echo $row['video'] ?>"></video>
+                                                <?php
+                                                }
+                                                ?>
+                                             </td>
+
                                              <td class="align-middle"><?php echo $row["title"] ?></td>
                                              <td class="align-middle"><?php echo $row["categories"] ?></td>
                                              <td class="align-middle">

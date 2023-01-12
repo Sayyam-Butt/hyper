@@ -12,7 +12,6 @@ $pageurl = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta property="og:url" content="<?php echo $baseurl.$ogurl?>"> 
     <meta property="og:type" content="Blog">

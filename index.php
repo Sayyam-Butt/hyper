@@ -44,7 +44,7 @@ function shorter($text, $chars_limit)
                     <strong class="text-secondary py-4 ps-1 d-block"><?php echo $rowforsectionone['categories'] ?></strong>
                     <h3 class="ps-1 text-dark"><?php echo $rowforsectionone['title'] ?></h3>
                     <p class="text-secondary"><?php echo $rowforsectionone['post_date'] ?></p>
-                    <p class="text-secondary"><?php echo shorter($rowforsectionone['discription'], 250) ?></p>
+                    <p class="text-secondary"><?php echo shorter($rowforsectionone['discription'], 230) ?></p>
                 </a>
             </div>
             <div class="col-lg-5 ps-md-4 ps-sm-0  hero-2">
@@ -74,25 +74,30 @@ function shorter($text, $chars_limit)
                 ?>
             </div>
         </div>
+       
     </section>
+   <!-- ############ Empty ########## -->
+    <div class=" py-5 bg-light empty"></div>
     <!-- ########## Email ########### -->
-    <div class="container rounded email">
+    <!-- <div class="container rounded email">
         <div class="row px-5 py-3 align-items-center">
             <div class="col-lg-5 ">
                 <h4 class="" id="signup">Sign Up for Updates And NewsLetters.</h4>
             </div>
             <div class="col-lg-7 e-box my-lg-5 ">
-                <form action="" class="d-md-flex justify-content-evenly">
+                <form id="newsform" class="d-md-flex justify-content-evenly">
                     <div>
-                        <input type="email" name="" class="  form-control form-control-lg  rounded" id="" placeholder="Your Email Address">
+                        <input type="email"class="form-control form-control-lg  rounded" id="email" placeholder="Your Email Address">
                     </div>
                     <div class="signup-btn">
-                        <button class="btn btn-lg btn-dark  rounded ">Subscribe Now</button>
+                        <button id="subscribe"  class="btn btn-lg btn-dark  rounded ">Subscribe Now</button>
                     </div>
+                    
                 </form>
+                <span id="message" class="text-secondary"></span> 
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- ####### Videos ######### -->
     <div class="container py-5 videos">
         <div class="clearfix">

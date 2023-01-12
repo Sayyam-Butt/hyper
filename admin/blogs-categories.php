@@ -109,6 +109,20 @@
                         unset($_SESSION['status']);
                      }
                      ?>
+
+
+                     <?php
+                     if (isset($_SESSION['check'])) {
+                     ?>
+                        <div class="alert alert-danger alert-dismissible">
+                           <button type="button" class="close" data-dismiss="alert">&times;</button>
+                           <?php echo $_SESSION['check']; ?>
+                        </div>
+                     <?php
+
+                        unset($_SESSION['check']);
+                     }
+                     ?>
                      <div class="card">
                         <div class="card-body">
                            <div class="row mb-3">

@@ -19,9 +19,17 @@ if(mysqli_num_rows($result) > 0 ){
                  if ($row["section"]=="0") {
                    $section = "Null";
                  }
+                 if(empty($row['video'])){
+                  $video = "<small>No Video</small>";
+                 }else{
+                  $video="<video style='width: 70px;height:70px' src=' {$row["video"]}'></video>  ";
+                 }
                 $output .= "<tr><td class='align-middle'>$a </td>
                 <td class='align-middle'><img style='width:70px;height:70;border-radius:2px;' 
                 src='{$row['img']}'> </td>
+                <td class='align-middle'>  
+                 $video
+                </td>
                 <td class='align-middle'>{$row["title"]}</td>
                 <td class='align-middle'> {$row["categories"]}</td>
                 <td class='align-middle'>$section</td>

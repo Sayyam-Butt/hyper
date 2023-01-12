@@ -1,7 +1,7 @@
 <?php include('cofig.php');
 if (isset($_POST['submit'])) {
    include("include/connection.php");
-   $subcat_name = $_POST['sub-category'];
+   $subcat_name = trim($_POST['sub-category']);
    $sub_id = $_GET['id'];
    $link = $_POST['link'];
    $meta_title = $_POST['meta_title'];

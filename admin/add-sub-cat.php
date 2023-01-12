@@ -2,18 +2,25 @@
 if (isset($_POST['submit'])) {
    include("include/connection.php");
    $cat_id = $_POST['cat_id'];
-   $sub_cat = $_POST['subcategory'];
+   $sub_cat = trim($_POST['subcategory']);
    $url = $_POST['link'];
    $meta_title = $_POST['meta_title'];
    $meta_desc = $_POST['meta_desc'];
    $meta_keyword = $_POST['meta_keyword'];
-   $result = "INSERT INTO `subcategories`(`cat_id`, `name`,`subcaturl`,`meta_title`,`meta_desc`,`meta_keyword`) VALUES ('$cat_id','$sub_cat','$url','$meta_title','$meta_desc','$meta_keyword')";
-   $run = mysqli_query($conn, $result);
-   if ($run) {
-		$_SESSION['status'] = "Subcategory Added Successfully";
+
+   $querytocheck = "SELECT * FROM subcategories WHERE name = '$sub_cat'";
+   $querytocheck_res = mysqli_query($conn,$querytocheck);
+   if(mysqli_num_rows($querytocheck_res)>0){
+      $_SESSION['check']="Subcategory Already Exits!!";
       header("location:Sub-category.php");
-	}
-  
+   }else{
+      $result = "INSERT INTO `subcategories`(`cat_id`, `name`,`subcaturl`,`meta_title`,`meta_desc`,`meta_keyword`) VALUES ('$cat_id','$sub_cat','$url','$meta_title','$meta_desc','$meta_keyword')";
+      $run = mysqli_query($conn, $result);
+       if ($run) {
+		   $_SESSION['status'] = "Subcategory Added Successfully";
+         header("location:Sub-category.php");
+	    }
+      }
 }
 ?>
 <!DOCTYPE html>
@@ -81,7 +88,7 @@ if (isset($_POST['submit'])) {
                               <div class="form-group">
                                  <label for="metaTitle">Meta Title</label>
                                  <div class="input-group input-group-merge">
-                                    <input required type="text" id="metaTitle" class="form-control" name="meta_title" value="">
+                                    <input required type="text" id="input2" class="form-control" name="meta_title" value="">
 
                                  </div>
                               </div>

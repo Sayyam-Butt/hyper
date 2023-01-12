@@ -1,6 +1,8 @@
 <?php
 include("include/connection.php");
 $messageid = $_POST["id"];
+$querytoread = "UPDATE `contactmessage` SET `status`=1 WHERE id = $messageid";
+mysqli_query($conn,$querytoread);
 $queryformessage = "SELECT * FROM `contactmessage` WHERE id = $messageid";
 $result =  mysqli_query($conn, $queryformessage);
 $rowformessage = mysqli_fetch_assoc($result);

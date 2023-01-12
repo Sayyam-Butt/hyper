@@ -26,8 +26,17 @@
                   </div>
                </div>
 
-               <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                  Saad has send you a message.
+               <div style="margin-left:auto;" class="text-center w-50 py-3 alert alert-warning alert-dismissible fade show" role="alert">
+               <?php
+               include("include/connection.php");
+               $query = "SELECT * FROM contactmessage WHERE status = 0";
+               $query_res = mysqli_query($conn,$query);
+               $num = mysqli_num_rows($query_res);
+               if($num == 0){
+                  $num = "No";
+               }
+               ?>
+                 <h3><?php echo $num . " "?>New Message</h3> 
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                   </button>

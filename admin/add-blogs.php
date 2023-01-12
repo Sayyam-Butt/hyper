@@ -1,7 +1,7 @@
 <?php include('cofig.php');
 include("include/connection.php");
 if (isset($_POST['submit'])) {
-   $title = $_POST['title'];
+   $title = trim($_POST['title']);
    $category = $_POST['category'];
    $subcat = $_POST['sub-cat'];
    $tag = implode(",", $_POST['tags']);
@@ -9,13 +9,13 @@ if (isset($_POST['submit'])) {
    $disc = $_POST['discription'];
    $url = $_POST['link'];
    $date = date("d M Y");
-   
-   
 
-   $meta_title = mysqli_escape_string($conn,$_POST['meta_title']);
-   $meta_desc = mysqli_escape_string($conn,$_POST['meta_disc']);
-  echo $meta_keyword = mysqli_escape_string($conn,$_POST['meta_keyword']);
-   
+
+
+   $meta_title = mysqli_escape_string($conn, $_POST['meta_title']);
+   $meta_desc = mysqli_escape_string($conn, $_POST['meta_disc']);
+   $meta_keyword = mysqli_escape_string($conn, $_POST['meta_keyword']);
+
    $trending = $_POST['trend'];
    $highlight = $_POST['highlight'];
    // $sectionOne = $_POST['section-one'];
@@ -62,13 +62,24 @@ if (isset($_POST['submit'])) {
    move_uploaded_file($_FILES['video']['tmp_name'], $target_file);
 
 
-   $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `subcategory`,`discription`,`content`, `post_date`,`tagname`,`pageurl`,`img`,`video`,`section`,`trending`,`highlight`,`meta_title`, `meta_desc`, `meta_keyword`) VALUES ('$title ',' $category','$subcat','$disc','$content',' $date','$tag','$url','$destinationfile','$target_file','$section','$trending','$highlight','$meta_title','$meta_desc','$meta_keyword');";
-   $query .= "UPDATE blogcategories SET post=post+1 WHERE blogs_id=$category ;";
-   $query_run =  mysqli_multi_query($conn, $query);
-   if ($query_run) {
-		$_SESSION['status'] = "Blog Added Successfully";
-      header("location:all-blogs.php");	}
-   
+   $querytocheck = "SELECT * FROM blogs WHERE title = '$title'";
+   $querytocheck_res = mysqli_query($conn, $querytocheck);
+   if (mysqli_num_rows($querytocheck_res) > 0) {
+      $_SESSION['check'] = "Blog of This Name Already Exits!!";
+      header("location:all-blogs.php");
+   } else {
+      $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `subcategory`,`discription`,`content`, `post_date`,`tagname`,`pageurl`,`img`,`video`,`section`,`trending`,`highlight`,`meta_title`, `meta_desc`, `meta_keyword`) VALUES ('$title ',' $category','$subcat','$disc','$content',' $date','$tag','$url','$destinationfile','$target_file','$section','$trending','$highlight','$meta_title','$meta_desc','$meta_keyword');";
+      $query .= "UPDATE blogcategories SET post=post+1 WHERE blogs_id=$category ;";
+      $query_run =  mysqli_multi_query($conn, $query);
+      if ($query_run) {
+         $_SESSION['status'] = "Blog Added Successfully";
+         header("location:all-blogs.php");
+      }
+   }
+
+
+
+
    // }
 }
 ?>
@@ -135,7 +146,7 @@ if (isset($_POST['submit'])) {
                               </div>
                               <div class="form-group">
                                  <label for="SUBCATEGORY">Sub Category</label>
-                                 <select  name="sub-cat" class="form-control" id="sub-category-dropdown">
+                                 <select name="sub-cat" class="form-control" id="sub-category-dropdown">
                                     <option value="">Select Sub Category</option>
                                  </select>
                               </div>
@@ -233,7 +244,7 @@ if (isset($_POST['submit'])) {
                               <div class="form-group">
                                  <label for="metaTitle">Meta Title</label>
                                  <div class="input-group input-group-merge">
-                                    <input required type="text" id="metaTitle" class="form-control" name="meta_title" value="">
+                                    <input required type="text" id="input2" class="form-control" name="meta_title" value="">
 
                                  </div>
                               </div>
