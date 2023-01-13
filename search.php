@@ -21,9 +21,9 @@ function shorter($text, $chars_limit)
 </head>
 
 <body>
+     <!-- ######## top-bar ######### -->
+     <?php include("include/topbar.php") ?>
     <div class="div sticky-top bg-white">
-        <!-- ######## top-bar ######### -->
-        <?php include("include/topbar.php") ?>
         <!-- ########### navbar ############### -->
         <?php include("include/navbar.php") ?>
     </div>

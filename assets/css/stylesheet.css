@@ -281,7 +281,7 @@ a {
 .top-bar {
     border-bottom: 1px solid rgb(218, 216, 216);
     padding-top: 0px;
-    margin-bottom: 20px;
+    margin-bottom: 0px!important;
 }
 
 .hamburger-menu {

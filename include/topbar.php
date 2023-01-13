@@ -11,7 +11,7 @@ $row = mysqli_fetch_assoc($run);
 
 
 <!-- ######## top-bar ######### -->
-<div class="div sticky-top bg-white">
+<div class="div  bg-white">
     <section class="container top-bar">
         <div class="row mt-2 ">
             <div class="col-md-4 mt-3 ">

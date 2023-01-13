@@ -239,7 +239,7 @@ if (isset($_POST['submit-contact-info'])) {
             </div>
             <!-- end row -->
             </form>
-            <form action="#" method="post">
+            <!-- <form action="#" method="post">
                <div class="row">
                   <div class="col-12">
                      <div class="card">
@@ -278,14 +278,14 @@ if (isset($_POST['submit-contact-info'])) {
                            <input class="btn btn-primary" type="submit" name="" value="Update">
                         </div>
                      </div>
-                     <!-- end card-body -->
-                  </div>
+                      end card-body -->
+                  <!-- </div> -->
                   <!-- end card -->
-               </div>
+               <!-- </div> -->
                <!-- end col -->
-         </div>
+         <!-- </div> -->
          <!-- end row -->
-         </form>
+         <!-- </form> --> 
       </div>
       <!-- End Content -->
    </div>

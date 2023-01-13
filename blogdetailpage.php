@@ -22,8 +22,8 @@ $pageurl = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
 <body>
     <!-- ######## top-bar ######### -->
+    <?php include("include/topbar.php") ?>
     <div class="div sticky-top bg-white">
-        <?php include("include/topbar.php") ?>
         <!-- ########### navbar ############### -->
         <?php include("include/navbar.php") ?>
     </div>
@@ -52,7 +52,7 @@ $pageurl = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
                 ?>
                 <strong><?php echo $catrow['categories'] ?></strong>
                 <h2 class=" pt-3"><?php echo $row1['title'] ?></h2>
-                <p class="text-secondary pt-4"><?php echo $row1['post_date'] ?> | By SemiColonWeb</p>
+                <p class="text-secondary pt-4"><?php echo $row1['post_date'] ?> | By The Canvas Times</p>
             </div>
             <div class="col-lg-4">
 

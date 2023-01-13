@@ -7,9 +7,9 @@
             list-style: none;
         }
 
-        i {
+        /* i {
             padding-right: 10px;
-        }
+        } */
 
         button {
             text-decoration: none !important;
@@ -29,7 +29,9 @@
     <!-- ######## top-bar ######### -->
     <?php include("include/topbar.php") ?>
     <!-- ########### navbar ############### -->
-    <?php include("include/navbar.php") ?>
+    <div class="div sticky-top bg-white">
+        <?php include("include/navbar.php") ?>
+    </div>
 
     <div class="container">
         <h3 class="px-5" style="color: #da5b37;padding-top:60px">Frequently Asked Questions (FAQ)</h3>

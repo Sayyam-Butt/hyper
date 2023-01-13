@@ -21,10 +21,9 @@ function shorter($text, $chars_limit)
 </head>
 
 <body>
-   
+    <!-- ######## top-bar ######### -->
+    <?php include("include/topbar.php") ?>
     <div class="div sticky-top bg-white">
-        <!-- ######## top-bar ######### -->
-        <?php include("include/topbar.php") ?>
         <!-- ########### navbar ############### -->
         <?php include("include/navbar.php") ?>
     </div>
@@ -74,9 +73,9 @@ function shorter($text, $chars_limit)
                 ?>
             </div>
         </div>
-       
+
     </section>
-   <!-- ############ Empty ########## -->
+    <!-- ############ Empty ########## -->
     <div class=" py-5 bg-light empty"></div>
     <!-- ########## Email ########### -->
     <!-- <div class="container rounded email">
@@ -103,7 +102,7 @@ function shorter($text, $chars_limit)
         <div class="clearfix">
             <h5 class="text-secondary float-start">Lastest Videos</h5>
             <a href="gallery" class="btn btn-outline-dark float-end text-secondary">More Content&rarr;</a>
-           
+
         </div>
 
         <div class="row pt-4">
@@ -259,7 +258,7 @@ function shorter($text, $chars_limit)
                 <!-- Advertisment -->
                 <div class=" ads mt-3 pt-4 pb-0">
 
-                    <div class="card img-fluid mt-5 ">
+                    <div style="border: none;" class="card img-fluid mt-5 ">
                         <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fsemicolonweb%2Fphotos%2Fa.1218538191515522%2F2855299231172735%2F%3Ftype%3D3&width=350&show_text=false&height=350&appId" width="350" height="350" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                     </div>
                 </div>
@@ -288,7 +287,9 @@ function shorter($text, $chars_limit)
                     while ($rowforblogs = mysqli_fetch_assoc($resultforblogs)) {
                     ?>
                         <div class="row border-bottom py-3">
-                           <a href="<?php echo $rowforblogs['pageurl']?>"><h4 class="text-dark"><?php echo $rowforblogs['title'] ?></h4></a> 
+                            <a href="<?php echo $rowforblogs['pageurl'] ?>">
+                                <h4 class="text-dark"><?php echo $rowforblogs['title'] ?></h4>
+                            </a>
                             <p class="text-secondary pt-3"><?php echo $rowforblogs['post_date'] ?></p>
                         </div>
                     <?php

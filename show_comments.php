@@ -2,6 +2,7 @@
 session_start();
 $blogid=$_SESSION['blogid'];
 include_once("include/connection.php");
+include("include/time_method.php");
 $commentQuery = "SELECT * FROM commnet WHERE parent_id = '0' AND blog_fid = '$blogid' ORDER BY id DESC";
 $commentsResult = mysqli_query($conn, $commentQuery) or die("database error:". mysqli_error($conn));
 $commentHTML = '';
@@ -13,7 +14,7 @@ while($comment = mysqli_fetch_assoc($commentsResult)){
                                 <div class="clearfix">
                                     <div class="float-start">
                                         <h4 class="">'.$comment["sender"].'</h4>
-                                        <small>'.$comment["date"].'</small>
+                                        <p style="font-size:12px">'.timeAgo($comment["date"]).'</p>
                                     </div>
                                 </div>
                                 <h5 style="padding-left:20px;">'.$comment["comment"].'</h5>

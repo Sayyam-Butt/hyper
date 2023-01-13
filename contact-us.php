@@ -71,7 +71,10 @@ if (isset($_POST['submit'])) {
     <!-- ######## top-bar ######### -->
     <?php include("include/topbar.php") ?>
     <!-- ########### navbar ############### -->
-    <?php include("include/navbar.php") ?>
+    <div class="div sticky-top bg-white">
+        <!-- ########### navbar ############### -->
+        <?php include("include/navbar.php") ?>
+    </div>
 
     <div class="container">
         <div class="row py-4">
@@ -119,6 +122,12 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
     </div>
+
+     <!-- ############# product section ########### -->
+     <?php include("include/productsection.php") ?>
+    <!-- ############# footer ########### -->
+    <?php include("include/footer.php") ?>
+    
 </body>
 
 </html>
