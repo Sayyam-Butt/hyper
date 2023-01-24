@@ -35,7 +35,7 @@ if(mysqli_num_rows($result) > 0 ){
                 <td class='align-middle'>$section</td>
                 <td class='align-middle'> {$row["post_date"]}</td>
                 <td class='align-middle'><a style='color:grey;' href='edit-blog.php?id= {$row["id"]}'> <i class='far fa-edit'></i></a></td>
-                <td class='align-middle'><a style='color:grey;'  href='delete-blog.php?id= {$row["id"]}&cat_id= {$row["blogs_id"]}?>' '><i class='fas fa-trash'></i></a></td></tr>";
+                <td  class='align-middle'><a  style='color:grey;'  href='delete-blog.php?id= {$row["id"]}&cat_id= {$row["blogs_id"]}?>' '><i class='fas fa-trash'></i></a></td></tr>";
                 $a++;
               }
 

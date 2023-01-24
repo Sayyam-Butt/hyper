@@ -36,9 +36,10 @@
                   $num = "No";
                }
                ?>
-                 <h3><?php echo $num . " "?>New Message</h3> 
+                 <h3 class="text-left" >Contact Messages:</h3>
+                 <h4 class="py-2"><?php echo $num . " "?>New Message</h4> 
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                     <span aria-hidden="true">&times;</span>
+                     <span aria-hidden="true"></span>
                   </button>
                </div>
 

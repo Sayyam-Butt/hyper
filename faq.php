@@ -36,7 +36,28 @@
     <div class="container">
         <h3 class="px-5" style="color: #da5b37;padding-top:60px">Frequently Asked Questions (FAQ)</h3>
         <div class="row p-5">
-            <div class="benifitrow faq ">
+        <!-- <div class="col-md-2">
+            <?php
+            //  $queryforquestion = "SELECT * FROM faqcategory";
+            //  $queryforquestion_res = mysqli_query($conn , $queryforquestion);
+            //  if(mysqli_num_rows($queryforquestion_res)>0){
+            //     while($rowforcat = mysqli_fetch_assoc($queryforquestion_res)){
+                   ?>
+
+                   <div class="card text-center py-2">
+                       <?php
+                        // echo $rowforcat['catename']
+                        ?>
+                   </div>
+                   <?php 
+            //     }
+            //  }
+            ?>
+                
+            
+        </div> -->
+            
+                <!-- <div class="col-md-2"></div> -->
                 <div class="col-md-12">
                     <div id="tab-4" class="tab-content current">
                         <div class="accordion" id="accordionExample">
@@ -95,7 +116,7 @@
                     </div>
 
                 </div>
-            </div>
+           
 
         </div>
     </div>

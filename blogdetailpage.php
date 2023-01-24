@@ -2,20 +2,21 @@
 session_start();
 $baseurl = "http://localhost/hyper/";
 $pageurl = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
-        $currenturl = $pageurl[2];
-        $queryforurl = "SELECT `title`,`img`,`pageurl` FROM blogs WHERE `pageurl`='$currenturl'";
-        $queryforurl_res = mysqli_query($conn, $queryforurl);
-        $rowforurl = mysqli_fetch_assoc($queryforurl_res);
-         $ogurl=$rowforurl['pageurl'];
-         $ogtitle=$rowforurl['title'];
-         $ogimg = $rowforurl['img'];
+$currenturl = $pageurl[2];
+$queryforurl = "SELECT `title`,`img`,`pageurl` FROM blogs WHERE `pageurl`='$currenturl'";
+$queryforurl_res = mysqli_query($conn, $queryforurl);
+$rowforurl = mysqli_fetch_assoc($queryforurl_res);
+$ogurl = $rowforurl['pageurl'];
+$ogtitle = $rowforurl['title'];
+$ogimg = $rowforurl['img'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta property="og:url" content="<?php echo $baseurl.$ogurl?>"> 
+    <meta property="og:url" content="<?php echo $baseurl . $ogurl ?>">
     <meta property="og:type" content="Blog">
-    <meta property="og:title" content="<?php echo $ogtitle?>" />
+    <meta property="og:title" content="<?php echo $ogtitle ?>" />
     <meta property="og:image" content="<?php echo $ogimg ?>" />
     <?php include("include/head.php") ?>
 </head>
@@ -32,7 +33,7 @@ $pageurl = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
     <div class="corona text-center  container py-4">
         <?php
 
-       
+
         $query1 = "SELECT * FROM blogs WHERE `pageurl`='$currenturl'";
         $result = mysqli_query($conn, $query1);
         $row1 = mysqli_fetch_assoc($result);
@@ -62,7 +63,19 @@ $pageurl = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
     <!-- ########## content ########## -->
     <div class="container fw-bold content">
         <div class="row">
-            <img style="width: 100%; " src="admin/<?php echo $row1['img'] ?>" class="rounded" alt="">
+            <?php
+            if (!empty($row1['video']) ) {
+            ?>
+                <video width="100%" controls src="admin/<?php echo $row1['video'] ?>"></video>
+            <?php
+            } else {
+            ?>
+                <img style="width: 100%;height:400px;object-fit:cover; " src="admin/<?php echo $row1['img'] ?>" class="rounded" alt="">
+            <?php
+
+            }
+            ?>
+
             <div class="col-lg-2 my-5 data-left ">
                 <p>All online Conferences to save your box, get Inspired and Stay Connected
                 </p>
@@ -77,7 +90,7 @@ $pageurl = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
                         <i class="fa fa-twitter"></i>
                         <i class="fa fa-twitter"></i>
                     </a>
-                    <a href="https://api.whatsapp.com/send?text=<?php echo urlencode($row1['title'])?> <?php echo  $baseurl . $row1['pageurl'] ?>" class="social-icon si-rounded si-dark si-mini si-instagram" target="_blank">
+                    <a href="https://api.whatsapp.com/send?text=<?php echo urlencode($row1['title']) ?> <?php echo  $baseurl . $row1['pageurl'] ?>" class="social-icon si-rounded si-dark si-mini si-instagram" target="_blank">
                         <i class="fa fa-whatsapp"></i>
                         <i class="fa fa-whatsapp"></i>
                     </a>
@@ -98,12 +111,13 @@ $pageurl = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
                         $tags = explode(",", $row1['tagname']);
                         foreach ($tags as $t) {
                         ?>
-                            <a><?php echo $t ?></a>
+                            <span style="border: 1px solid; padding:5px;border-radius:5px;"><?php echo $t ?></span>
                         <?php
                         }
                         ?>
 
                     </div>
+
                 </div>
 
                 <hr>
@@ -130,13 +144,13 @@ $pageurl = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
                             </div>
                             <div class="col-6">
                                 <label for="">Gmail</label>
-                                <input placeholder="Enter Email" type="text" id="email" name="email" required class="form-control">
+                                <input placeholder="Enter Email" type="email" id="email" name="email" required class="form-control">
                             </div>
                         </div>
                         <div class="row">
                             <label for="" class="py-2">Comments</label>
-                            <textarea placeholder="Enter Comment" name="comment" id="comment" rows="5" class="form-control">
-                        </textarea>
+                            <textarea placeholder="Enter Comment..." name="comment" id="comment" rows="5" class="form-control"></textarea>
+
                         </div>
                         <span id="message"></span>
                         <br>
@@ -170,15 +184,17 @@ $pageurl = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
             ?>
                 <div class="col-lg-3 col-md-6 ">
                     <div class="card border-0">
-                        <a href="http://localhost/hyper/<?php echo $rowforrelatedpost['pageurl'] ?>"> <img class="card-img-top rounded" src="admin/<?php echo $rowforrelatedpost['img'] ?>" alt="Card image" style="width:100%"></a>
+                        <a href="http://localhost/hyper/<?php echo $rowforrelatedpost['pageurl'] ?>">
+                            <img class="card-img-top rounded" src="admin/<?php echo $rowforrelatedpost['img'] ?>" alt="Card image" style="width:100%">
 
-                        <div class="card-body px-0">
-                            <strong class="card-title"><?php echo $rowforrelatedpost['categories'] ?></strong>
-                            <h5 class="card-text">
-                                <?php echo $rowforrelatedpost['title'] ?>
-                            </h5>
-                            <small><?php echo $rowforrelatedpost['post_date'] ?></small>
-                        </div>
+                            <div class="card-body px-0">
+                                <strong class="card-title text-dark"><?php echo $rowforrelatedpost['categories'] ?></strong>
+                                <h5 class="card-text text-dark">
+                                    <?php echo $rowforrelatedpost['title'] ?>
+                                </h5>
+                                <small class="text-secondary"><?php echo $rowforrelatedpost['post_date'] ?></small>
+                            </div>
+                        </a>
                     </div>
                 </div>
 

@@ -10,7 +10,7 @@ if (isset($_POST['submit'])) {
    $sql1 = " UPDATE `subcategories` SET `name`='$subcat_name',`subcaturl`='$link',`meta_title`='$meta_title',`meta_desc`='$meta_desc' ,`meta_keyword`='$meta_keyword' WHERE id = $sub_id";
    $result = mysqli_query($conn, $sql1);
    if ($result) {
-		$_SESSION['status'] = "Subcategory Edited Successfully";
+		$_SESSION['status'] = "Subcategory Updated Successfully";
       header("location:Sub-category.php");
 	}
   

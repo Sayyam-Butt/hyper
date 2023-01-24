@@ -16,7 +16,7 @@ function shorter($text, $chars_limit)
 
 <head>
     <?php include("include/head.php") ?>
-    <title>Hyper | FaQ's </title>
+    <title>Hyper | FaQ's Category </title>
     <style>
         #pagination {
             margin: 0;
@@ -68,9 +68,9 @@ function shorter($text, $chars_limit)
                         <div class="col-12">
                             <div class="page-title-box">
                                 <div class="page-title-right">
-                                    <a class="btn btn-primary" href="add-faq.php">Add FaQ</a>
+                                    <a class="btn btn-primary" href="add-faqcategory.php">Add Category</a>
                                 </div>
-                                <h4 class="page-title">All FaQ's </h4>
+                                <h4 class="page-title">FaQ's Categories</h4>
                             </div>
                             <?php
                             //  if (isset($info_alert)) {
@@ -97,7 +97,7 @@ function shorter($text, $chars_limit)
                                         <div class="col-md-4"></div>
                                         <div class="col-md-4">
                                             <div id="search-bar">
-                                                <input id="searchfaq" type="search" class="form-control" placeholder="Search...">
+                                                <input id="searchfaqcat" type="search" class="form-control" placeholder="Search...">
                                             </div>
 
                                         </div>
@@ -110,13 +110,12 @@ function shorter($text, $chars_limit)
                                             <thead class="thead-dark">
                                                 <tr>
                                                     <th>SN</th>
-                                                    <th>Question</th>
-                                                   
+                                                    <th>Category</th>
                                                     <th>Edit</th>
                                                     <th>Delete</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="table-data-faq">
+                                            <tbody id="table-data-faqcat">
                                                 <?php
                                                 include("include/connection.php");
                                                 $limit = 5;
@@ -126,7 +125,7 @@ function shorter($text, $chars_limit)
                                                     $page = 1;
                                                 }
                                                 $offset = ($page - 1) * $limit;
-                                                $sql = "SELECT * FROM faq LIMIT $offset,$limit ";
+                                                $sql = "SELECT * FROM faqcategory LIMIT $offset,$limit ";
                                                 $result = mysqli_query($conn, $sql);
                                                 if (mysqli_num_rows($result) > 0) {
                                                     $a = 1;
@@ -134,13 +133,12 @@ function shorter($text, $chars_limit)
                                                 ?>
                                                         <tr>
                                                             <td class="align-middle"><?php echo $a; ?> </td>
-                                                            <td><?php echo shorter($row['question'], 80) ?></td>
-                                                            
+                                                            <td><?php echo $row['catename'] ?></td>
                                                             <td class="align-middle">
-                                                                <a style="color:grey;" href="edit-faq.php?id=<?php echo $row['id'] ?>"><i class='far fa-edit'></i></a>
+                                                                <a style="color:grey;" href="edit-faqcat.php?id=<?php echo $row['id'] ?>"><i class='far fa-edit'></i></a>
                                                             </td>
                                                             <td class="align-middle ">
-                                                                <a onclick="return confirm('Are you sure you want to delete?');" style="color:grey;" href="del-faq.php?id=<?php echo $row['id'] ?>"><i class='fas fa-trash'></i>
+                                                                <a onclick="return confirm('Are you sure you want to delete?');" style="color:grey;" href="delfaqcat.php?id=<?php echo $row['id'] ?>"><i class='fas fa-trash'></i>
                                                             </td>
                                                         </tr>
 

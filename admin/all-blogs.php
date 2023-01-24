@@ -116,6 +116,19 @@
                         unset($_SESSION['check']);
                      }
                      ?>
+
+                     <?php
+                     if (isset($_SESSION['section'])) {
+                     ?>
+                        <div class="alert alert-danger alert-dismissible">
+                           <button type="button" class="close" data-dismiss="alert">&times;</button>
+                           <?php echo $_SESSION['section']; ?>
+                        </div>
+                     <?php
+
+                        unset($_SESSION['section']);
+                     }
+                     ?>
                      <div class="card">
                         <div class="card-body">
                            <div class="row mb-3">
@@ -196,7 +209,7 @@
                                              </td>
                                              <td class="align-middle"><?php echo $row["post_date"] ?></td>
                                              <td class="align-middle"><a style="color:grey;" href="edit-blog.php?id=<?php echo $row["id"] ?>"> <i class='far fa-edit'></i></a></td>
-                                             <td class="align-middle"><a style="color:grey;" href="delete-blog.php?id=<?php echo $row["id"] ?>&cat_id=<?php echo $row["blogs_id"]; ?>"><i class='fas fa-trash'></i></a></td>
+                                             <td class="align-middle"><a onclick="return confirm('Are you sure you want to delete?');" style="color:grey;" href="delete-blog.php?id=<?php echo $row["id"] ?>&cat_id=<?php echo $row["blogs_id"]; ?>"><i class='fas fa-trash'></i></a></td>
                                           </tr>
                                           <!-- Model -->
                                           <!-- <div class="modal fade" id="myModal">

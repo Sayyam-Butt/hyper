@@ -20,11 +20,24 @@ function shorter($text, $chars_limit)
 <head>
     <?php include("include/head.php") ?>
     <title>The Canvas Times</title>
+    <style>
+        .img-wraper {
+            overflow: hidden;
+        }
+
+        .inner-img {
+            transition: 0.3s;
+        }
+
+        .inner-img:hover {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 
 <body>
-     <!-- ######## top-bar ######### -->
-     <?php include("include/topbar.php") ?>
+    <!-- ######## top-bar ######### -->
+    <?php include("include/topbar.php") ?>
     <div class="div sticky-top bg-white">
         <!-- ########### navbar ############### -->
         <?php include("include/navbar.php") ?>
@@ -115,7 +128,10 @@ function shorter($text, $chars_limit)
                             <div class="card border-0 pb-3">
 
                                 <a href="http://localhost/hyper/<?php echo $row2['pageurl'] ?>">
-                                    <img class="card-img-top rounded pb-2" src="admin/<?php echo $row2['img'] ?>" alt="Card image" style="width:100%">
+                                <div class="img-wraper rounded">
+                                <img class="inner-img card-img-top rounded pb-2" src="admin/<?php echo $row2['img'] ?>" alt="Card image" style="width:100%">
+                                </div>
+                                    
                                     <div class="card-body p-0">
                                         <strong class="card-title text-dark"><?php echo $row2['categories'] ?></strong>
                                         <h5 class="card-text text-dark"><?php echo $row2['title'] ?></h5>
@@ -128,11 +144,11 @@ function shorter($text, $chars_limit)
                             </div>
 
                         </div>
-                        <?php
+                    <?php
                     }
-            ?>
+                    ?>
                 </div>
-            
+
 
             </div>
         </div>

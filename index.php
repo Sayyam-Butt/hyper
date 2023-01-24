@@ -18,12 +18,29 @@ function shorter($text, $chars_limit)
 <head>
     <?php include("include/head.php") ?>
     <title>The Canvas Times</title>
+    <style>
+        .menu-items ul {
+            padding-top: 1rem !important;
+        }
+
+        .img-wraper {
+            overflow: hidden;
+        }
+
+        .inner-img {
+            transition: 0.3s;
+        }
+
+        .inner-img:hover {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 
 <body>
     <!-- ######## top-bar ######### -->
     <?php include("include/topbar.php") ?>
-    <div class="div sticky-top bg-white">
+    <div class=" sticky-top bg-white">
         <!-- ########### navbar ############### -->
         <?php include("include/navbar.php") ?>
     </div>
@@ -37,10 +54,16 @@ function shorter($text, $chars_limit)
                 $resultforsectinone = mysqli_query($conn, $queryforsectionone);
                 $rowforsectionone = mysqli_fetch_assoc($resultforsectinone);
                 ?>
-                <a href="<?php echo $rowforsectionone['pageurl'] ?>">
-                    <img src="admin/<?php echo $rowforsectionone['img'] ?>" class="rounded mx-1" alt="Nothing to show">
+                <div class="img-wraper rounded">
+                    <a href="<?php echo $rowforsectionone['pageurl'] ?>">
+                        <img src="admin/<?php echo $rowforsectionone['img'] ?>" class="inner-img rounded mx-1" alt="Nothing to show">
+                    </a>
+                </div>
 
-                    <strong class="text-secondary py-4 ps-1 d-block"><?php echo $rowforsectionone['categories'] ?></strong>
+                <strong class=" py-4 ps-1 d-block">
+                    <a class="text-secondary" href="<?php echo $rowforsectionone['caturl'] ?>"><?php echo $rowforsectionone['categories'] ?></a>
+                </strong>
+                <a href="<?php echo $rowforsectionone['pageurl'] ?>">
                     <h3 class="ps-1 text-dark"><?php echo $rowforsectionone['title'] ?></h3>
                     <p class="text-secondary"><?php echo $rowforsectionone['post_date'] ?></p>
                     <p class="text-secondary"><?php echo shorter($rowforsectionone['discription'], 230) ?></p>
@@ -56,9 +79,12 @@ function shorter($text, $chars_limit)
                 ?>
                     <div class="row my-3 pb-3  border-bottom">
                         <div class="col-md-4 ">
-                            <a href="http://localhost/hyper/<?php echo $row1['pageurl'] ?>">
-                                <img src="admin/<?php echo $row1['img'] ?>" class="rounded w-100 " alt="">
-                            </a>
+                            <div class="img-wraper rounded">
+                                <a href="http://localhost/hyper/<?php echo $row1['pageurl'] ?>">
+                                    <img src="admin/<?php echo $row1['img'] ?>" class="inner-img rounded w-100" alt="">
+                                </a>
+                            </div>
+
                         </div>
                         <div class="col-md-8 ps-md-4">
                             <strong class="mb-2 d-block"><?php echo $row1['categories'] ?></strong>
@@ -149,14 +175,22 @@ function shorter($text, $chars_limit)
                 $rowforsectiontwo = mysqli_fetch_assoc($resultforsectiontwo);
                 ?>
                 <div class="col-lg-7 g-0 hero  pe-md-5">
-                    <a href="<?php echo $rowforsectiontwo['pageurl'] ?>" class="">
-                        <img src="admin/<?php echo $rowforsectiontwo['img'] ?>" class="rounded " alt="">
+                    <div class="img-wraper rounded">
+                        <a href="<?php echo $rowforsectiontwo['pageurl'] ?>" class="">
+                            <img src="admin/<?php echo $rowforsectiontwo['img'] ?>" class="rounded inner-img" alt="">
+                        </a>
+                    </div>
 
-                        <strong class=" py-4 d-block"><?php echo $rowforsectiontwo['categories'] ?></strong>
+                    <strong class=" py-4 d-block">
+                        <a style="color: #da5b37;" href="<?php echo $rowforsectiontwo['caturl'] ?>"><?php echo $rowforsectiontwo['categories'] ?></a>
+                    </strong>
+                    <a href="<?php echo $rowforsectiontwo['pageurl'] ?>">
                         <h3 class="text-white"><?php echo $rowforsectiontwo['title'] ?></h3>
                         <p class="text-secondary"><?php echo $rowforsectiontwo['post_date'] ?></p>
                         <p class="text-secondary"><?php echo shorter($rowforsectiontwo['discription'], 250) ?></p>
                     </a>
+
+
                 </div>
                 <div class="col-lg-5 ps-md-5 mb-4  hero-2">
                     <h2>Highlight</h2>
@@ -170,12 +204,17 @@ function shorter($text, $chars_limit)
                     ?>
                         <div class="row mt-3 pb-3  border-bottom">
                             <div class="col-md-4 ">
-                                <a href="http://localhost/hyper/<?php echo $row1['pageurl'] ?>">
-                                    <img src="admin/<?php echo $row1['img'] ?>" class="rounded w-100" alt="">
-                                </a>
+                                <div class="img-wraper rounded">
+                                    <a href="http://localhost/hyper/<?php echo $row1['pageurl'] ?>">
+                                        <img src="admin/<?php echo $row1['img'] ?>" class="inner-img rounded " alt="">
+                                    </a>
+                                </div>
+
                             </div>
                             <div class="col-md-8 ps-md-4">
-                                <strong class="my-2  d-block"><?php echo $row1['categories'] ?></strong>
+                                <strong class="my-2  d-block">
+                                    <a style="color: #da5b37;" href=" <?php echo $row1['caturl'] ?>"> <?php echo $row1['categories'] ?></a>
+                                </strong>
                                 <a href="http://localhost/hyper/<?php echo $row1['pageurl'] ?>">
                                     <h5 class="text-white"><?php echo shorter($row1['title'], 40) ?></h5>
                                 </a>
@@ -205,12 +244,15 @@ function shorter($text, $chars_limit)
                 ?>
                     <div class="row py-4">
                         <div class="col-md-6">
-                            <a href="http://localhost/hyper/<?php echo $latestpostrow['pageurl'] ?>">
-                                <img src="admin/<?php echo $latestpostrow['img'] ?>" class="rounded" alt="">
-                            </a>
+                            <div class="img-wraper rounded">
+                                <a href="http://localhost/hyper/<?php echo $latestpostrow['pageurl'] ?>">
+                                    <img src="admin/<?php echo $latestpostrow['img'] ?>" class="rounded inner-img" alt="">
+                                </a>
+                            </div>
+
                         </div>
                         <div class="col-md-6">
-                            <strong class="pb-3 pt-md-0 pt-sm-3 p  d-block"><?php echo $latestpostrow['categories'] ?></strong>
+                            <strong class="pb-3 pt-md-0 pt-sm-3 p  d-block"><a class="text-black" href="<?php echo $latestpostrow['caturl'] ?>"><?php echo $latestpostrow['categories'] ?></a></strong>
                             <a href="http://localhost/hyper/<?php echo $latestpostrow['pageurl'] ?>">
                                 <h4 class="text-dark"><?php echo shorter($latestpostrow['title'], 35) ?></h4>
                                 <small class="text-secondary"><?php echo $latestpostrow['post_date'] ?></small>

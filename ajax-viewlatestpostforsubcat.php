@@ -26,7 +26,10 @@ if(mysqli_num_rows($result)>0){
                 <div class="col-md-4">
                   <div class="card border-0 pb-3">
                     <a href="http://localhost/hyper/'.$rowforblog['pageurl'].'">
-                     <img class="card-img-top rounded pb-2" src="admin/'. $rowforblog['img'] .'" alt="Card image" style="width:100%">
+                    <div class="img-wraper rounded">
+                    <img class="card-img-top rounded inner-img pb-2" src="admin/'. $rowforblog['img'] .'" alt="Card image" style="width:100%">
+                    </div>
+                     
 
                       <div class="card-body p-0">
                           <strong class="card-title text-dark">'. $rowforblog['categories'] .' </strong>

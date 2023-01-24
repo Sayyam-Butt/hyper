@@ -54,9 +54,9 @@ if (isset($_POST['submit'])) {
    }
    $resultupdate = mysqli_query($conn, $query);
    if ($resultupdate) {
-		$_SESSION['status'] = "Blog Edited Successfully";
-      header("location:all-blogs.php");	}
-   
+      $_SESSION['status'] = "Blog Updated Successfully";
+      header("location:all-blogs.php");
+   }
 }
 ?>
 <!DOCTYPE html>
@@ -106,6 +106,9 @@ if (isset($_POST['submit'])) {
                                     $meta_title = $row1['meta_title'];
                                     $meta_desc = $row1['meta_desc'];
                                     $meta_keyword = $row1['meta_keyword'];
+                                    $parent_id = $row1['blogcategories'];
+                                    $subcat_id = $row1['subcategory'];
+                                    $sub_cat = $row1['subcategory'];
                                  ?>
                                     <label for="simpleinput">Name</label>
                                     <input onkeyup="createurl(this.value)" type="text" id="simpleinput" required class="form-control" value="<?php echo $row1['title'] ?> " name="title">
@@ -137,38 +140,40 @@ if (isset($_POST['submit'])) {
                                     ?>
                                  </select>
                               </div>
+
                               <div class="form-group">
-                                 <label for="SUBCATEGORY">Sub Category</label>
-                                 <select name="sub-cat" class="form-control" id="sub-category-dropdown">
+                                 <label for="">Subcategory</label>
+                                 <select name="sub-cat"  class="form-control" required>
                                     <option value="">Select Sub Category</option>
                                     <?php
-                                    $parent_id = $row1['blogcategories'];
-                                    $subcat_id = $row1['subcategory'];
-                                    include("include/connection.php");
-                                    $sub_cat = $row1['subcategory'];
-                                    $sql = "SELECT * FROM subcategories WHERE `cat_id` = $parent_id ";
+                                    $sql = "SELECT * FROM subcategories WHERE `cat_id` = '$parent_id' ";
                                     $result = mysqli_query($conn, $sql);
                                     if (mysqli_num_rows($result) > 0) {
                                        while ($row =  mysqli_fetch_assoc($result)) {
                                     ?>
-                                          <option <?php
+                                    
+                                    <option
+                                    <?php
+                                     if ($subcat_id == $row['id']) {
+                                      
 
-                                                   if ($subcat_id == $row['id']) {
-                                                      if ($sub_cat == $row['id']) {
+                                          echo "selected";
+                                       } else {
+                                          echo " ";
+                                       }
+                                    ?>
+                                    value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
 
-                                                         echo "selected";
-                                                      } else {
-                                                         echo " ";
-                                                      }
-                                                   ?> value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
                                  <?php
                                                    }
                                                 }
-                                             }
+                                    
+                                             
                                  ?>
-
                                  </select>
+
                               </div>
+
                               <div class="form-group">
                                  <label for="">Description</label>
                                  <textarea class="form-control" name="discription" id="" rows="3"><?php echo $row1['discription'] ?></textarea>
@@ -215,16 +220,15 @@ if (isset($_POST['submit'])) {
                               </div>
                               <div class="border my-2 p-1">
                                  <?php
-                                 if(!empty($videolocation)){
-                                    ?>
+                                    if (!empty($videolocation)) {
+                                 ?>
                                     <video src="<?php echo $videolocation ?>" autoplay muted controls width="320px" height="200px"></video>
                                  <?php
-                                 }else
-                                 {
-                                    echo"<strong>No Video</strong>";
-                                 }
+                                    } else {
+                                       echo "<strong>No Video</strong>";
+                                    }
                                  ?>
-                                 
+
                               </div>
 
 
@@ -296,21 +300,21 @@ if (isset($_POST['submit'])) {
                               <div class="form-group">
                                  <label for="metaTitle">Meta Title</label>
                                  <div class="input-group input-group-merge">
-                                    <input type="text" id="metaTitle" class="form-control" name="meta_title" value="<?php echo $meta_title?>">
+                                    <input type="text" id="metaTitle" class="form-control" name="meta_title" value="<?php echo $meta_title ?>">
 
                                  </div>
                               </div>
                               <div class="form-group">
                                  <label for="metadisc">Meta Description</label>
                                  <div class="input-group input-group-merge">
-                                    <input type="tel" id="metadisc" class="form-control" name="meta_desc" value="<?php echo $meta_desc?>">
+                                    <input type="tel" id="metadisc" class="form-control" name="meta_desc" value="<?php echo $meta_desc ?>">
 
                                  </div>
                               </div>
                               <div class="form-group">
                                  <label for="metaTag">Meta Keyword</label>
                                  <div class="input-group input-group-merge">
-                                    <input type="text" id="metaTag" class="form-control" name="meta_keyword" value="<?php echo $meta_keyword?>">
+                                    <input type="text" id="metaTag" class="form-control" name="meta_keyword" value="<?php echo $meta_keyword ?>">
                                     <div class="input-group-append" data-password="false">
                                     </div>
                                  </div>

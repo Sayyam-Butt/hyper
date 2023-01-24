@@ -49,7 +49,7 @@
                 <li><a  class="mx-4"  style="color: #555;" href="aboutus">About us</a> </li>
             </div>
             <div class="dropdown drop">
-                <li class="dropdown-item"> <a  style="color: #555;" class="mx-4" href="contact-us">Contact Us</a> </li>
+                <li class="dropdown-item"> <a  style="color: #555;" class="mx-4" href="contact-us">Contact us</a> </li>
             </div>
             <div class="dropdown drop">
                 <li class="dropdown-item"> <a  style="color: #555;" class="mx-4" href="faq">FAQ's</a> </li>

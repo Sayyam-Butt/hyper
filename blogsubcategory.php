@@ -26,6 +26,19 @@ function shorter($text, $chars_limit)
 <head>
     <?php include("include/head.php") ?>
     <title>The Canvas Times</title>
+    <style>
+        .img-wraper {
+            overflow: hidden;
+        }
+
+        .inner-img {
+            transition: 0.3s;
+        }
+
+        .inner-img:hover {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 
 <body>
@@ -62,10 +75,12 @@ function shorter($text, $chars_limit)
     <div class="post container py-5">
         <div class="row">
             <div class="col-lg-3 all">
-                <div class="input-group">
-                    <input type="search" class="form-control" placeholder="Search">
-                    <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
-                </div>
+                <form action="search" method="get">
+                    <div class="input-group">
+                        <input type="search" name="s" class="form-control" placeholder="Search">
+
+                    </div>
+                </form>
                 <div class=" side-bar">
                     <ul class="nav  fw-bold py-4">
                         <?php
@@ -114,7 +129,10 @@ function shorter($text, $chars_limit)
                         <div class="col-md-4  ">
                             <div class="card border-0 ">
                                 <a href="http://localhost/hyper/<?php echo $row2['pageurl'] ?>">
-                                    <img class="card-img-top rounded pb-2" src="admin/<?php echo $row2['img'] ?>" alt="Card image" style="width:100%">
+                                    <div class="img-wraper rounded">
+                                        <img class="card-img-top rounded pb-2 inner-img" src="admin/<?php echo $row2['img'] ?>" alt="Card image" style="width:100%">
+                                    </div>
+
 
                                     <div class="card-body p-0">
                                         <strong class="card-title text-dark"><?php echo $row2['categories'] ?></strong>
@@ -134,21 +152,7 @@ function shorter($text, $chars_limit)
         </div>
     </div>
     </div>
-    <!-- ########## Email ########### -->
-    <div class="container rounded email">
-        <div class="row px-4 ">
-            <div class="col-lg-5 my-lg-5 pt-sm-5">
-                <h4 class="pt-2  ">Sign Up for Updates And NewsLetters.</h4>
-            </div>
-            <div class="col-lg-7 e-box my-lg-5 ">
-                <form action="" class=" d-flex">
-
-                    <input type="email" name="" class=" me-lg-5 e-box-1 me-sm-3 mb-sm-5 form-control form-control-lg  rounded-0" id="" placeholder="Your Email Address">
-                    <button class="btn btn-dark btn-sm px-5 rounded-0 ms-0 g-0 mb-sm-5 ">Subscribe Now</button>
-                </form>
-            </div>
-        </div>
-    </div>
+   
     <!-- ############# product section ########### -->
     <?php include("include/productsection.php") ?>
     <!-- ############# footer ########### -->

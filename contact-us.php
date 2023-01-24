@@ -1,61 +1,6 @@
 <?php
+session_start();
 include("include/connection.php");
-
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require 'phpmailer/Exception.php';
-require 'phpmailer/PHPMailer.php';
-require 'phpmailer/SMTP.php';
-
-if (isset($_POST['submit'])) {
-
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $message = $_POST['message'];
-    $queryformessage = "INSERT INTO `contactmessage`( `name`, `email`, `message`) VALUES ('$username','$email','$message')";
-    $resultformessage = mysqli_query($conn, $queryformessage);
-
-
-
-
-    $mail = new PHPMailer;                              // Passing `true` enables exceptions
-
-
-    //Server settings
-
-    $mail->isSMTP();                                      // Set mailer to use SMTP
-    $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-    $mail->SMTPAuth = true;
-    $mail->Username = 'buttsayyam630@gmail.com';
-    $mail->Password = 'ifkttdncnkzqfrul';                          // SMTP password
-    $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
-    $mail->Port = 465;                                    // TCP port to connect to
-    //Recipients
-    $mail->setfrom('buttsayyam630@gmail.com', 'Sayyam');
-    $mail->addaddress('buttsayyam630@gmail.com');     // Add a recipient
-    $mail->addreplyto($email);
-
-
-
-    //Content
-    $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Contact us';
-
-    $mailContent = '<h4 style="display:inline-block;">Name : </h4>   ' . $username . '   <br> 
-       <h4 style="display:inline-block;">Email : </h4>   ' . $email . '   <br> 
-       <h4 style="display:inline-block;">Message : </h4>   ' . $message . ' <br>  
-  
-  ';
-
-    $mail->Body   = $mailContent;
-    $mail->send();
-
-
-    header("location:contact-us.php");
-}
-
 ?>
 
 <html lang="en">
@@ -77,13 +22,26 @@ if (isset($_POST['submit'])) {
     </div>
 
     <div class="container">
+        <?php
+        if (isset($_SESSION['status'])) {
+        ?>
+            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                <strong>Hey!</strong> <?php echo $_SESSION['status']; ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+        <?php
+
+            unset($_SESSION['status']);
+        }
+        ?>
         <div class="row py-4">
             <div class="col-md-6">
                 <div class="pic">
                     <div class="pic-content  text-start align-middle">
                         <div class="text">
                             <?php
-                            include("include/connection.php");
+                            
                             $query = "SELECT * FROM site_setting";
                             $run = mysqli_query($conn, $query);
                             while ($row = mysqli_fetch_assoc($run)) {
@@ -107,7 +65,7 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="col-md-6">
                 <div class="text-2">
-                    <form method="post">
+                    <form action="mailer.php" method="post">
                         <h1 class="" style="color:#da5b37;">Contact Us</h1>
                         <label class="form-label pt-1 " for="">Username:</label>
                         <input class="form-control " required type="text" name="username" id="" placeholder="Jhon">
@@ -123,11 +81,11 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 
-     <!-- ############# product section ########### -->
-     <?php include("include/productsection.php") ?>
+    <!-- ############# product section ########### -->
+    <?php include("include/productsection.php") ?>
     <!-- ############# footer ########### -->
     <?php include("include/footer.php") ?>
-    
+
 </body>
 
 </html>

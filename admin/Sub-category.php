@@ -138,7 +138,8 @@
                                              <td><?php echo $row["name"] ?></td>
                                              <td><?php echo $row['categories'] ?></td>
                                              <td><a style="color:grey;" href="edit-subcategory.php?id=<?php echo $row['id'] ?>"><i class='far fa-edit'></i></a></td>
-                                             <td><a style="color:grey;" href="delete-subcat.php?id=<?php echo $row['id'] ?>&cat_id=<?php echo $row['cat_id'] ?>"><i class='fas fa-trash'></i></a></td>
+                                             
+                                             <td><a onclick="return confirm('Are you sure you want to delete?');" style="color:grey;" href="delete-subcat.php?id=<?php echo $row['id'] ?>&cat_id=<?php echo $row['cat_id'] ?>"><i class='fas fa-trash'></i></a></td>
                                           </tr>
 
                                           <!-- Model -->

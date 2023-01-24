@@ -122,5 +122,19 @@
        });
      });
     </script>
+    <script>
+       // Live Search for faqcat
+     $("#searchfaqcat").on("keyup",function(){
+       var search_term = $(this).val();
+       $.ajax({
+         url: "ajax-search-faqcat.php",
+         type: "POST",
+         data : {search:search_term },
+         success: function(data) {
+           $("#table-data-faqcat").html(data);
+         }
+       });
+     });
+    </script>
 
  

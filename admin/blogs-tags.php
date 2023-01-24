@@ -157,7 +157,8 @@ include('cofig.php');
                                              <td><?php echo $a; ?></td>
                                              <td><?php echo $row['tagname']; ?></td>
                                              <td><a style="color:grey;" href="edit-tag.php?id=<?php echo $row["id"]; ?>"> <i class='far fa-edit'></i></a></td>
-                                             <td><a style="color:grey;" href="delete-tag.php?id=<?php echo $row["id"] ?>"><i class='fas fa-trash'></i></a></td>
+
+                                             <td><a onclick="return confirm('Are you sure you want to delete?');" style="color:grey;" href="delete-tag.php?id=<?php echo $row["id"] ?>"><i class='fas fa-trash'></i></a></td>
                                           </tr>
                                           <!-- Model -->
                                           <!-- <div class="modal fade" id="myModal">

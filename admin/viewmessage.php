@@ -14,6 +14,7 @@ $output='
         <h6> '.$rowformessage["email"]. '</h6>
         <small> '.$rowformessage["time"].'</small>
         <h3 class="py-3">'.$rowformessage["message"].'</h3>
+        <a href="contactmessage.php">Back</a>
 ';
 echo $output;
 ?>

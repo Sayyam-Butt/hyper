@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
    $sql1 = " UPDATE `blogcategories` SET `categories`='$catname',`caturl`='$link',`shownavbar`='$shownav',`meta_title`='$meta_title',`meta_desc`='$meta_desc',`meta_keyword`='$meta_keyword' WHERE blogs_id = $cat_id";
    $result = mysqli_query($conn, $sql1);
    if ($result) {
-		$_SESSION['status'] = "Category Edited Successfully";
+		$_SESSION['status'] = "Category Updated Successfully";
       header("location:blogs-categories.php");
 	}
   

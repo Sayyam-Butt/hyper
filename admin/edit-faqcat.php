@@ -1,17 +1,15 @@
 <?php include('cofig.php');
 include("include/connection.php");
-$faq_id = $_GET['id'];
+$faqcat_id = $_GET['id'];
 if (isset($_POST['submit'])) {
-  $question = $_POST["question"];
-  $answer = $_POST["answer"];
-  $query = "UPDATE `faq` SET `question`='$question',`answer`='$answer' WHERE id=$faq_id";
+  $faqcat = $_POST['faqcategory'];
+  $query = "UPDATE `faqcategory` SET `catename`='$faqcat' WHERE id = '$faqcat_id'";
   $result = mysqli_query($conn,$query);
   if ($result) {
-   $_SESSION['status'] = "Faq Updated Successfully";
-   header("location:allFaq.php");  
+   $_SESSION['status'] = "Faq Category Updated Successfully";
+   header("location:faqCategory.php");  
  }
 
-  
 }
 ?>
 <!DOCTYPE html>
@@ -37,33 +35,24 @@ if (isset($_POST['submit'])) {
                         </div>
                      </div>
                   </div>
+                  <?php
+                    $queryforfaqcat = "SELECT * FROM faqcategory WHERE id = '$faqcat_id'";
+                     $queryforfaqcat_res = mysqli_query($conn, $queryforfaqcat);
+                     $rowforfaqcat = mysqli_fetch_assoc($queryforfaqcat_res);
+                   $cat = $rowforfaqcat['catename'];
+                  ?>
                   <!-- end page title -->   
                   <form action="#" method="post">
                      <div class="row">
                         <div class="col-12">
                            <div class="card">
                               <div class="card-body">
-                                <?php
-                                 $queryforfaq = "SELECT * FROM faq WHERE id=$faq_id";
-                                 $queryrun=mysqli_query($conn,$queryforfaq);
-                                 if(mysqli_num_rows($queryrun)>0){
-                                    while ($rowforfaq=mysqli_fetch_assoc($queryrun)) {
-                                        ?>  
                                  <div class="form-group">
-                                    <label for="simpleinput">Question</label>
-                                    <textarea class="form-control" required  name="question" id="simpleinput" ><?php echo $rowforfaq['question']?></textarea>
+                                    <label for="simpleinput">Faq Category</label>
+                                    <input type="text" name="faqcategory" value="<?php echo $cat ?>" class="form-control" required>
                                  </div> 
-                                 <div class="form-group">
-                                    <label for="simpleinput1">Answer</label>
-                                    <textarea name="answer" id="simpleinput1" class="form-control" rows="5"><?php echo $rowforfaq['answer']?></textarea>
-                                   
-                                 </div>
-                                 <?php
-                                    }
-                                 }
-                                ?>
                                  <div>
-                                    <input class="btn btn-primary" type="submit" name="submit" value="Update">
+                                    <input class="btn btn-primary"  type="submit" name="submit" value="Update">
                                  </div>
                               </div>
                               <!-- end card-body -->

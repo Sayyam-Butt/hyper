@@ -34,7 +34,7 @@ function shorter($text, $chars_limit)
         <div class="row py-4">
             <?php
             include("include/connection.php");
-             $searchquery = "SELECT * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' AND `title` LIKE '%$search%' OR `discription` LIKE '%$search%'";
+             $searchquery = "SELECT * FROM blogs INNER JOIN blogcategories ON blogcategories.blogs_id = blogs.blogcategories  WHERE `shownavbar` = 'Yes' AND `title` LIKE '%$search%' OR `discription` LIKE '%$search%' OR `categories` LIKE '%$search%'";
             $searchqueryresult = mysqli_query($conn, $searchquery);
             // if(mysqli_num_rows($searchqueryresult)>1){
             while ($searchrow = mysqli_fetch_assoc($searchqueryresult)) {

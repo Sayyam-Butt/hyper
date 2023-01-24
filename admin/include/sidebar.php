@@ -78,11 +78,21 @@ if (mysqli_num_rows($result) > 0) {
          </a>
       </li>
       <li class="side-nav-item">
-         <a href="allFaq.php" class="side-nav-link">
-            <i style='font-size:15px' class="fa fa-question-circle"></i>
+         <a href="javascript: void(0);" class="side-nav-link">
+            <i class="uil-clipboard-alt"></i>
             <span> FaQ's </span>
          </a>
+         <ul class="side-nav-second-level" aria-expanded="false">
+            <li>
+               <a href="faqCategory.php">FaQ Catergories</a>
+            </li>
+            <li>
+               <a href="allFaq.php">All FaQ's</a>
+            </li>
+           
+         </ul>
       </li>
+      
       <li class="side-nav-item">
          <a href="site-settings.php" class="side-nav-link">
             <i class="uil-edit-alt"></i>

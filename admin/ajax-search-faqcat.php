@@ -4,8 +4,8 @@ $search_value = $_POST["search"];
 
 include("include/connection.php");
 
-$sql = "SELECT * FROM tags
- WHERE tagname LIKE '%{$search_value}%'";
+$sql = "SELECT * FROM faqcategory
+ WHERE catename LIKE '%{$search_value}%'";
 $result = mysqli_query($conn, $sql) or die("SQL Query Failed.");
 $output = "";
 if(mysqli_num_rows($result) > 0 ){
@@ -13,9 +13,9 @@ if(mysqli_num_rows($result) > 0 ){
               while($row = mysqli_fetch_assoc($result)){
                 $output .= "  <tr>
                 <td> $a </td>
-                <td> {$row['tagname']}</td>
-                <td><a style='color:grey;' href='edit-tag.php?id= {$row['id']} '> <i class='far fa-edit'></i></a></td>
-                <td><a  onclick='return confirm('Are you sure you want to delete?')'; style='color:grey' href='delete-tag.php?id={$row['id']}'><i class='fas fa-trash'></i></a></td>
+                <td> {$row['catename']}</td>
+                <td><a style='color:grey;' href='edit-faqcat.php?id= {$row['id']} '> <i class='far fa-edit'></i></a></td>
+                <td><a style='color:grey' href='delfaqcat.php?id={$row['id']}'><i class='fas fa-trash'></i></a></td>
              </tr>";
                 $a++;
               }

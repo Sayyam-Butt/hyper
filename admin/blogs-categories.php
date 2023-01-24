@@ -176,7 +176,9 @@
                                                 ?>
                                              </td>
                                              <td><a style="color:grey;" href="edit-blogcategory.php?blogs_id=<?php echo $row["blogs_id"] ?>"><i class='far fa-edit'></i></a></td>
-                                             <td><a style="color:grey;" href="delete-inline.php?blogs_id=<?php echo $row["blogs_id"] ?>"><i class='fas fa-trash'></i></a></td>
+
+
+                                             <td><a style="color:grey;" onclick="return confirm('Are you sure you want to delete?');" href="delete-inline.php?blogs_id=<?php echo $row["blogs_id"] ?>"><i class='fas fa-trash'></i></a></td>
                                           </tr>
                                           <!-- Model -->
                                           <!-- <div class="modal fade" id="myModal">
