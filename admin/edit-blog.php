@@ -106,9 +106,8 @@ if (isset($_POST['submit'])) {
                                     $meta_title = $row1['meta_title'];
                                     $meta_desc = $row1['meta_desc'];
                                     $meta_keyword = $row1['meta_keyword'];
-                                    $parent_id = $row1['blogcategories'];
-                                    $subcat_id = $row1['subcategory'];
-                                    $sub_cat = $row1['subcategory'];
+                                     $parent_id = $row1['blogcategories'];
+                                     $subcat_id = $row1['subcategory'];
                                  ?>
                                     <label for="simpleinput">Name</label>
                                     <input onkeyup="createurl(this.value)" type="text" id="simpleinput" required class="form-control" value="<?php echo $row1['title'] ?> " name="title">
@@ -140,36 +139,37 @@ if (isset($_POST['submit'])) {
                                     ?>
                                  </select>
                               </div>
-
+                             
                               <div class="form-group">
                                  <label for="">Subcategory</label>
-                                 <select name="sub-cat"  class="form-control" required>
+                                 <select name="sub-cat" class="form-control" id="sub-category-dropdown" required>
                                     <option value="">Select Sub Category</option>
                                     <?php
-                                    $sql = "SELECT * FROM subcategories WHERE `cat_id` = '$parent_id' ";
+                                    $sql = "SELECT *
+                                     FROM subcategories WHERE `cat_id` = '$parent_id' ";
                                     $result = mysqli_query($conn, $sql);
                                     if (mysqli_num_rows($result) > 0) {
-                                       while ($row =  mysqli_fetch_assoc($result)) {
-                                    ?>
-                                    
-                                    <option
-                                    <?php
-                                     if ($subcat_id == $row['id']) {
-                                      
+                                       while ($rowforsubcat =  mysqli_fetch_assoc($result)) {
 
-                                          echo "selected";
-                                       } else {
-                                          echo " ";
-                                       }
                                     ?>
-                                    value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
 
-                                 <?php
+                                          <option <?php
+
+                                                   if ($subcat_id == $rowforsubcat['id']) {
+
+
+                                                      echo "selected";
+                                                   } else {
+                                                      echo " ";
                                                    }
-                                                }
-                                    
-                                             
-                                 ?>
+                                                   ?> value="<?php echo $rowforsubcat['id'] ?>"><?php echo $rowforsubcat['name'] ?></option>
+
+                                    <?php
+                                       }
+                                    }
+
+
+                                    ?>
                                  </select>
 
                               </div>

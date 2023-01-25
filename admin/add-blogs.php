@@ -68,13 +68,24 @@ if (isset($_POST['submit'])) {
       $_SESSION['check'] = "Blog of This Name Already Exits!!";
       header("location:all-blogs.php");
    } else {
-      $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `subcategory`,`discription`,`content`, `post_date`,`tagname`,`pageurl`,`img`,`video`,`section`,`trending`,`highlight`,`meta_title`, `meta_desc`, `meta_keyword`) VALUES ('$title ',' $category','$subcat','$disc','$content',' $date','$tag','$url','$destinationfile','$target_file','$section','$trending','$highlight','$meta_title','$meta_desc','$meta_keyword');";
-      $query .= "UPDATE blogcategories SET post=post+1 WHERE blogs_id=$category ;";
-      $query_run =  mysqli_multi_query($conn, $query);
-      if ($query_run) {
-         $_SESSION['status'] = "Blog Added Successfully";
-         header("location:all-blogs.php");
+      if(empty($name)){
+         $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `subcategory`,`discription`,`content`, `post_date`,`tagname`,`pageurl`,`img`,`section`,`trending`,`highlight`,`meta_title`, `meta_desc`, `meta_keyword`) VALUES ('$title ',' $category','$subcat','$disc','$content',' $date','$tag','$url','$destinationfile','$section','$trending','$highlight','$meta_title','$meta_desc','$meta_keyword');";
+         $query .= "UPDATE blogcategories SET post=post+1 WHERE blogs_id=$category ;";
+         $query_run =  mysqli_multi_query($conn, $query);
+         if ($query_run) {
+            $_SESSION['status'] = "Blog Added Successfully";
+            header("location:all-blogs.php");
+         }
+      }else{
+         $query = "INSERT INTO `blogs`(`title`, `blogcategories`, `subcategory`,`discription`,`content`, `post_date`,`tagname`,`pageurl`,`img`,`video`,`section`,`trending`,`highlight`,`meta_title`, `meta_desc`, `meta_keyword`) VALUES ('$title ',' $category','$subcat','$disc','$content',' $date','$tag','$url','$destinationfile','$target_file','$section','$trending','$highlight','$meta_title','$meta_desc','$meta_keyword');";
+         $query .= "UPDATE blogcategories SET post=post+1 WHERE blogs_id=$category ;";
+         $query_run =  mysqli_multi_query($conn, $query);
+         if ($query_run) {
+            $_SESSION['status'] = "Blog Added Successfully";
+            header("location:all-blogs.php");
+         }
       }
+      
    }
 
 
